@@ -1,0 +1,1096 @@
+{
+  "subjects": [
+    {
+      "name": "Matematika",
+      "icon": "calculator",
+      "grades": [
+        {
+          "gradeNumber": 8,
+          "topics": [
+            {
+              "name": "Racionalna števila",
+              "description": null,
+              "lessons": [
+                {
+                  "name": "Cela števila",
+                  "order": 1,
+                  "questions": [
+                    {
+                      "type": "TRUE_FALSE",
+                      "text": "Ali je število 0 celo število?",
+                      "answers": [
+                        "Drži",
+                        "Ne drži"
+                      ],
+                      "correctAnswers": [
+                        "Drži"
+                      ],
+                      "explanation": "Množica vseh celih števil ℤ združuje množico celih pozitivnih števil (ℤ⁺ = ℕ), množico vseh celih negativnih števil ℤ⁻ (naravnim številom priredimo predznak \"-\") in množico z elementom 0: {0}",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "Če je trditev pravilna, vpiši D, če je nepravilna, vpiši N.\n\n_ 65∈Z , _ 20/10∈N, _ −1024∈Z, _ −44∈Z+",
+                      "answers": null,
+                      "correctAnswers": [
+                        "D",
+                        "D",
+                        "D",
+                        "N"
+                      ],
+                      "explanation": "Množica vseh celih števil ℤ združuje množico celih pozitivnih števil (ℤ⁺ = ℕ), množico vseh celih negativnih števil ℤ⁻ (naravnim številom priredimo predznak \"-\") in množico z elementom 0: {0}",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "Vpiši  < >\n\n0_5, 0_-6, -5_0",
+                      "answers": null,
+                      "correctAnswers": [
+                        "<",
+                        ">",
+                        "<"
+                      ],
+                      "explanation": "Vsako negativno celo število je manjše od vsakega pozitivnega celega števila. Med negativnima celima številoma je manjše tisto, ki je od števila 0",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "Zapisana so prva tri števila v zaporedju. Ugotovi pravilo, po katerem so zapisana. Po tem pravilu zapiši naslednja štiri števila zaporedja.\n\n50, 37, 24, ....",
+                      "answers": null,
+                      "correctAnswers": [
+                        "11",
+                        "-2",
+                        "-15",
+                        "-28"
+                      ],
+                      "explanation": "Vsako celo število lahko s točko prikažemo na številski premici.",
+                      "difficulty": "MEDIUM",
+                      "points": 10,
+                      "image": null
+                    },
+                    {
+                      "type": "MULTIPLE_CHOICE",
+                      "text": "Označi pravilnega odgovora",
+                      "answers": [
+                        "-3<1,",
+                        "-2>0,",
+                        "0<-15,",
+                        "4<-5"
+                      ],
+                      "correctAnswers": [
+                        "-3<1,"
+                      ],
+                      "explanation": "Vsako negativno število je manjše od števila 0. Med negativnima celima številoma je manjše tisto, ki je od števila 0bolj oddaljeno.",
+                      "difficulty": "MEDIUM",
+                      "points": 10,
+                      "image": null
+                    }
+                  ]
+                },
+                {
+                  "name": "Absolutna in nasprotna vrednost",
+                  "order": 2,
+                  "questions": [
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "Zapiši absolutno in nasprotno vrednost števila  − 20\n\nAbsolutna vrednost je _. Nasprotna vrednost je _.",
+                      "answers": null,
+                      "correctAnswers": [
+                        "20",
+                        "20"
+                      ],
+                      "explanation": "Absolutna vrednost poljubnega racionalnega števila, razen števila 0 je vedno pozitivno število. Števili, ki se čez 0 preslikata drugo v drugega, imenujemo nasprotni si števili.",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "MULTIPLE_CHOICE",
+                      "text": "Absolutna vrednost števila 26 je:",
+                      "answers": [
+                        "26,",
+                        "-26,",
+                        "0,",
+                        "-(-(-(26)))"
+                      ],
+                      "correctAnswers": [
+                        "26,"
+                      ],
+                      "explanation": "Absolutna vrednost poljubnega racionalnega števila, razen števila 0 je vedno pozitivno število.",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "Izračunaj vrednosti izrazov. Zapiši tudi vmesne vrednosti.\n\n |−11| + |+18|=\n\n |−88,6| + |−44|=\n\n |+(−650)| + |+710|=",
+                      "answers": null,
+                      "correctAnswers": [
+                        "11 + 18 = 29",
+                        "88,6 + 44 = 132,6",
+                        "650 + 710 = 1360"
+                      ],
+                      "explanation": "Absolutna vrednost poljubnega racionalnega števila, razen števila 0 je vedno pozitivno število.",
+                      "difficulty": "MEDIUM",
+                      "points": 10,
+                      "image": null
+                    },
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "Katero število se od svoje nasprotne vrednosti razlikuje za: 12",
+                      "answers": null,
+                      "correctAnswers": [
+                        "-6 in 6"
+                      ],
+                      "explanation": "Števili, ki se čez 0 preslikata drugo v drugega, imenujemo nasprotni si števili.",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "Katero število se od svoje nasprotne vrednosti razlikuje za: 45",
+                      "answers": null,
+                      "correctAnswers": [
+                        "22,5 in -22,5"
+                      ],
+                      "explanation": "Števili, ki se čez 0 preslikata drugo v drugega, imenujemo nasprotni si števili.",
+                      "difficulty": "MEDIUM",
+                      "points": 10,
+                      "image": null
+                    },
+                    {
+                      "type": "MULTIPLE_CHOICE",
+                      "text": "Katero število ima absolutno vrednost enako  − 26. V zvezek zapiši množico rešitev.",
+                      "answers": [
+                        "Takšno število ne obstaja. Absolutna vrednost števila ne more biti negativna. ℛ = { }",
+                        "R={26,−26}",
+                        "R={-26,0}",
+                        "R={0,26}"
+                      ],
+                      "correctAnswers": [
+                        "Takšno število ne obstaja. Absolutna vrednost števila ne more biti negativna. ℛ = { }"
+                      ],
+                      "explanation": "Absolutna vrednost poljubnega racionalnega števila, razen števila 0 je vedno pozitivno število.",
+                      "difficulty": "MEDIUM",
+                      "points": 10,
+                      "image": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Računske operacije",
+              "description": null,
+              "lessons": [
+                {
+                  "name": "Seštevanje števil z različnimi ter enakimi predznaki",
+                  "order": 1,
+                  "questions": [
+                    {
+                      "type": "MULTIPLE_CHOICE",
+                      "text": "Označi vse pravilne trditve.",
+                      "answers": [
+                        "Vsota dveh negativnih števil je pozitivno število.",
+                        "Vsota dveh pozitivnih števil je pozitivno število.",
+                        "Vsota dveh negativnih števil je negativno število."
+                      ],
+                      "correctAnswers": [
+                        "Vsota dveh negativnih števil je pozitivno število."
+                      ],
+                      "explanation": "Vsota dveh pozitivnih celih števil je pozitivno celo število. Vsota dveh negativnih celih števil je negativno celo število.",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "Seštej števila. Pozitivnega predznaka ne zapisuj.\n\n14+103+14 =\n\n-39 + (-72) + (-24) =\n\n6,7 + 0,8 + 3,23 =",
+                      "answers": null,
+                      "correctAnswers": [
+                        "131",
+                        "-135",
+                        "10,73"
+                      ],
+                      "explanation": "Vsota več pozitivnih racionalnih števil je pozitivno število. Vsota več negativnih racionalnih števil je negativno število.",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "MULTIPLE_CHOICE",
+                      "text": "Katero število manjka v tem izrazu: _ + (-3) + (-1) = -9",
+                      "answers": [
+                        "-4",
+                        "5",
+                        "-5",
+                        "10"
+                      ],
+                      "correctAnswers": [
+                        "-5"
+                      ],
+                      "explanation": "Vsota več pozitivnih racionalnih števil je pozitivno število. Vsota več negativnih racionalnih števil je negativno število.",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "TRUE_FALSE",
+                      "text": "Vsota dveh negativnih števil je lahko nič",
+                      "answers": [
+                        "Drži",
+                        "Ne drži"
+                      ],
+                      "correctAnswers": [
+                        "Ne drži"
+                      ],
+                      "explanation": "Vsota več negativnih racionalnih števil je negativno število.",
+                      "difficulty": "MEDIUM",
+                      "points": 10,
+                      "image": null
+                    },
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "Primerjaj vrednosti vsot po velikosti. Vpiši <,=ali>\n\n-3,2 + (-1,5) _ -2,8 + (-2,1)\n\n2,6 + 3,1 _ 3,7 + 2,5\n\n-3,8 + (-3,6) _ -6 + (-1,7)",
+                      "answers": null,
+                      "correctAnswers": [
+                        ">",
+                        "<",
+                        ">"
+                      ],
+                      "explanation": "Vsota več pozitivnih racionalnih števil je pozitivno število. Vsota več negativnih racionalnih števil je negativno število.",
+                      "difficulty": "MEDIUM",
+                      "points": 10,
+                      "image": null
+                    },
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "Podmornica je na globini -40,3 m. Nato se potopi za 10,8 m in še za 12,7 m. Izračunaj končno globino podmornice.",
+                      "answers": null,
+                      "correctAnswers": [
+                        "-63,8"
+                      ],
+                      "explanation": "Vsota več pozitivnih racionalnih števil je pozitivno število. Vsota več negativnih racionalnih števil je negativno število.",
+                      "difficulty": "HARD",
+                      "points": 15,
+                      "image": null
+                    }
+                  ]
+                },
+                {
+                  "name": "Izrazi s seštevanjem in odštevanjem",
+                  "order": 2,
+                  "questions": [
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "Izračunaj.\n\n45 + 13 – 3 =\n\n103 – 45 – 23 =\n\n195 – (68 + 14) =\n\n200 – (32 - 16) =",
+                      "answers": null,
+                      "correctAnswers": [
+                        "54",
+                        "35",
+                        "113",
+                        "184"
+                      ],
+                      "explanation": "Vsota več pozitivnih racionalnih števil je pozitivno število. Vsota več negativnih racionalnih števil je negativno število.",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "TRUE_FALSE",
+                      "text": "Označi pravilnost izjav.\n\nEnakost (14+17) + 9 = 14 + (17+9) prikazuje zapis zakona o združevanju",
+                      "answers": [
+                        "Drži",
+                        "Ne drži"
+                      ],
+                      "correctAnswers": [
+                        "Drži"
+                      ],
+                      "explanation": "V matematiki je zakon o združevanju (asociativnost) pravilo, ki pravi, da se pri računanju z več členi ali faktorji vrstni red združevanja z oklepaji ne spremeni končnega rezultata",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "MULTIPLE_CHOICE",
+                      "text": "Razliko števil -12 in -4 prištej k številu -32. Označi vsak ustrezen številski izraz.",
+                      "answers": [
+                        "-32 + (-12 – (-4))",
+                        "(-12 – (-4)) – 32",
+                        "-32 – (-12 + 4)"
+                      ],
+                      "correctAnswers": [
+                        "-32 + (-12 – (-4))"
+                      ],
+                      "explanation": "Pri zapisu številskega izraza iz besedila moramo biti pozorni na uprabo oklepajev. Tako pri odštevanju negativnega števila to postavimo v oklepaj.",
+                      "difficulty": "MEDIUM",
+                      "points": 10,
+                      "image": null
+                    },
+                    {
+                      "type": "MATCHING",
+                      "text": "Dani so številski izrazi, pred njimi pa črka. To črko vpiši v polje pred vrednostjo številskih izrazov. Vrednosti številskih izrazov izračunaj v zvezek.",
+                      "answers": {
+                        "left": [
+                          "A) (-3 + 7) + (-12 -9)",
+                          "B) –(-6 -10 +15) – (19 - 53)",
+                          "C) –(-(-8 –(3-(-14+9))))"
+                        ],
+                        "right": [
+                          "35",
+                          "-16",
+                          "-17"
+                        ]
+                      },
+                      "correctAnswers": [
+                        {
+                          "left": "A) (-3 + 7) + (-12 -9)",
+                          "right": "-17"
+                        },
+                        {
+                          "left": "B) –(-6 -10 +15) – (19 - 53)",
+                          "right": "35"
+                        },
+                        {
+                          "left": "C) –(-(-8 –(3-(-14+9))))",
+                          "right": "-16"
+                        }
+                      ],
+                      "explanation": "Vrednost številskega izraza z oklepaji lahko izračunamo:\n\n-   tako da odpravimo oklepaje,\n\n-   tako da izračunamo vrednost številskih izrazov v oklepajih.\n\nRačunaj, kakor ti je lažje.",
+                      "difficulty": "MEDIUM",
+                      "points": 10,
+                      "image": null
+                    }
+                  ]
+                },
+                {
+                  "name": "Množenje in deljenje racionalnih števil",
+                  "order": 3,
+                  "questions": [
+                    {
+                      "type": "MULTIPLE_SELECT",
+                      "text": "Označi, katera pravila veljajo za množenje naravnih števil.",
+                      "answers": [
+                        "Zakon o zamenjavi.",
+                        "Zakon o združevanju.",
+                        "Produkt naravnega števila a s številom 0 je enak številu a"
+                      ],
+                      "correctAnswers": [
+                        "Zakon o zamenjavi.",
+                        "Zakon o združevanju."
+                      ],
+                      "explanation": "V matematiki je zakon o združevanju (asociativnost) pravilo, ki pravi, da se pri računanju z več členi ali faktorji vrstni red združevanja z oklepaji ne spremeni končnega rezultata: Pri množenju: (a * b) * c = a * (b * c). Zakon o zamenjavi drzi ker vrstni red seštevancev ali faktorjev lahko zamenjaš, a se končni rezultat (vsota ali zmnožek) ne spremeni. Pri množenju: a * b = b * a.",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "Izračunaj.\n\n4 * (-1) =\n\n-3 * (-1) =\n\n0 * (-1) =",
+                      "answers": null,
+                      "correctAnswers": [
+                        "-4",
+                        "3",
+                        "0"
+                      ],
+                      "explanation": "Produkt racionalnega števila a s številom  − 1 je racionalno število  − a",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "Dopolni.\n\nProdukt dveh negativnih števil je _______ število",
+                      "answers": null,
+                      "correctAnswers": [
+                        "pozitivno"
+                      ],
+                      "explanation": "Produkt dveh enako predznačenih števil je pozitivno število. Produkt dveh različno predznačenih števil je negativno število",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "TRUE_FALSE",
+                      "text": "Produkt števil -6 in -30 je enak zmnožku števil -9, -4 in 5",
+                      "answers": [
+                        "Drži",
+                        "Ne drži"
+                      ],
+                      "correctAnswers": [
+                        "Drži"
+                      ],
+                      "explanation": "Produkt dveh enako predznačenih števil je pozitivno število. Produkt dveh različno predznačenih števil je negativno število",
+                      "difficulty": "MEDIUM",
+                      "points": 10,
+                      "image": null
+                    },
+                    {
+                      "type": "IMAGE_QUESTION",
+                      "text": "Odčitaj števili na premici in izračunaj A * B =",
+                      "answers": null,
+                      "correctAnswers": [
+                        "0"
+                      ],
+                      "explanation": "Če je eden izmed faktorjev število 0produkt enak 0",
+                      "difficulty": "MEDIUM",
+                      "points": 10,
+                      "image": "images/image1.png"
+                    },
+                    {
+                      "type": "MULTIPLE_SELECT",
+                      "text": "Nekateri primeri so pravilno izračunani. Izberi tiste primere, za katere je vrednost izraza pravilno izračunana.",
+                      "answers": [
+                        "16 : 8 = 2",
+                        "3 : 0,5 = 0,6",
+                        "6,4 : 1,6 = 4"
+                      ],
+                      "correctAnswers": [
+                        "16 : 8 = 2",
+                        "6,4 : 1,6 = 4"
+                      ],
+                      "explanation": null,
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "MULTIPLE_SELECT",
+                      "text": "Označi pravilno izračunane količnike.",
+                      "answers": [
+                        "(-12) : 6 = -2",
+                        "36 : (-4) = -9",
+                        "(-48) : (-6) = 8"
+                      ],
+                      "correctAnswers": [
+                        "(-12) : 6 = -2",
+                        "36 : (-4) = -9",
+                        "(-48) : (-6) = 8"
+                      ],
+                      "explanation": "Količnik celih števil z enakima predznakoma je pozitivno število. Količnik celih števil z različnim predznakom je negativno število.",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "Deli.\n\n24 : 12 =\n\n(-60) : (-12) =\n\n(-120) : (-3) =\n\n(-75) : 25 =",
+                      "answers": null,
+                      "correctAnswers": [
+                        "2",
+                        "5",
+                        "40",
+                        "-3"
+                      ],
+                      "explanation": "Produkt dveh enako predznačenih števil je pozitivno število. Produkt dveh različno predznačenih števil je negativno število",
+                      "difficulty": "MEDIUM",
+                      "points": 10,
+                      "image": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Geografija",
+      "icon": "globe",
+      "grades": [
+        {
+          "gradeNumber": 8,
+          "topics": [
+            {
+              "name": "Afrika",
+              "description": null,
+              "lessons": [
+                {
+                  "name": "Lega, površje in vodovje Afrike",
+                  "order": 1,
+                  "questions": [
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "V spodnja okenca vpiši manjkajoči besedi.\n\nAfriko deli __________ na skoraj enaki polovici.\n\nČez Afriko poteka tudi začetni _________",
+                      "answers": null,
+                      "correctAnswers": [
+                        "ekvator",
+                        "poldnevnik"
+                      ],
+                      "explanation": null,
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "TRUE_FALSE",
+                      "text": "Afrika je največja celina.",
+                      "answers": [
+                        "Drži",
+                        "Ne drži"
+                      ],
+                      "correctAnswers": [
+                        "Ne drži"
+                      ],
+                      "explanation": "Afrika je za Azijo druga največja celina, tako po površini kot po številu prebivalcev.",
+                      "difficulty": "MEDIUM",
+                      "points": 10,
+                      "image": null
+                    },
+                    {
+                      "type": "MATCHING",
+                      "text": "Poveži reko z državami, skozi katere teče.",
+                      "answers": {
+                        "left": [
+                          "Nil",
+                          "Kongo",
+                          "Niger",
+                          "Oranje"
+                        ],
+                        "right": [
+                          "Gvineja Bisao, Mali, Niger, Benin, Nigerija.",
+                          "Zambija, DR Kongo, Kongo, Angola.",
+                          "Uganda, Južni Sudan, Sudan, Egipt (Etiopija – Modri Nil).",
+                          "Lesoto, Republika Južna Afrika."
+                        ]
+                      },
+                      "correctAnswers": [
+                        {
+                          "left": "Nil",
+                          "right": "Uganda, Južni Sudan, Sudan, Egipt (Etiopija – Modri Nil)."
+                        },
+                        {
+                          "left": "Kongo",
+                          "right": "Zambija, DR Kongo, Kongo, Angola."
+                        },
+                        {
+                          "left": "Niger",
+                          "right": "Gvineja Bisao, Mali, Niger, Benin, Nigerija."
+                        },
+                        {
+                          "left": "Oranje",
+                          "right": "Lesoto, Republika Južna Afrika."
+                        }
+                      ],
+                      "explanation": null,
+                      "difficulty": "HARD",
+                      "points": 15,
+                      "image": null
+                    },
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "Dopolni.\n\nKakšne zračne temperature pričakuješ v Afriki?",
+                      "answers": null,
+                      "correctAnswers": [
+                        "visoke"
+                      ],
+                      "explanation": "Na podnebje Afrike vplivajo njena geografska lega, oddaljenost od morja, relief in morski tokovi. Afrika je namreč edina celina, ki je skoraj v celoti v območju vročega toplotnega pasu.",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    }
+                  ]
+                },
+                {
+                  "name": "Severna Afrika",
+                  "order": 2,
+                  "questions": [
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "Dopolni.\n\nZakaj so hiše tako oddaljene od reke?\n\nZaradi ________ reke _______",
+                      "answers": null,
+                      "correctAnswers": [
+                        "poplav",
+                        "Nil"
+                      ],
+                      "explanation": null,
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "MULTIPLE_SELECT",
+                      "text": "Katera podnebja so v Severni Afriki?",
+                      "answers": [
+                        "Polarno",
+                        "Zmerno celinsko",
+                        "Sredozemsko",
+                        "Puščavsko",
+                        "Savansko",
+                        "Ekvatorialno"
+                      ],
+                      "correctAnswers": [
+                        "Sredozemsko",
+                        "Puščavsko"
+                      ],
+                      "explanation": "Severna Afrika je kulturno in gospodarsko povezana z Evropo prek Sredozemlja.  Večji del Severne Afrike zavzema puščava Sahara.",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "Vpiši glavno mesto države\n\nEgipt __________\n\nSudan _________\n\nLibija ________\n\nTunizija ___________\n\nAlžarija __________\n\nMaroko ______________\n\nZahodna Sahara ___________________",
+                      "answers": null,
+                      "correctAnswers": [
+                        "Kairo",
+                        "Kartum",
+                        "Tripoli",
+                        "Tunis",
+                        "Alžir",
+                        "Rabat",
+                        "El Aaiun"
+                      ],
+                      "explanation": null,
+                      "difficulty": "HARD",
+                      "points": 15,
+                      "image": null
+                    },
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "V spodnja okenca vpiši manjkajoče besede.\n\n \n\nDohodek držav Severne Afrike izvira iz ________________ dejavnosti.\n\nNajvečji del dohodka Alžirija pridobi s prodajo ________________ , Libija pa s prodajo __________.\n\nEgipt in Tunizija največji vir dohodka ustvarita s ____________.\n\nMarokov velik vir dohodka je prodaja _________, ki jih koplje v Atlasu.",
+                      "answers": null,
+                      "correctAnswers": [
+                        "gospodarskih",
+                        "plina",
+                        "nafte",
+                        "turizmom",
+                        "rud"
+                      ],
+                      "explanation": null,
+                      "difficulty": "HARD",
+                      "points": 15,
+                      "image": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Avstralija in Oceanija",
+              "description": null,
+              "lessons": [
+                {
+                  "name": "Lega in površje Avstralije",
+                  "order": 1,
+                  "questions": [
+                    {
+                      "type": "MULTIPLE_CHOICE",
+                      "text": "Kateri Evropejec je prvi stopil na Avstralijo?",
+                      "answers": [
+                        "Portugalec Krištof Kolumb",
+                        "Nizozemec Abel Tasman",
+                        "Britanec James Cook",
+                        "Nizozemec Amerigo Vespucci"
+                      ],
+                      "correctAnswers": [
+                        "Britanec James Cook"
+                      ],
+                      "explanation": "Leta 1642 je Nizozemec Abel Tasman pristal na otoku Tasmanija. Šele stoletje kasneje, leta 1770, je britanski pomorščak James Cook stopil na jugovzhodno obalo Avstralije. Sledila je naselitev britanskih kaznjencev, saj so bili zapori v Veliki Britaniji zaradi strogih zakonov prenapolnjeni.",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "IMAGE_QUESTION",
+                      "text": "Kako se v jeziku domačinov imenuje sveta gora na sliki?",
+                      "answers": null,
+                      "correctAnswers": [
+                        "Uluru"
+                      ],
+                      "explanation": "Vmes so posamezna hribovja, ki le redka presežejo 1000 m. Največji osamelec je Uluru ali Ayers Rock v bližini geografskega središča Avstralije. Za prvotne prebivalce, Aboridžine, predstavlja Uluru sveti kraj.",
+                      "difficulty": "MEDIUM",
+                      "points": 10,
+                      "image": "images/image2.png"
+                    },
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "V spodnja okenca vpiši manjkajoče besede.\n\nČez Avstralijo poteka južni __________. To pomeni, da je sonce vse leto (nizko / visoko) ___________ na nebu. Najvišje je v njihovem ____________ času. Takrat je letni čas v Evropi ______.",
+                      "answers": null,
+                      "correctAnswers": [
+                        "povratnik",
+                        "visoko",
+                        "poletnem",
+                        "zima"
+                      ],
+                      "explanation": null,
+                      "difficulty": "HARD",
+                      "points": 15,
+                      "image": null
+                    }
+                  ]
+                },
+                {
+                  "name": "Podnebje in rastlinstvo Avstralije",
+                  "order": 2,
+                  "questions": [
+                    {
+                      "type": "MULTIPLE_CHOICE",
+                      "text": "Avstralija je južno od ekvatorja. Razmisli in označi trditev, ki je pravilna.",
+                      "answers": [
+                        "Ko je v Evropi poletje, je tudi v Avstraliji poletje",
+                        "Ko je v Evropi zima, je v južnih delih Avstralije poletje",
+                        "V Avstralijo bomo hodili smučat v januarju"
+                      ],
+                      "correctAnswers": [
+                        "Ko je v Evropi zima, je v južnih delih Avstralije poletje"
+                      ],
+                      "explanation": "Skrajni južni del Avstralije je v zmerno toplem pasu; nanj vplivajo zahodni vetrovi. Zato ima ta del Avstralije letne čase. Skrajni južni del Avstralije je v zmerno toplem pasu; nanj vplivajo zahodni vetrovi. Zato ima ta del Avstralije letne čase.",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "V spodnja okenca vpiši manjkajoče besede.\n\nKam padajo sončni žarki pravokotno 21.3 in 23.9? Na ________. Na severni povratnik sončni žarki padajo pravokotno (vpiši datum, recimo 12.4.)   ____________ Na dan 21. 12. sončni žarki padajo pravokotno na _________________.",
+                      "answers": null,
+                      "correctAnswers": [
+                        "ekvator",
+                        "21.6",
+                        "južni povratnik"
+                      ],
+                      "explanation": null,
+                      "difficulty": "HARD",
+                      "points": 15,
+                      "image": null
+                    },
+                    {
+                      "type": "TRUE_FALSE",
+                      "text": "V Avstraliji prevladuje puščavsko in polpuščavsko rastlinstvo?",
+                      "answers": [
+                        "Drži",
+                        "Ne drži"
+                      ],
+                      "correctAnswers": [
+                        "Drži"
+                      ],
+                      "explanation": "Osrednji del Avstralije dobi manj kot 250 mm padavin, zaradi česa se pojavijo puščave, kar pomeni da je tudi rastlinstvo puščavsko in polpuščavsko",
+                      "difficulty": "MEDIUM",
+                      "points": 10,
+                      "image": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Amerika in polarna območja",
+              "description": null,
+              "lessons": [
+                {
+                  "name": "Amerika in njena delitev",
+                  "order": 1,
+                  "questions": [
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "V spodnja okenca vpiši manjkajoče besede.\n\nKaterega leta je Krištof Kolumb odkril Ameriko? __________\nKolikokrat je Kolumb potoval v Ameriko? __________ krat.\nNa katerem otoku je Kolumb najprej pristal na prvem potovanju? Na otoku _______ __________\nNa katerem potovanju je Kolumb zares prispel na celino? Na _________________.",
+                      "answers": null,
+                      "correctAnswers": [
+                        "1492",
+                        "štiri",
+                        "San Salvador",
+                        "tretjem"
+                      ],
+                      "explanation": null,
+                      "difficulty": "MEDIUM",
+                      "points": 10,
+                      "image": null
+                    },
+                    {
+                      "type": "IMAGE_QUESTION",
+                      "text": "Če pravilno premečeš črke, boš dobil ime pomorščaka, ki je prvi raziskoval ameriške obale.",
+                      "answers": null,
+                      "correctAnswers": [
+                        "KRIŠTOF KOLUMB"
+                      ],
+                      "explanation": "Znanstveniki se še vedno ukvarjajo z vprašanjem, kdo je odkril Ameriko. Uradno priznana trditev je, da jo je odkril Krištof Kolumb leta 1492. V različni literaturi piše, da so pred Kolumbom Ameriko odkrili že Vikingi. Resnica pa je, da je bila Amerika že davno odkrita, le Evropejci niso vedeli zanjo.",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": "images/image3.png"
+                    },
+                    {
+                      "type": "MATCHING",
+                      "text": "Poveži državo z narodom, ki jo je naselil oziroma kolonizral.",
+                      "answers": {
+                        "left": [
+                          "ZDA",
+                          "Kanada",
+                          "Brazilija",
+                          "Argentina"
+                        ],
+                        "right": [
+                          "Angleži",
+                          "Francozi",
+                          "Španci",
+                          "Portugalci"
+                        ]
+                      },
+                      "correctAnswers": [
+                        {
+                          "left": "ZDA",
+                          "right": "Angleži"
+                        },
+                        {
+                          "left": "Kanada",
+                          "right": "Francozi"
+                        },
+                        {
+                          "left": "Brazilija",
+                          "right": "Portugalci"
+                        },
+                        {
+                          "left": "Argentina",
+                          "right": "Španci"
+                        }
+                      ],
+                      "explanation": null,
+                      "difficulty": "MEDIUM",
+                      "points": 10,
+                      "image": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Fizika",
+      "icon": "atom",
+      "grades": [
+        {
+          "gradeNumber": 8,
+          "topics": [
+            {
+              "name": "Uvod v fiziko",
+              "description": null,
+              "lessons": [
+                {
+                  "name": "Merski sistemi",
+                  "order": 1,
+                  "questions": [
+                    {
+                      "type": "MULTIPLE_CHOICE",
+                      "text": "Temperatura je fizikalna količina, ki določa lastnost snovi. Zagotovo poznaš pripravo, s katero merimo temperaturo. Kako se imenuje?",
+                      "answers": [
+                        "Termometer",
+                        "Toplomer",
+                        "Termofor"
+                      ],
+                      "correctAnswers": [
+                        "Termometer"
+                      ],
+                      "explanation": null,
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "Vpiši ustrezno mersko število.\n\n75 cm = _____ m\n\n0,325 kg = _______ g",
+                      "answers": null,
+                      "correctAnswers": [
+                        "0,75",
+                        "325"
+                      ],
+                      "explanation": null,
+                      "difficulty": "MEDIUM",
+                      "points": 10,
+                      "image": null
+                    },
+                    {
+                      "type": "MULTIPLE_CHOICE",
+                      "text": "Katera od naštetih enot NI osnovna enota po Mednarodnem sistemu enot SI? Označi jo.",
+                      "answers": [
+                        "Ura",
+                        "Kilogram",
+                        "Kelvin",
+                        "mol"
+                      ],
+                      "correctAnswers": [
+                        "Ura"
+                      ],
+                      "explanation": "Osnovne enote mednarodnega sistema enot SI so: dolžina, masa, čas, električni tok, temperatua, množina snovi, svetilnost",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Vesolje",
+              "description": null,
+              "lessons": [
+                {
+                  "name": "Zvezde",
+                  "order": 1,
+                  "questions": [
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "Katera zvezda je Zemlji najbližja? ______________",
+                      "answers": null,
+                      "correctAnswers": [
+                        "Sonce"
+                      ],
+                      "explanation": "Zemlji najbližja zvezda je Sonce. Njegova oddaljenost od Zemlje je približno 150 milijonov kilometrov. Naslednja najbližja zvezda je oddaljena približno 4,2 svetlobnega leta.",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "Ali lahko poljubna ozvezdja opazujemo kadar koli? ______________",
+                      "answers": null,
+                      "correctAnswers": [
+                        "Ne"
+                      ],
+                      "explanation": "Ne. Zaradi vrtenja Zemlje in ker je os vrtenja nagnjena glede na ravnino gibanja Zemlje okoli Sonca z določenega kraja na Zemlji vsak dan v letu in tudi ob različnih urah ponoči ne vidimo istega dela neba. Med dvema zaporednima nočema te razlike pri opazovanju ob enakem času skorajda ne opazimo. Kadar pa primerjamo različne letne čase, je ta razlika očitna. Tako poleti in pozimi na nebu vidimo popolnoma različne skupine zvezd. Zaradi boljše orientacije na nebu je dobro, da so skupine zvezd oziroma ozvezdja poimenovana. Pomembno je tudi, od kod z Zemlje opazujemo nočno nebo. Istega dne ob isti uri ljudje s krajev na južni polobli ne vidijo istih ozvezdij kot ljudje na severni polobli.",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "Kako se najlažje orientiramo na nebu? ______________",
+                      "answers": null,
+                      "correctAnswers": [
+                        "Po zvezdi Severnici"
+                      ],
+                      "explanation": "Najlažje se orientiramo po zvezdi Severnici. Najdemo jo v ozvezdju Malega medveda. Del tega ozvezdja je skupina zvezd, imenovana Mali voz. Ta skupina zvezd je vidna s severne poloble vse leto. V skupini zvezd Mali voz je Severnica najsvetlejša in jo zato najlažje najdemo. Severnico iz naših krajev najdemo v smeri proti severu, nahaja se približno 45 stopinj nad vodoravnico.",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "TRUE_FALSE",
+                      "text": "Ozvezdja, ki jih vidimo na nočnem nebu 13. avgusta ob 22.00, so Labod, Tehtnica in Orel.",
+                      "answers": [
+                        "Drži",
+                        "Ne drži"
+                      ],
+                      "correctAnswers": [
+                        "Drži"
+                      ],
+                      "explanation": "Nastavi zvezdno karto tako, da bosta datum in ura opazovanja sovpadala, nato poglej ozvezdja v vidnem delu zvezdne karte.",
+                      "difficulty": "HARD",
+                      "points": 15,
+                      "image": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Sile",
+              "description": null,
+              "lessons": [
+                {
+                  "name": "Opis sil",
+                  "order": 1,
+                  "questions": [
+                    {
+                      "type": "MULTIPLE_CHOICE",
+                      "text": "Katera sila je prostorsko porazdeljena?",
+                      "answers": [
+                        "Sila roke, ki drži nakupovalno vrečko",
+                        "Električna sila",
+                        "Sila upora"
+                      ],
+                      "correctAnswers": [
+                        "Električna sila"
+                      ],
+                      "explanation": "Pri učinkovanju enega telesa na drugo telo je lahko sila različno porazdeljena. Teža telesa deluje na vsak košček njegove mase, torej je teža porazdeljena po celotnem prostoru telesa.",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    },
+                    {
+                      "type": "MULTIPLE_SELECT",
+                      "text": "Katere sile so ploskovno porazdeljene? Možnih je več odgovorov.",
+                      "answers": [
+                        "Sila trenja",
+                        "Teža",
+                        "Sila vrvi, ki drži vedro v zraku",
+                        "Sila upora"
+                      ],
+                      "correctAnswers": [
+                        "Sila trenja",
+                        "Sila upora"
+                      ],
+                      "explanation": "Ob dotiku dveh teles se sila lahko porazdeli ploskovno ali pa deluje v določeni točki. Če telo položimo na podlago, je sila podlage na telo porazdeljena po stični površini med podlago in telesom, če predmet obesimo na vrvico, pa vrvica deluje na telo v točki prijemališča.",
+                      "difficulty": "EASY",
+                      "points": 5,
+                      "image": null
+                    }
+                  ]
+                },
+                {
+                  "name": "Teža in težišče",
+                  "order": 2,
+                  "questions": [
+                    {
+                      "type": "FILL_IN_BLANK",
+                      "text": "Kolikšna je Francijeva teža, če je njegova masa 60 kg?_____________\n\nKolikšna je masa žoge, če je njena teža 1,5 N? __________",
+                      "answers": null,
+                      "correctAnswers": [
+                        "600 N",
+                        "150g"
+                      ],
+                      "explanation": null,
+                      "difficulty": "MEDIUM",
+                      "points": 10,
+                      "image": null
+                    },
+                    {
+                      "type": "TRUE_FALSE",
+                      "text": "Teža telesa je večja, če se telo oddalji od zemeljske površine.",
+                      "answers": [
+                        "Drži",
+                        "Ne drži"
+                      ],
+                      "correctAnswers": [
+                        "Ne drži"
+                      ],
+                      "explanation": "Teža teles se z oddaljenostjo od zemeljske površine zmanjšuje",
+                      "difficulty": "MEDIUM",
+                      "points": 10,
+                      "image": null
+                    },
+                    {
+                      "type": "MULTIPLE_CHOICE",
+                      "text": "Izberi pravilno trditev",
+                      "answers": [
+                        "Težišče lika vedno leži na sredini lika",
+                        "Težišče lika vedno leži na liku",
+                        "Težišče lika se lahko nahaja zunaj lika"
+                      ],
+                      "correctAnswers": [
+                        "Težišče lika se lahko nahaja zunaj lika"
+                      ],
+                      "explanation": "Težo zato rišemo iz težišča telesa, to je točke, v kateri si predstavljamo, da je zbrana vsa teža telesa. Težišče oziroma masno središče je točka, v kateri \"prijemlje\" teže. Težišče likov s poizkušanjem določimo tako, da jih postavimo na konico svinčnika ali na prst in jih prestavljamo toliko časa, da so v ravnovesju. Točka, v kateri jih moramo podpreti, da so v ravnovesju, je njihovo težišče.",
+                      "difficulty": "MEDIUM",
+                      "points": 10,
+                      "image": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
