@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">SuperZnalci</string>
+    <string name="badge_grade">SUPERZNANJE 8. RAZRED</string>
+    <string name="tagline">Učenje skozi igro in šolski izziv! Osvajaj točke, tekmuj s sošolci in obvladaj snov.</string>
+    <string name="tab_login">Prijava</string>
+    <string name="tab_register">Registracija</string>
+    <string name="choose_role">IZBERI SVOJO VLOGO:</string>
+    <string name="role_student">Sem Učenec</string>
+    <string name="role_student_desc">Vstopi s kodo razreda in zbiraj XP točke.</string>
+    <string name="role_teacher">Sem Učitelj</string>
+    <string name="role_teacher_desc">Ustvari nov razred in spremljaj napredek.</string>
+    <string name="info_class_code">Učenci za vstop potrebujejo kodo razreda (npr. ZN-8A24), ki jo prejmejo od učitelja.</string>
+    <string name="label_email">E-pošta ali uporabniško ime</string>
+    <string name="hint_email">ucenec.luka@sola.si</string>
+    <string name="label_password">Geslo</string>
+    <string name="forgot_password">Pozabljeno geslo?</string>
+    <string name="label_class_code">Koda tvojega razreda</string>
+    <string name="chip_from_teacher">Prejmeš pri pouku</string>
+    <string name="class_code_value">ZN-8A24</string>
+    <string name="class_code_help">Vpiši 7-mestno kodo za neposredno pridružitev v skupino.</string>
+    <string name="btn_submit">Nadaljuj v svet znanja</string>
+    <string name="just_visiting">Si samo na obisku?</string>
+    <string name="demo_quiz">Hiter preizkus / Demo kviz</string>
+    <string name="demo_note">Brez registracije preizkusi 3 vprašanja iz fizike ali biologije za 8. razred.</string>
 </resources>
