@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
@@ -89,10 +90,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         etEmail = view.findViewById(R.id.etEmail)
         etPassword = view.findViewById(R.id.etPassword)
         etClassCode = view.findViewById(R.id.etClassCode)
+        btnTogglePassword = view.findViewById(R.id.btnTogglePassword)
         tvForgot = view.findViewById(R.id.tvForgot)
         btnSubmit = view.findViewById(R.id.btnSubmit)
 
-        btnTogglePassword = view.findViewById(R.id.btnTogglePassword)
         etPassword.attachPasswordToggle(btnTogglePassword)
         etPassword.isSaveEnabled = false     // the password is never kept in saved state
 
@@ -109,7 +110,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 openTeacherRegistration()   // teachers get their own registration screen
             } else if (!registerMode) {
                 clearForm()
-                registerMode = true     // students register on this same screen
+                registerMode = true         // students register on this same screen
                 render()
             }
         }
@@ -159,6 +160,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             .commit()
     }
 
+    // After a successful student login: show the profile and drop login/registration from the back stack
+    private fun openProfile() {
+        parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, ProfileFragment())
+            .commit()
+    }
+
     // Empties every field, removes errors and hides the password again
     private fun clearForm() {
         listOf(etName, etEmail, etPassword, etClassCode).forEach {
@@ -172,6 +181,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     // Updates every part of the screen that depends on the selected tab / role
     private fun render() {
         val student = role == Role.STUDENT
+        val studentRegistering = student && registerMode
 
         styleTab(tabLogin, selected = !registerMode)
         styleTab(tabRegister, selected = registerMode)
@@ -185,8 +195,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         ivStudentRadio.setImageResource(if (student) R.drawable.ic_check_circle else R.drawable.ic_radio_off)
         ivTeacherRadio.setImageResource(if (student) R.drawable.ic_radio_off else R.drawable.ic_check_circle)
 
-        // Name + class code are only needed when a student is regisreing
-        val studentRegistering = student && registerMode
+        // Name + class code are only needed while a student is registering.
+        // The e-mail field is always visible: the backend identifies every user by e-mail.
         infoBox.visibility = if (studentRegistering) View.VISIBLE else View.GONE
         nameGroup.visibility = if (studentRegistering) View.VISIBLE else View.GONE
         classCodeGroup.visibility = if (studentRegistering) View.VISIBLE else View.GONE
@@ -226,11 +236,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val student = role == Role.STUDENT
         val name = etName.text.toString().cleanName()
         val email = etEmail.text.toString().trim().lowercase()   // backend stores e-mails lowercase
-        val password = etPassword.text.toString()
+        val password = etPassword.text.toString()                // never trim passwords
         val code = ClassCode.normalize(etClassCode.text.toString())
 
         val problems = mutableListOf<Pair<EditText, Int>>()
 
+        // First + last name are only needed when a student is registering
         if (student && registerMode && name.split(" ").size < 2) {
             problems += etName to R.string.reg_err_name
         }
@@ -280,8 +291,13 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun onLoggedIn(response: AuthResponse) {
         SessionStore.save(response.token, response.user)
 
-        // TODO: open the real home screen, chosen by Roles.toKey(response.user.role).
-        //  Use the role from the response, not the selected card.
+        // Use the role from the response, not the selected card. Students go to their profile
+        if (response.user.role.equals(Roles.STUDENT, ignoreCase = true)) {
+            openProfile()
+            return
+        }
+
+        // TODO: open the teacher home screen once it exists
         AlertDialog.Builder(requireContext())
             .setTitle(R.string.login_success_title)
             .setMessage(getString(R.string.login_success_msg, response.user.name))
@@ -289,21 +305,21 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             .show()
     }
 
-private fun onStudentRegistered(email: String) {
-    AlertDialog.Builder(requireContext())
-        .setTitle(R.string.student_registered_title)
-        .setMessage(getString(R.string.student_registered_msg, email))
-        .setCancelable(false)
-        .setPositiveButton(android.R.string.ok) { _, _ ->
-            if (view == null) return@setPositiveButton
+    private fun onStudentRegistered(email: String) {
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.student_registered_title)
+            .setMessage(getString(R.string.student_registered_msg, email))
+            .setCancelable(false)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                if (view == null) return@setPositiveButton
 
-            registerMode = false
-            clearForm()
-            etEmail.setText(email)
-            render()
-        }
-        .show()
-}
+                registerMode = false
+                clearForm()
+                etEmail.setText(email)
+                render()
+            }
+            .show()
+    }
 
     private fun onAuthError(httpCode: Int?) {
         when (httpCode) {

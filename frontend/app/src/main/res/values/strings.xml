@@ -125,4 +125,88 @@
     <string name="student_registered_title">Registracija uspešna</string>
     <string name="student_registered_msg">Račun je ustvarjen. Prijavi se z e-naslovom %1$s.</string>
     <string name="reg_code_dialog">Koda tvojega razreda je %1$s\n\nPodeli jo z učenci, da se lahko pridružijo.</string>
+
+    <!-- Profile -->
+     <!-- Top bar / header -->
+    <string name="profile_top_streak">🔥 %1$d</string>
+    <string name="profile_top_stars">☆ %1$d</string>
+    <string name="profile_active">Aktiven</string>
+    <string name="profile_class_school">Razred %1$s • %2$s</string>
+    <string name="profile_code">Koda: %1$s</string>
+    <string name="profile_level_title">Raven %1$d: %2$s</string>
+    <string name="profile_level_next">Do Ravni %1$d še %2$s XP</string>
+    <string name="profile_xp_value">%1$s XP</string>
+    <string name="profile_xp_start">%1$s XP (R%2$d)</string>
+    <string name="profile_xp_goal">Cilj: %1$s XP (R%2$d)</string>
+    <string name="profile_avatar_cd">Spremeni avatar</string>
+
+    <!-- Streak -->
+    <plurals name="profile_streak_title">
+        <item quantity="one">%d dan zapored!</item>
+        <item quantity="two">%d dneva zapored!</item>
+        <item quantity="few">%d dni zapored!</item>
+        <item quantity="other">%d dni zapored!</item>
+    </plurals>
+    <string name="profile_streak_sub">Vsakodnevni niz učenja je aktiven</string>
+    <string name="profile_streak_chip">Super forma!</string>
+    <string-array name="profile_week_days">
+        <item>P</item>
+        <item>T</item>
+        <item>S</item>
+        <item>Č</item>
+        <item>P</item>
+        <item>S</item>
+        <item>N</item>
+    </string-array>
+
+    <!-- Stats -->
+    <string name="profile_stat_tasks">Rešenih nalog</string>
+    <string name="profile_stat_accuracy">Natančnost</string>
+    <string name="profile_accuracy_value">%1$d %%</string>
+
+    <!-- Subjects -->
+    <string name="profile_section_subjects">Obdelani predmeti</string>
+    <string name="profile_all_subjects">Vsi predmeti</string>
+    <string name="profile_subject_lessons">%1$d / %2$d lekcij opravljenih</string>
+    <string name="profile_subject_percent">%1$d %% zaključeno</string>
+    <string name="profile_btn_continue">Nadaljuj →</string>
+    <string name="profile_btn_review">Preglej</string>
+
+    <!-- Badges -->
+    <string name="profile_section_badges">Zbirka značk</string>
+    <string name="profile_all_badges">Vse značke</string>
+    <string name="profile_locked_title">Zaklenjeno: %1$s ⌛</string>
+    <string name="profile_locked_desc">Osvoji %1$s XP za odklep (manjka še %2$s XP)</string>
+
+    <!-- Results -->
+    <string name="profile_section_results">Najnovejši rezultati vaj</string>
+    <string name="profile_results_caption">Zadnji 3 kvizi</string>
+    <string name="profile_result_score">%1$d/%2$d</string>
+    <string name="profile_result_xp">+%1$d XP</string>
+
+    <!-- Settings -->
+    <string name="profile_section_settings">Nastavitve profila</string>
+    <string name="profile_settings_avatar">Spremeni avatar ali lik</string>
+    <string name="profile_settings_reminders">Opomniki za učenje</string>
+    <string name="profile_reminder_time">19:00</string>
+    <string name="profile_settings_logout">Odjava iz računa</string>
+    <string name="profile_logout_title">Odjava</string>
+    <string name="profile_logout_message">Se res želiš odjaviti?</string>
+    <string name="profile_logout_confirm">Odjavi me</string>
+    <string name="profile_logout_cancel">Prekliči</string>
+
+    <!-- Bottom navigation -->
+    <string name="profile_nav_learn">Učenje</string>
+    <string name="profile_nav_subjects">Predmeti</string>
+    <string name="profile_nav_leaderboard">Lestvica</string>
+    <string name="profile_nav_profile">Profil</string>
+
+    <string name="profile_pending">Ta del še ni povezan.</string>
+    <string name="profile_role_student">UČENEC</string>
+    <string name="profile_role_teacher">UČITELJ</string>
+    <string name="profile_registered_label">Registriran</string>
+    <string name="profile_last_active_label">Nazadnje aktiven</string>
+    <string name="profile_no_results">Še ni opravljenih kvizov.</string>
+    <string name="profile_no_badges">Značk še nisi pridobil/-a.</string>
+    <string name="profile_retry">Poskusi znova</string>
 </resources>
