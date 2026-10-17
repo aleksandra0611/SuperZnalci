@@ -235,7 +235,7 @@ object ProfileMapper {
     fun titleFor(level: Int): String =
         LEVEL_TITLES[(level - 1).coerceIn(0, LEVEL_TITLES.lastIndex)]
 
-    private fun starsFor(accuracy: Double): Int = when {
+    fun starsFor(accuracy: Double): Int = when {
         accuracy >= 90 -> 3
         accuracy >= 70 -> 2
         accuracy >= 50 -> 1
@@ -243,7 +243,7 @@ object ProfileMapper {
     }
 
     // Subject.icon is a text key from the backend; unknown keys get the book icon
-    private fun iconFor(icon: String?): Int = when (icon) {
+    fun iconFor(icon: String?): Int = when (icon) {
         "calculate" -> R.drawable.ic_calculate
         "public" -> R.drawable.ic_public
         else -> R.drawable.ic_menu_book

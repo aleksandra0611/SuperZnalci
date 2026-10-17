@@ -345,11 +345,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         listOf(
             R.id.btnEditAvatar, R.id.rowAvatar, R.id.rowReminders,
             R.id.tvAllSubjects, R.id.tvAllBadges,
-            R.id.navLearn, R.id.navSubjects, R.id.navLeaderboard
+            R.id.navLearn, R.id.navLeaderboard
         ).forEach { view.findViewById<View>(it).setOnClickListener(pending) }
 
         view.findViewById<View>(R.id.btnCopyCode).setOnClickListener { copyClassCode(p.classCode) }
         view.findViewById<View>(R.id.rowLogout).setOnClickListener { confirmLogout() }
+        view.findViewById<View>(R.id.navSubjects).setOnClickListener { openSubjects() }
     }
 
     private fun copyClassCode(code: String) {
@@ -376,6 +377,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, LoginFragment())
             .commit()
+    }
+
+    private fun openSubjects() {
+    parentFragmentManager.beginTransaction()
+        .replace(R.id.fragment_container, SubjectsFragment())
+        .commit()
     }
 
     // helpers

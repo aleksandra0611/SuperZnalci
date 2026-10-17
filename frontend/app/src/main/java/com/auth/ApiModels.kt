@@ -125,7 +125,11 @@ data class LessonSummaryDto(
     val id: String,
     val topicId: String,
     val name: String,
-    val order: Int
+    val order: Int,
+    val isPublic: Boolean = true,
+    val questionCount: Int = 0,
+    val totalPoints: Int = 0,
+    val description: String? = null
 )
 
 data class AttemptAnswerDto(
