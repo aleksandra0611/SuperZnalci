@@ -209,4 +209,74 @@
     <string name="profile_no_results">Še ni opravljenih kvizov.</string>
     <string name="profile_no_badges">Značk še nisi pridobil/-a.</string>
     <string name="profile_retry">Poskusi znova</string>
+
+    <!--Subject Student Page-->
+     <!-- class card -->
+    <string name="subjects_grade_chip">%1$d. RAZRED</string>
+    <string name="subjects_class_name">Razred %1$s</string>
+    <string name="subjects_code_label">Koda razreda</string>
+    <string name="subjects_challenge">Tedenski izziv: reši %1$d kvizov za značko razreda!</string>
+    <string name="subjects_fraction">%1$d/%2$d</string>
+    <plurals name="subjects_students">
+        <item quantity="one">%d učenec</item>
+        <item quantity="two">%d učenca</item>
+        <item quantity="few">%d učenci</item>
+        <item quantity="other">%d učencev</item>
+    </plurals>
+
+    <!-- subject row -->
+    <string name="subjects_your_subjects">Tvoji predmeti</string>
+    <string name="subjects_switch">Preklopi</string>
+    <string name="subjects_percent">%1$d%%</string>
+    <plurals name="subjects_active_count">
+        <item quantity="one">(%d aktiven)</item>
+        <item quantity="two">(%d aktivna)</item>
+        <item quantity="few">(%d aktivni)</item>
+        <item quantity="other">(%d aktivnih)</item>
+    </plurals>
+    <plurals name="subjects_topics">
+        <item quantity="one">%d tema</item>
+        <item quantity="two">%d temi</item>
+        <item quantity="few">%d teme</item>
+        <item quantity="other">%d tem</item>
+    </plurals>
+
+    <!-- active subject card -->
+    <string name="subjects_active_chip">AKTIVNI PREDMET</string>
+    <string name="subjects_teacher">Učitelj: %1$s</string>
+    <string name="subjects_xp">%1$d XP</string>
+    <string name="subjects_level">Raven %1$d</string>
+    <string name="subjects_stat_done">Opravljeno</string>
+    <string name="subjects_stat_lessons">Lekcij</string>
+    <string name="subjects_stat_stars">Zvezdic</string>
+
+    <!-- topics and lessons -->
+    <string name="subjects_topic_label">TEMA %1$d</string>
+    <string name="subjects_topic_lessons">%1$d/%2$d lekcij</string>
+    <string name="subjects_lesson_done_header">Lekcija %1$d • Končano</string>
+    <string name="subjects_lesson_locked_header">Lekcija %1$d • Zaklenjeno</string>
+    <string name="subjects_lesson_perfect">Osvojeno z vsemi točkami (%1$d/%2$d nalog)</string>
+    <string name="subjects_lesson_score">Rezultat: %1$d/%2$d nalog</string>
+    <string name="subjects_repeat">Ponovi za utrjevanje</string>
+    <string name="subjects_now">NA VRSTI SI!</string>
+    <string name="subjects_lesson_title">Lekcija %1$d: %2$s</string>
+    <string name="subjects_lesson_xp">+%1$d XP</string>
+    <string name="subjects_minutes">~%1$d minut</string>
+    <string name="subjects_due">Rok: %1$s</string>
+    <string name="subjects_unlock">Odkleni z uspešnim zaključkom Lekcije %1$d.</string>
+    <plurals name="subjects_start">
+        <item quantity="one">Začni vajo (%d naloga)</item>
+        <item quantity="two">Začni vajo (%d nalogi)</item>
+        <item quantity="few">Začni vajo (%d naloge)</item>
+        <item quantity="other">Začni vajo (%d nalog)</item>
+    </plurals>
+
+    <string name="subjects_empty">Za tvoj razred še ni predmetov.</string>
+    <string name="subjects_no_lessons">V tej temi še ni lekcij.</string>
+
+    <!-- bottom navigation -->
+    <string name="subjects_nav_learn">Učenje</string>
+    <string name="subjects_nav_subjects">Predmeti</string>
+    <string name="subjects_nav_leaderboard">Lestvica</string>
+    <string name="subjects_nav_profile">Profil</string>
 </resources>

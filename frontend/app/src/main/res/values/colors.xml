@@ -27,4 +27,20 @@
     <color name="badge_orange">#F97316</color>
     <color name="badge_blue">#38BDF8</color>
     <color name="badge_purple">#A855F7</color>
+    <color name="sub_background">#F4F7F6</color>
+    <color name="sub_white">#FFFFFF</color>
+    <color name="sub_mint">#D1FAE5</color>
+    <color name="sub_mint_text">#047857</color>
+    <color name="sub_green">#10B981</color>
+    <color name="sub_green_dark">#065F46</color>
+    <color name="sub_grey_card">#EEF1F0</color>
+    <color name="sub_grey_circle">#E5E7EB</color>
+    <color name="sub_border">#E5E7EB</color>
+    <color name="sub_star">#F59E0B</color>
+    <color name="sub_amber_text">#B45309</color>
+    <color name="sub_peach">#FDE7C8</color>
+    <color name="sub_indigo">#4F46E5</color>
+    <color name="sub_text">#111827</color>
+    <color name="sub_text_muted">#6B7280</color>
+    <color name="sub_text_hint">#9CA3AF</color>
 </resources>

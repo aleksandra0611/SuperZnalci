@@ -30,11 +30,12 @@ interface AuthRepository {
 
 //gives the UI a single place to obtain the repository
 object ServiceLocator {
-    // One mock instance serves auth AND profile, so both see the same accounts
     private val mockAuth = MockAuthRepository()
+    private val mockProfile = MockProfileRepository(mockAuth)
 
     var auth: AuthRepository = mockAuth
-    var profile: ProfileRepository = MockProfileRepository(mockAuth)
+    var profile: ProfileRepository = mockProfile
+    var subjects: SubjectsRepository = MockSubjectsRepository(mockAuth, mockProfile)
 }
 
 // Current login. In memory for now later persist the token 
