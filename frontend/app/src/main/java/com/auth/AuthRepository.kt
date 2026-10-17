@@ -3,17 +3,15 @@ package com.example.superznalci
 import android.os.Handler
 import android.os.Looper
 
-//gives both fragments one interface for authentication
-
-/**
- * HOW TO SWITCH TO THE BACKEND
- * 1. Write `RetrofitAuthRepository : AuthRepository` (same three methods, same DTOs from ApiModels.kt).
- *    Map the HTTP response to ApiResult.Success(body) or ApiResult.Failure(response.code());
- *    on IOException use ApiResult.Failure(null).
- * 2. In [ServiceLocator] change line:  `var auth: AuthRepository = RetrofitAuthRepository(...)`
- * 3. Delete [MockAuthRepository] and [MockData].
- * The fragments never talk to anything except [AuthRepository], so nothing else changes
- */
+// Gives the fragments one interface for authentication.
+//
+// HOW TO SWITCH TO THE BACKEND
+// 1. Write `RetrofitAuthRepository : AuthRepository` and `RetrofitProfileRepository : ProfileRepository`
+//    (same methods, same DTOs from ApiModels.kt). Map the HTTP response to ApiResult.Success(body)
+//    or ApiResult.Failure(response.code()); on IOException use ApiResult.Failure(null).
+// 2. In [ServiceLocator] replace the two mock lines.
+// 3. Delete MockAuthRepository, MockProfileRepository and MockData.
+// The fragments never talk to anything except the repository interfaces, so nothing else changes.
 
 sealed class ApiResult<out T> {
     data class Success<T>(val data: T) : ApiResult<T>()
@@ -32,7 +30,11 @@ interface AuthRepository {
 
 //gives the UI a single place to obtain the repository
 object ServiceLocator {
-    var auth: AuthRepository = MockAuthRepository()
+    // One mock instance serves auth AND profile, so both see the same accounts
+    private val mockAuth = MockAuthRepository()
+
+    var auth: AuthRepository = mockAuth
+    var profile: ProfileRepository = MockProfileRepository(mockAuth)
 }
 
 // Current login. In memory for now later persist the token 
@@ -53,21 +55,6 @@ object SessionStore {
     }
 }
 
-/** Everything that is fake is here*/
-object MockData {
-    val SCHOOLS = listOf(
-        "OŠ Primoža Trubarja, Ljubljana",
-        "OŠ Ivana Cankarja, Maribor",
-        "OŠ Franceta Prešerna, Kranj"
-    )
-
-    // Demo accounts (password for both: geslo1234)
-    const val DEMO_PASSWORD = "geslo1234"
-    const val DEMO_TEACHER_EMAIL = "ucitelj@demo.si"
-    const val DEMO_STUDENT_EMAIL = "ucenec@demo.si"
-    const val DEMO_JOIN_CODE = "ZN-8AK42"
-}
-
 /**
  * In-memory fake of the backend. It behaves like the real one will:
  * same status codes, same validation, unique e-mails, join codes must exist.
@@ -81,9 +68,25 @@ class MockAuthRepository : AuthRepository {
         val email: String,
         val password: String,
         val role: String,
-        val classroomId: String?
+        val classroomId: String?,
+        val totalXp: Int,
+        val streak: Int,
+        val badges: List<UserBadgeDto>,
+        val registeredAt: Long,
+        var lastActiveAt: Long? = null  // null until the first login, like User.lastActiveAt
     ) {
-        fun toDto() = UserDto(id, name, email, role, classroomId)
+        fun toDto() = UserDto(
+            id = id,
+            name = name,
+            email = email,
+            role = role,
+            classroomId = classroomId,
+            totalXp = totalXp,
+            streak = streak,
+            registeredAt = IsoDate.format(registeredAt),
+            lastActiveAt = lastActiveAt?.let { IsoDate.format(it) },
+            badges = badges
+        )
     }
 
     private val handler = Handler(Looper.getMainLooper())
@@ -92,20 +95,45 @@ class MockAuthRepository : AuthRepository {
     private var nextId = 1
 
     init {
+        val now = System.currentTimeMillis()
+
         addUser("Maja Horvat", MockData.DEMO_TEACHER_EMAIL, MockData.DEMO_PASSWORD, Roles.TEACHER, null)
-        val classroom = ClassroomDto(newId(), "8.A – ${MockData.SCHOOLS[0]}", MockData.DEMO_JOIN_CODE, 8)
+
+        val classroom = ClassroomDto(
+            id = newId(),
+            name = ClassroomNaming.build(8, "A", MockData.SCHOOLS[0]),
+            joinCode = MockData.DEMO_JOIN_CODE,
+            gradeNumber = 8,
+            subjectIds = listOf(MockData.subjectId("math"), MockData.subjectId("physics"))
+        )
         classrooms += classroom
-        addUser("Luka Novak", MockData.DEMO_STUDENT_EMAIL, MockData.DEMO_PASSWORD, Roles.STUDENT, classroom.id)
+
+        addUser(
+            name = "Luka Novak",
+            email = MockData.DEMO_STUDENT_EMAIL,
+            password = MockData.DEMO_PASSWORD,
+            role = Roles.STUDENT,
+            classroomId = classroom.id,
+            totalXp = 2450,
+            streak = 5,
+            badges = listOf(
+                UserBadgeDto("badge-1", IsoDate.format(now - 20 * DAY_MS)),
+                UserBadgeDto("badge-2", IsoDate.format(now - 10 * DAY_MS)),
+                UserBadgeDto("badge-3", IsoDate.format(now - 3 * DAY_MS))
+            )
+        )
     }
 
     override fun login(request: LoginRequest, callback: ResultCallback<AuthResponse>) {
         val user = users.find { it.email == request.email.trim().lowercase() }
         // One answer for "no such user", "wrong password" and "wrong role card" (like the backend should)
-        val result: ApiResult<AuthResponse> = if (user == null || user.password != request.password || user.role != request.role) {
-            ApiResult.Failure(401)
-        } else {
-            ApiResult.Success(AuthResponse(tokenFor(user), user.toDto()))
-        }
+        val result: ApiResult<AuthResponse> =
+            if (user == null || user.password != request.password || user.role != request.role) {
+                ApiResult.Failure(401)
+            } else {
+                user.lastActiveAt = System.currentTimeMillis()
+                ApiResult.Success(AuthResponse(tokenFor(user), user.toDto()))
+            }
         respond(result, callback)
     }
 
@@ -132,11 +160,20 @@ class MockAuthRepository : AuthRepository {
             emailTaken(request.email) -> ApiResult.Failure(409)
             else -> {
                 val user = addUser(request.name, request.email, request.password, Roles.TEACHER, null)
+
+                // Same as the real backend: subject names -> Subject ids (unknown names are skipped)
+                val subjectIds = request.subjects
+                    .mapNotNull { wanted ->
+                        MockData.SUBJECTS.find { it.name.equals(wanted.trim(), ignoreCase = true) }?.id
+                    }
+                    .distinct()
+
                 val classroom = ClassroomDto(
                     id = newId(),
                     name = request.classroomName,
                     joinCode = uniqueJoinCode(request.gradeNumber, request.department),
-                    gradeNumber = request.gradeNumber
+                    gradeNumber = request.gradeNumber,
+                    subjectIds = subjectIds
                 )
                 classrooms += classroom
                 ApiResult.Success(TeacherRegistrationResponse(tokenFor(user), user.toDto(), classroom))
@@ -145,10 +182,41 @@ class MockAuthRepository : AuthRepository {
         respond(result, callback)
     }
 
+    // lookups used by MockProfileRepository (the real backend answers these with its own endpoints)
+
+    fun findUser(id: String): UserDto? = users.find { it.id == id }?.toDto()
+
+    fun userIdByEmail(email: String): String? = users.find { it.email == email.lowercase() }?.id
+
+    fun findClassroom(id: String?): ClassroomDto? {
+        if (id.isNullOrBlank()) return null
+        return classrooms.find { it.id == id }
+    }
+
     // ---- helpers
 
-    private fun addUser(name: String, email: String, password: String, role: String, classroomId: String?): StoredUser {
-        val user = StoredUser(newId(), name, email.trim().lowercase(), password, role, classroomId)
+    private fun addUser(
+        name: String,
+        email: String,
+        password: String,
+        role: String,
+        classroomId: String?,
+        totalXp: Int = 0,
+        streak: Int = 0,
+        badges: List<UserBadgeDto> = emptyList()
+    ): StoredUser {
+        val user = StoredUser(
+            id = newId(),
+            name = name,
+            email = email.trim().lowercase(),
+            password = password,
+            role = role,
+            classroomId = classroomId,
+            totalXp = totalXp,
+            streak = streak,
+            badges = badges,
+            registeredAt = System.currentTimeMillis()
+        )
         users += user
         return user
     }
@@ -173,5 +241,6 @@ class MockAuthRepository : AuthRepository {
 
     private companion object {
         const val DELAY_MS = 700L
+        const val DAY_MS = 86_400_000L
     }
 }
