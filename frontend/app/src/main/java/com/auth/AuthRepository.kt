@@ -36,6 +36,7 @@ object ServiceLocator {
     var auth: AuthRepository = mockAuth
     var profile: ProfileRepository = mockProfile
     var subjects: SubjectsRepository = MockSubjectsRepository(mockAuth, mockProfile)
+    var passwordReset: PasswordResetRepository = MockPasswordResetRepository(mockAuth)
 }
 
 // Current login. In memory for now later persist the token 
@@ -67,7 +68,7 @@ class MockAuthRepository : AuthRepository {
         val id: String,
         val name: String,
         val email: String,
-        val password: String,
+        var password: String,
         val role: String,
         val classroomId: String?,
         val totalXp: Int,
@@ -193,6 +194,12 @@ class MockAuthRepository : AuthRepository {
         if (id.isNullOrBlank()) return null
         return classrooms.find { it.id == id }
     }
+
+       fun updatePassword(email: String, newPassword: String): Boolean {
+       val user = users.find { it.email == email.trim().lowercase() } ?: return false
+       user.password = newPassword
+       return true
+   }
 
     // ---- helpers
 

@@ -279,4 +279,38 @@
     <string name="subjects_nav_subjects">Predmeti</string>
     <string name="subjects_nav_leaderboard">Lestvica</string>
     <string name="subjects_nav_profile">Profil</string>
+
+    <!--Forgotten Password-->
+    <string name="fp_badge">PONASTAVITEV GESLA</string>
+    <string name="fp_title">Pozabljeno geslo?</string>
+    <string name="fp_subtitle">Brez skrbi! Vnesi svojo e-pošto in poslali ti bomo kodo za ponastavitev gesla. Velja za učence in učitelje.</string>
+
+    <string name="fp_step_1_of_2">Korak 1 od 2</string>
+    <string name="fp_step_2_of_2">Korak 2 od 2</string>
+    <string name="fp_step_name_1">E-pošta</string>
+    <string name="fp_step_name_2">Novo geslo</string>
+
+    <!-- step 1 -->
+    <string name="fp_info_email">Vnesi e-pošto, s katero si se registriral/a. Poslali ti bomo 6-mestno kodo za ponastavitev.</string>
+    <string name="fp_label_email">E-pošta</string>
+    <string name="fp_hint_email">ime.priimek@sola.si</string>
+    <string name="fp_btn_send">Pošlji kodo</string>
+
+    <!-- step 2 -->
+    <string name="fp_info_code">Če račun s tem naslovom obstaja, smo poslali kodo na %1$s. Koda velja 15 minut.</string>
+    <string name="fp_label_code">Koda iz e-pošte</string>
+    <string name="fp_hint_code">123456</string>
+    <string name="fp_label_password">Novo geslo</string>
+    <string name="fp_label_password2">Ponovi novo geslo</string>
+    <string name="fp_btn_reset">Ponastavi geslo</string>
+    <string name="fp_no_code">Nisi prejel/a kode?</string>
+    <string name="fp_resend">Pošlji znova</string>
+    <string name="fp_resent">Nova koda je poslana.</string>
+
+    <!-- footer / messages -->
+    <string name="fp_have_password">Se spomniš gesla?</string>
+    <string name="fp_go_login">Nazaj na prijavo</string>
+    <string name="fp_err_code">Vnesi 6-mestno kodo.</string>
+    <string name="fp_err_code_invalid">Koda ni pravilna ali je potekla.</string>
+    <string name="fp_success">Geslo je spremenjeno. Prijavi se z novim geslom.</string>
 </resources>

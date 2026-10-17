@@ -135,7 +135,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
 
         btnSubmit.setOnClickListener { submit() }
-        tvForgot.setOnClickListener { toast(R.string.msg_forgot_pending) }       // TODO: password reset screen
+        tvForgot.setOnClickListener { openForgotPassword() }
         view.findViewById<View>(R.id.tvDemo).setOnClickListener {
             toast(R.string.msg_demo_pending)                                      // TODO: demo quiz screen
         }
@@ -219,6 +219,17 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         etPassword.error = null
         etClassCode.error = null
     }
+
+       private fun openForgotPassword() {
+       val roleKey = if (role == Role.STUDENT) Roles.KEY_STUDENT else Roles.KEY_TEACHER
+       parentFragmentManager.beginTransaction()
+           .replace(
+               R.id.fragment_container,
+               ForgotPasswordFragment.newInstance(roleKey, etEmail.text.toString().trim())
+           )
+           .addToBackStack(null)
+           .commit()
+   }
 
     private fun styleTab(tab: TextView, selected: Boolean) {
         if (selected) {
