@@ -1,4 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- General app / login -->
     <string name="app_name">SuperZnalci</string>
     <string name="badge_grade">SUPERZNANJE 8. RAZRED</string>
     <string name="tagline">Učenje skozi igro in šolski izziv! Osvajaj točke, tekmuj s sošolci in obvladaj snov.</string>
@@ -10,8 +12,6 @@
     <string name="role_teacher">Sem Učitelj</string>
     <string name="role_teacher_desc">Ustvari nov razred in spremljaj napredek.</string>
     <string name="info_class_code">Učenci za vstop potrebujejo kodo razreda (npr. ZN-8A24), ki jo prejmejo od učitelja.</string>
-    <string name="label_email">E-pošta ali uporabniško ime</string>
-    <string name="hint_email">ucenec.luka@sola.si</string>
     <string name="label_password">Geslo</string>
     <string name="forgot_password">Pozabljeno geslo?</string>
     <string name="label_class_code">Koda tvojega razreda</string>
@@ -22,4 +22,107 @@
     <string name="just_visiting">Si samo na obisku?</string>
     <string name="demo_quiz">Hiter preizkus / Demo kviz</string>
     <string name="demo_note">Brez registracije preizkusi 3 vprašanja iz fizike ali biologije za 8. razred.</string>
+    <string name="reg_code_pending">—</string>
+
+    <!-- Login additions -->
+    <string name="label_email">E-pošta</string>
+    <string name="label_email_teacher">E-pošta</string>
+    <string name="hint_email">ucenec@example.com</string>
+    <string name="hint_email_teacher">ucitelj@sola.si</string>
+    <string name="btn_login_teacher">Prijava v učilnico</string>
+    <string name="btn_register_student">Ustvari račun in se pridruži</string>
+    <string name="err_required">Obvezno polje</string>
+    <string name="err_email">Vnesi veljaven e-poštni naslov</string>
+    <string name="err_password_min">Geslo mora imeti vsaj 8 znakov</string>
+    <string name="err_class_code">Koda razreda ima obliko ZN-8A24</string>
+    <string name="msg_login_ok">Podatki so veljavni. Tukaj poveži prijavo s strežnikom.</string>
+    <string name="msg_student_registered">Podatki so veljavni. Tukaj poveži registracijo učenca s strežnikom.</string>
+    <string name="msg_forgot_pending">Obnova gesla še ni povezana.</string>
+    <string name="msg_demo_pending">Demo kviz še ni povezan.</string>
+    <string name="show_password">Pokaži geslo</string>
+    <string name="hide_password">Skrij geslo</string>
+
+    <!-- Teacher registration -->
+    <string name="reg_back">Nazaj</string>
+    <string name="reg_help">Pomoč</string>
+    <string name="reg_logo_super">Super</string>
+    <string name="reg_logo_znalci">Znalci</string>
+    <string name="reg_badge">ZA UČITELJE</string>
+    <string name="reg_title">Ustvari učiteljski račun</string>
+    <string name="reg_subtitle">Poveži svoj razred, spremljaj napredek in prični z interaktivnimi vajami.</string>
+    <string name="reg_step_1_of_2">1. korak od 2</string>
+    <string name="reg_step_2_of_2">2. korak od 2</string>
+    <string name="reg_step_name_1">Osebni podatki &amp; Razred</string>
+    <string name="reg_step_name_2">Šola in razred</string>
+    <string name="reg_tab_teacher">1. Učitelj</string>
+    <string name="reg_tab_class">2. Šola &amp; Razred</string>
+
+    <string name="reg_card_teacher">Podatki o učitelju</string>
+    <string name="reg_label_name">Ime in priimek</string>
+    <string name="reg_hint_name">Matej Horvat</string>
+    <string name="reg_label_email">Šolski e-poštni naslov</string>
+    <string name="reg_hint_email">matej.horvat@os-trubar.si</string>
+    <string name="reg_status_link">Za potrditev statusa</string>
+    <string name="reg_status_info">E-poštni naslov uporabimo za potrditev, da si učitelj.</string>
+    <string name="reg_label_password">Geslo</string>
+    <string name="reg_label_password2">Ponovi geslo</string>
+    <string name="reg_pw_hint">Geslo mora imeti vsaj 8 znakov</string>
+    <string name="reg_pw_ok">Geslo ustreza varnostnim zahtevam (vsaj 8 znakov)</string>
+    <string name="reg_btn_next">Nadaljuj na podatke o razredu →</string>
+
+    <string name="reg_card_school">Podatki o šoli in oddelku</string>
+    <string name="reg_label_school">Osnovna šola</string>
+    <string name="reg_label_grade">Razred</string>
+    <string name="reg_label_department">Oddelek</string>
+    <string name="reg_label_subjects">Predmeti, ki jih poučujete v tem razredu</string>
+    <string name="subject_math">Matematika</string>
+    <string name="subject_physics">Fizika</string>
+    <string name="subject_chemistry">Kemija</string>
+    <string name="subject_biology">Biologija</string>
+
+    <string name="reg_card_code">Koda razreda (predogled)</string>
+    <string name="reg_tag_auto">Samodejno</string>
+    <string name="reg_code_hint">Učenci se bodo pridružili s to kodo</string>
+    <string name="reg_code_help">Po zaključeni registraciji boste lahko kodo delili prek e-učilnice ali natisnili vabilo za učence.</string>
+    <string name="reg_copy_cd">Kopiraj kodo</string>
+    <string name="reg_code_copied">Koda kopirana</string>
+
+    <string name="reg_terms">Strinjam se s %1$s in potrjujem obdelavo šolskih podatkov skladno z %2$s ter pravilnikom o varstvu podatkov učencev.</string>
+    <string name="reg_terms_link1">Pogoji uporabe</string>
+    <string name="reg_terms_link2">GDPR za šolstvo</string>
+    <string name="reg_btn_finish">Dokončaj registracijo in ustvari razred 🚀</string>
+
+    <string name="reg_have_account">Že imaš učiteljski račun?</string>
+    <string name="reg_go_login">Prijavi se tukaj</string>
+    <string name="reg_student_title">Si učenec 8. razreda?</string>
+    <string name="reg_student_sub">Vstopi z unikatno kodo razreda</string>
+    <string name="reg_student_btn">Prijava učenca</string>
+
+    <string name="reg_err_name">Vnesi ime in priimek</string>
+    <string name="reg_err_email">Vnesi veljaven šolski e-poštni naslov</string>
+    <string name="reg_err_password">Geslo mora imeti vsaj 8 znakov</string>
+    <string name="reg_err_password2">Gesli se ne ujemata</string>
+    <string name="reg_err_subjects">Izberi vsaj en predmet</string>
+    <string name="reg_err_terms">Za nadaljevanje potrdi pogoje uporabe</string>
+    <string name="reg_success">Račun je ustvarjen. Prijavi se.</string>
+
+    <!-- Student registration -->
+    <string name="label_name">Ime in priimek</string>
+    <string name="hint_name">npr. Ana Novak</string>
+
+    <!-- Backend error messages -->
+    <string name="err_credentials">Napačen e-naslov ali geslo</string>
+    <string name="err_class_code_unknown">Te kode razreda ne najdemo</string>
+    <string name="err_email_taken">Ta e-naslov je že registriran</string>
+    <string name="err_network">Ni povezave z internetom</string>
+    <string name="err_server">Napaka strežnika. Poskusi znova.</string>
+
+    <string name="reg_btn_to_login">Nazaj na prijavo</string>
+
+    <!-- Dialogs -->
+    <string name="login_success_title">Prijava uspešna</string>
+    <string name="login_success_msg">Dobrodošel/-a, %1$s!</string>
+    <string name="student_registered_title">Registracija uspešna</string>
+    <string name="student_registered_msg">Račun je ustvarjen. Prijavi se z e-naslovom %1$s.</string>
+    <string name="reg_code_dialog">Koda tvojega razreda je %1$s\n\nPodeli jo z učenci, da se lahko pridružijo.</string>
 </resources>
