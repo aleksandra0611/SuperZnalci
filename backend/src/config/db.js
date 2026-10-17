@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+require("node:dns").setServers(["8.8.8.8", "1.1.1.1"]);
 
 async function connectDB() {
   if (!process.env.MONGODB_URI) {
