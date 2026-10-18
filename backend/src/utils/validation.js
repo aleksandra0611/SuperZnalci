@@ -2,7 +2,8 @@ const { isWellFormedJoinCode } = require("./joinCode");
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MIN_PASSWORD = 8;
-const MAX_PASSWORD = 72; 
+const MAX_PASSWORD = 72;
+const MAX_AVATAR = 300;
 
 const isNonEmptyString = (v) => typeof v === "string" && v.trim().length > 0;
 const cleanName = (v) => String(v).trim().replace(/\s+/g, " ");
@@ -63,9 +64,62 @@ function validateLogin(body) {
   return errors;
 }
 
+function validateProfileUpdate(body) {
+  const errors = [];
+  const hasName = body.name !== undefined;
+  const hasAvatar = body.avatar !== undefined;
+
+  if (!hasName && !hasAvatar) {
+    errors.push("Ni podatkov za posodobitev (name ali avatar).");
+  }
+  if (hasName) {
+    if (!isNonEmptyString(body.name) || cleanName(body.name).length < 2 || cleanName(body.name).length > 100) {
+      errors.push("Ime je obvezno (2 do 100 znakov).");
+    }
+  }
+  // avatar je lahko niz ali null (odstranitev avatarja)
+  if (hasAvatar && body.avatar !== null) {
+    if (typeof body.avatar !== "string" || body.avatar.trim().length === 0 || body.avatar.length > MAX_AVATAR) {
+      errors.push(`Avatar mora biti niz do ${MAX_AVATAR} znakov ali null.`);
+    }
+  }
+  return errors;
+}
+
+function validatePasswordChange(body) {
+  const errors = [];
+  if (typeof body.currentPassword !== "string" || body.currentPassword.length === 0) {
+    errors.push("Trenutno geslo je obvezno.");
+  }
+  if (
+    typeof body.newPassword !== "string" ||
+    body.newPassword.length < MIN_PASSWORD ||
+    body.newPassword.length > MAX_PASSWORD
+  ) {
+    errors.push(`Novo geslo mora imeti od ${MIN_PASSWORD} do ${MAX_PASSWORD} znakov.`);
+  } else if (body.newPassword === body.currentPassword) {
+    errors.push("Novo geslo mora biti drugačno od trenutnega.");
+  }
+  return errors;
+}
+
+function validateEmailChange(body) {
+  const errors = [];
+  if (!isNonEmptyString(body.email) || !EMAIL_REGEX.test(body.email.trim())) {
+    errors.push("E-pošta ni veljavna.");
+  }
+  if (typeof body.currentPassword !== "string" || body.currentPassword.length === 0) {
+    errors.push("Trenutno geslo je obvezno.");
+  }
+  return errors;
+}
+
 module.exports = {
   cleanName,
   validateStudentRegistration,
   validateTeacherRegistration,
   validateLogin,
+  validateProfileUpdate,
+  validatePasswordChange,
+  validateEmailChange,
 };
