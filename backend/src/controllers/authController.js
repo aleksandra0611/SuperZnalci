@@ -141,4 +141,9 @@ async function login(req, res, next) {
   }
 }
 
-module.exports = { registerStudent, registerTeacher, login };
+// GET /api/auth/me (zaščiteno, najprej teče authenticate)
+async function me(req, res) {
+  return res.status(200).json({ user: toUserDto(req.user) });
+}
+
+module.exports = { registerStudent, registerTeacher, login, me };
