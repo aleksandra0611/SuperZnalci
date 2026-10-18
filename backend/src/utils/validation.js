@@ -46,4 +46,26 @@ function validateTeacherRegistration(body) {
   return errors;
 }
 
-module.exports = { cleanName, validateStudentRegistration, validateTeacherRegistration };
+function validateLogin(body) {
+  const errors = [];
+  if (!isNonEmptyString(body.email)) {
+    errors.push("E-pošta je obvezna.");
+  }
+  if (typeof body.password !== "string" || body.password.length === 0) {
+    errors.push("Geslo je obvezno.");
+  }
+  if (
+    body.role !== undefined &&
+    !(typeof body.role === "string" && ["STUDENT", "TEACHER"].includes(body.role.toUpperCase()))
+  ) {
+    errors.push("Vloga mora biti STUDENT ali TEACHER.");
+  }
+  return errors;
+}
+
+module.exports = {
+  cleanName,
+  validateStudentRegistration,
+  validateTeacherRegistration,
+  validateLogin,
+};

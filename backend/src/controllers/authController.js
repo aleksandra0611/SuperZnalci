@@ -9,10 +9,13 @@ const {
   cleanName,
   validateStudentRegistration,
   validateTeacherRegistration,
+  validateLogin,
 } = require("../utils/validation");
 
 const SALT_ROUNDS = 10;
 const DUPLICATE_KEY = 11000;
+
+const DUMMY_HASH = bcrypt.hashSync("navidezno-geslo", SALT_ROUNDS);
 
 // POST /api/auth/register/student
 async function registerStudent(req, res, next) {
@@ -105,4 +108,37 @@ async function registerTeacher(req, res, next) {
   }
 }
 
-module.exports = { registerStudent, registerTeacher };
+// POST /api/auth/login
+async function login(req, res, next) {
+  try {
+    const body = req.body || {};
+
+    const errors = validateLogin(body);
+    if (errors.length) return res.status(400).json({ message: errors[0], errors });
+
+    const email = body.email.trim().toLowerCase();
+
+    // passwordHash je v modelu skrit (select: false), zato ga tu izrecno zahtevamo
+    const user = await User.findOne({ email }).select("+passwordHash");
+
+    const passwordOk = await bcrypt.compare(
+      body.password,
+      user ? user.passwordHash : DUMMY_HASH
+    );
+    const roleOk = !body.role || (user && user.role === body.role.toUpperCase());
+
+    if (!user || !passwordOk || !roleOk) {
+      return res.status(401).json({ message: "Napačna e-pošta, geslo ali vloga." });
+    }
+
+    const now = new Date();
+    await User.updateOne({ _id: user._id }, { lastActiveAt: now });
+    user.lastActiveAt = now;
+
+    return res.status(200).json({ token: signToken(user), user: toUserDto(user) });
+  } catch (err) {
+    next(err);
+  }
+}
+
+module.exports = { registerStudent, registerTeacher, login };
