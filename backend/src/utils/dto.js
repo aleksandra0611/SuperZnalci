@@ -8,7 +8,7 @@ function toUserDto(user) {
     avatar: user.avatar,
     totalXp: user.totalXp,
     streak: user.streak,
-    registeredAt: user.registeredAt, 
+    registeredAt: user.registeredAt, // Date se v JSON zapiše kot ISO-8601
     lastActiveAt: user.lastActiveAt,
     badges: user.badges.map((b) => ({
       badgeId: b.badgeId.toString(),
@@ -27,4 +27,26 @@ function toClassroomDto(classroom) {
   };
 }
 
-module.exports = { toUserDto, toClassroomDto };
+// Če je podan gradeNumber, ostane v predmetu samo ta razred
+function toSubjectDto(subject, gradeNumber = null) {
+  const grades = (subject.grades || [])
+    .filter((g) => gradeNumber === null || g.gradeNumber === gradeNumber)
+    .sort((a, b) => a.gradeNumber - b.gradeNumber)
+    .map((g) => ({
+      gradeNumber: g.gradeNumber,
+      topics: (g.topics || []).map((t) => ({
+        id: t._id.toString(),
+        name: t.name,
+        description: t.description ?? null,
+      })),
+    }));
+
+  return {
+    id: subject._id.toString(),
+    name: subject.name,
+    icon: subject.icon ?? null,
+    grades,
+  };
+}
+
+module.exports = { toUserDto, toClassroomDto, toSubjectDto };
