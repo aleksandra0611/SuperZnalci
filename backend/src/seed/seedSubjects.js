@@ -1,37 +1,30 @@
-require("dotenv").config();
-require("node:dns").setServers(["8.8.8.8", "1.1.1.1"]);
-const mongoose = require("mongoose");
-const Subject = require("../models/subjectModel");
+require('dotenv').config();
+const fs = require('fs');
+const path = require('path');
+const mongoose = require('mongoose');
+const Subject = require('../models/subjectModel.js');
+const Lesson = require('../models/lessonModel.js')
 
-const SPECS = [
-  { name: "Matematika", icon: "calculate", topics: ["Ulomki", "Enačbe", "Geometrija"] },
-  { name: "Fizika", icon: "science", topics: ["Gibanje", "Sile", "Energija"] },
-  { name: "Kemija", icon: "science", topics: ["Snovi", "Atomi", "Reakcije"] },
-  { name: "Biologija", icon: "eco", topics: ["Celica", "Rastline", "Živali"] },
-];
-const GRADES = [6, 7, 8, 9];
+// the files use MongoDB extended JSON ({"$oid": "..."}), so EJSON is needed instead of JSON.parse
+const { EJSON } = mongoose.mongo.BSON;
+const read = (file) =>
+    EJSON.parse(fs.readFileSync(path.join(__dirname, '../../data', file), 'utf8'));
 
-async function seed() {
-  await mongoose.connect(process.env.MONGODB_URI);
-  for (const spec of SPECS) {
-    if (await Subject.exists({ name: spec.name })) {
-      console.log(`${spec.name} že obstaja`);
-      continue;
-    }
-    await Subject.create({
-      name: spec.name,
-      icon: spec.icon,
-      grades: GRADES.map((gradeNumber) => ({
-        gradeNumber,
-        topics: spec.topics.map((name) => ({ name })),
-      })),
-    });
-    console.log(`${spec.name} dodan`);
-  }
-  await mongoose.disconnect();
-}
+// replace the document if it already exists (same _id), otherwise insert it
+const upsertAll = (Model, docs) =>
+    Model.bulkWrite(docs.map((d) => ({
+        replaceOne: { filter: { _id: d._id }, replacement: d, upsert: true },
+    })));
 
-seed().catch((err) => {
-  console.error(err);
-  process.exit(1);
+(async () => {
+    await mongoose.connect(process.env.MONGODB_URI);
+
+    await upsertAll(Subject, read('subjects.json'));
+    await upsertAll(Lesson, read('lessons.json').map((l) => ({ ...l, isPublic: true })));
+
+    console.log('Seed done');
+    await mongoose.disconnect();
+})().catch((e) => {
+    console.error(e);
+    process.exit(1);
 });

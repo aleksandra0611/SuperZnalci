@@ -1,0 +1,100 @@
+[
+  {
+    "_id": {
+      "$oid": "ba7f32186663464618cde493"
+    },
+    "name": "Matematika",
+    "icon": "calculator",
+    "grades": [
+      {
+        "gradeNumber": 8,
+        "topics": [
+          {
+            "_id": {
+              "$oid": "cb107bcd4677b4949373b2cd"
+            },
+            "name": "Racionalna števila",
+            "description": null
+          },
+          {
+            "_id": {
+              "$oid": "da7227f2ad90fd6906bb0eb2"
+            },
+            "name": "Računske operacije",
+            "description": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "8d8da0fb6c9ae276f71957ba"
+    },
+    "name": "Geografija",
+    "icon": "globe",
+    "grades": [
+      {
+        "gradeNumber": 8,
+        "topics": [
+          {
+            "_id": {
+              "$oid": "cdb437d89c891091670a2a11"
+            },
+            "name": "Afrika",
+            "description": null
+          },
+          {
+            "_id": {
+              "$oid": "e47eae6ab5f685652333d4b2"
+            },
+            "name": "Avstralija in Oceanija",
+            "description": null
+          },
+          {
+            "_id": {
+              "$oid": "9578ed3e611f9278f35143cc"
+            },
+            "name": "Amerika in polarna območja",
+            "description": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "bde7e2a28b8bac71d5d8fa57"
+    },
+    "name": "Fizika",
+    "icon": "atom",
+    "grades": [
+      {
+        "gradeNumber": 8,
+        "topics": [
+          {
+            "_id": {
+              "$oid": "769f9112e4544b8251544644"
+            },
+            "name": "Uvod v fiziko",
+            "description": null
+          },
+          {
+            "_id": {
+              "$oid": "57a0e364fd9a2571b5ce5174"
+            },
+            "name": "Vesolje",
+            "description": null
+          },
+          {
+            "_id": {
+              "$oid": "8ee2d24455bce2e871b4e887"
+            },
+            "name": "Sile",
+            "description": null
+          }
+        ]
+      }
+    ]
+  }
+]
