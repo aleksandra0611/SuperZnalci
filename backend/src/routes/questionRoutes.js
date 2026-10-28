@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.use(authenticate);
 
-router.get("/", requireRole("TEACHER"), listQuestions);
+router.get("/", listQuestions);
 
 module.exports = router;
