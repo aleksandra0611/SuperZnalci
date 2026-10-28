@@ -27,7 +27,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 
-// Request / response classes live in ApiModels.kt, backend access in AuthRepository.kt
+// Request / response classes live in ApiModels.kt, backend access in ApiClient.kt
 
 class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
@@ -36,7 +36,7 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
         val GRADES = listOf(6 to "6. razred", 7 to "7. razred", 8 to "8. razred", 9 to "9. razred")
         val DEPARTMENTS = listOf("A", "B", "C", "D")
-        const val DEFAULT_GRADE_INDEX = 2 //8. rayred
+        const val DEFAULT_GRADE_INDEX = 2 // 8. razred
 
         const val STATE_STEP = "state_step"
         const val STATE_SUBJECTS = "state_subjects"
@@ -270,9 +270,11 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
     // step: school & class
 
     private fun setupClassStep(view: View) {
-        setupSpinner(spSchool, MockData.SCHOOLS)      // TODO: load the real schools from the backend
+        // Fallback list first, so the spinner is never empty. Replaced by GET /schools below.
+        setupSpinner(spSchool, Schools.LIST)
         setupSpinner(spGrade, GRADES.map { it.second }, DEFAULT_GRADE_INDEX)
         setupSpinner(spDepartment, DEPARTMENTS)
+        loadSchools()
 
         // The class code only exists once the backend has created the classroom
         // Until then the card keeps its placeholder and the copy button stays disabled,
@@ -287,6 +289,19 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
         setupTermsText(view.findViewById(R.id.tvTerms))
         btnFinish.setOnClickListener { submitRegistration() }
+    }
+
+    // Replaces the fallback list with the schools from the backend (keeps the current choice).
+    // If the request fails or returns nothing, the fallback list simply stays.
+    private fun loadSchools() {
+        ServiceLocator.schools.loadSchools { result ->
+            if (view == null) return@loadSchools   // screen was left while waiting
+            if (result is ApiResult.Success && result.data.isNotEmpty()) {
+                val current = spSchool.selectedItem?.toString()
+                val index = result.data.indexOf(current).coerceAtLeast(0)
+                setupSpinner(spSchool, result.data, index)
+            }
+        }
     }
 
     private fun setupSpinner(spinner: Spinner, labels: List<String>, selected: Int = 0) {
@@ -353,11 +368,12 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
         val school = spSchool.selectedItem.toString()
 
         // The backend has no school / department fields, so both are kept inside Classroom.name
+        // (ClassroomNaming.build is the exact counterpart of ClassroomNaming.parse)
         val payload = TeacherRegistrationRequest(
             name = etName.text.toString().cleanName(),
             email = etRegEmail.text.toString().trim().lowercase(),
             password = etPassword.text.toString(),
-            classroomName = "$gradeNumber.$department – $school",
+            classroomName = ClassroomNaming.build(gradeNumber, department, school),
             gradeNumber = gradeNumber,
             department = department,
             subjects = selectedSubjects.toList()
@@ -417,12 +433,12 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
         chips.forEach { it.isClickable = false }
     }
 
-private fun leaveAfterRegistration() {
-    // The token is already saved; the teacher can log in again until the home screen exists.
-    val email = issuedEmail
-    issuedCode = null
-    backToLogin(Roles.KEY_TEACHER, email)
-}
+    private fun leaveAfterRegistration() {
+        // The token is already saved; the teacher can log in again until the home screen exists.
+        val email = issuedEmail
+        issuedCode = null
+        backToLogin(Roles.KEY_TEACHER, email)
+    }
 
     private fun onRegistrationError(httpCode: Int?) {
         when (httpCode) {
