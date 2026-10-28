@@ -8,10 +8,6 @@ import java.util.Locale
 import java.util.TimeZone
 import kotlin.math.roundToInt
 
-// What the profile screen shows. Nothing in here knows about the backend: ProfileMapper (below)
-// converts the backend-shaped ProfileData into these classes, so the screen never changes
-// when mock data is replaced by real data.
-
 enum class DayState { DONE, TODAY, LOCKED, MISSED }
 
 // Colour set used by a subject card / quiz result (picked by position, the backend has no colours)
@@ -249,13 +245,6 @@ object ProfileMapper {
         else -> R.drawable.ic_menu_book
     }
 
-    /**
-     * Monday..Sunday of the current week. The backend only has `streak` and `lastActiveAt`,
-     * so the active days are the last `streak` days ending on lastActiveAt. A streak whose last
-     * activity is older than yesterday is broken and shows nothing.
-     */
-    // A streak only counts while the last activity was today or yesterday. Otherwise it is
-    // broken (the backend should reset it, but the app must not show a stale number)
     fun effectiveStreak(streak: Int, lastActiveAt: Long?, now: Long): Int {
         val lastDay = lastActiveAt?.let { dayNumber(it) } ?: return 0
         return if (streak > 0 && lastDay >= dayNumber(now) - 1) streak else 0

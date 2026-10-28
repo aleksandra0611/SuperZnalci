@@ -16,7 +16,6 @@ import androidx.fragment.app.FragmentManager
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
     companion object {
-        // Used by RegistrationFragment to send the user back here
         const val RESULT_KEY = "login_prefill"
         const val KEY_ROLE = "role"
         const val KEY_EMAIL = "email"
@@ -32,8 +31,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private enum class Role { STUDENT, TEACHER }
 
-    // Fields so the screen state survives the view being recreated when coming back from
-    // the registration screen. Rotation / process death is covered by onSaveInstanceState.
     private var role = Role.STUDENT
     private var registerMode = false
 
@@ -153,7 +150,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun openTeacherRegistration() {
-        clearForm()     // the login form must be empty when the user comes back
+        clearForm()
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, RegistrationFragment())
             .addToBackStack(null)
@@ -194,7 +191,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         )
         ivStudentRadio.setImageResource(if (student) R.drawable.ic_check_circle else R.drawable.ic_radio_off)
         ivTeacherRadio.setImageResource(if (student) R.drawable.ic_radio_off else R.drawable.ic_check_circle)
-
         // Name + class code are only needed while a student is registering.
         // The e-mail field is always visible: the backend identifies every user by e-mail.
         infoBox.visibility = if (studentRegistering) View.VISIBLE else View.GONE

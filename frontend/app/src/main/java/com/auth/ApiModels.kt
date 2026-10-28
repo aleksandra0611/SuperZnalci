@@ -6,25 +6,6 @@ import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
-// Request/response contract. Every response class mirrors a backend model:
-//   UserDto -> User, ClassroomDto -> Classroom, SubjectDto/GradeDto/TopicDto -> Subject,
-//   LessonSummaryDto -> Lesson (without questions), AttemptDto -> Attempt, BadgeDto -> Badge
-//
-// POST /api/auth/login               LoginRequest               -> AuthResponse
-// POST /api/auth/register/student    StudentRegistrationRequest -> AuthResponse
-// POST /api/auth/register/teacher    TeacherRegistrationRequest -> TeacherRegistrationResponse
-//
-// Status codes the app understands:
-//   400 validation, 401 bad credentials, 404 unknown class code, 409 e-mail already used
-//
-// WHEN THE REAL BACKEND ARRIVES (two things the JSON will do differently from the mock):
-//   1. Mongo sends "_id", these classes use "id". Either map it on the server or annotate the
-//      fields with @SerializedName(value = "id", alternate = ["_id"]) once Gson is added.
-//   2. Mongo dates are ISO-8601 strings ("2026-01-01T00:00:00.000Z"), so all dates here are
-//      Strings. Convert them with IsoDate, never declare them as Long.
-
-// toString() is overridden so passwords never end up in Logcat
-
 data class LoginRequest(
     val email: String,
     val password: String,
@@ -37,7 +18,7 @@ data class StudentRegistrationRequest(
     val name: String,
     val email: String,
     val password: String,
-    val joinCode: String        // backend finds the Classroom by joinCode -> User.classroomId
+    val joinCode: String
 ) {
     override fun toString() = "StudentRegistrationRequest(email=$email)"
 }
@@ -46,10 +27,10 @@ data class TeacherRegistrationRequest(
     val name: String,
     val email: String,
     val password: String,
-    val classroomName: String,  // build it with ClassroomNaming.build(...)
+    val classroomName: String,
     val gradeNumber: Int,
-    val department: String,     // not stored (it is inside classroomName); only needed to build the join code
-    val subjects: List<String>  // Subject.name values; backend resolves them to Classroom.subjectIds
+    val department: String,
+    val subjects: List<String>
 ) {
     override fun toString() = "TeacherRegistrationRequest(email=$email, classroom=$classroomName)"
 }
@@ -72,6 +53,8 @@ data class UserDto(
     val lastActiveAt: String? = null,  // ISO-8601, null until the first login
     val badges: List<UserBadgeDto> = emptyList()
 )
+
+data class SchoolDto(val id: String, val name: String)
 
 data class ClassroomDto(
     val id: String,

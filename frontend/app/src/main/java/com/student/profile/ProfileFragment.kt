@@ -91,7 +91,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     override fun onDestroyView() {
-        errorDialog?.dismiss()      // avoids a leaked window on rotation
+        errorDialog?.dismiss()
         errorDialog = null
         super.onDestroyView()
     }
@@ -371,7 +371,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             .show()
     }
 
-    // Replaces everything (including the back stack) with the login screen
     private fun goToLogin() {
         parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         parentFragmentManager.beginTransaction()
