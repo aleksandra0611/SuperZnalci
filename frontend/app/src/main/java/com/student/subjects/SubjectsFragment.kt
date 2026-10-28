@@ -24,7 +24,6 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
     private var screen: SubjectsScreen? = null
     private var selectedSubjectId: String? = null
 
-    // Which topics are open. A topic is opened by default only the first time it is shown
     private val expandedTopics = mutableSetOf<String>()
     private val seenTopics = mutableSetOf<String>()
 
@@ -52,13 +51,13 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
         }
 
         setupNavigation(view)
-        root.visibility = View.INVISIBLE   // shown once the data has arrived
+        root.visibility = View.INVISIBLE
         load(root)
     }
 
     private fun load(root: View) {
         ServiceLocator.subjects.loadSubjectsData { result ->
-            if (view == null) return@loadSubjectsData   // screen was left while waiting
+            if (view == null) return@loadSubjectsData
 
             when (result) {
                 is ApiResult.Success -> {
@@ -99,8 +98,6 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
 
     // rendering
 
-    // Builds the screen model from the loaded data and fills every section.
-    // Called again (without a network call) when another subject is picked.
     private fun render() {
         val d = data ?: return
         val view = requireView()
@@ -152,7 +149,6 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
             view, R.id.tvSubjectsCount,
             resources.getQuantityString(R.plurals.subjects_active_count, s.tabs.size, s.tabs.size)
         )
-        // "Preklopi" jumps to the next subject
         view.findViewById<View>(R.id.tvSwitch).setOnClickListener {
             val index = s.tabs.indexOfFirst { it.id == s.active?.id }
             if (s.tabs.isNotEmpty()) selectSubject(s.tabs[(index + 1) % s.tabs.size].id)
@@ -334,23 +330,40 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
     }
 
     private fun startLesson(lesson: LessonItem) {
-        toast(R.string.profile_pending)   // TODO: open the quiz screen for lesson.id
+        val s = screen ?: return
+        val subject = s.active ?: return
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container,
+                QuizFragment.newInstance(subject.id, subject.title, s.gradeNumber, lesson.id))
+            .addToBackStack(null)
+            .commit()
     }
 
     // navigation
 
     private fun setupNavigation(view: View) {
         val pending = View.OnClickListener { toast(R.string.profile_pending) }
-        listOf(R.id.navLearn, R.id.navLeaderboard).forEach {
+        listOf(R.id.navLeaderboard).forEach {
             view.findViewById<View>(it).setOnClickListener(pending)
         }
         view.findViewById<View>(R.id.navProfile).setOnClickListener { openProfile() }
         view.findViewById<View>(R.id.ivAvatar).setOnClickListener { openProfile() }
+        view.findViewById<View>(R.id.navLearn).setOnClickListener { openQuiz() }
     }
 
     private fun openProfile() {
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, ProfileFragment())
+            .commit()
+    }
+
+    private fun openQuiz() {
+        val s = screen ?: return
+        val subjectId = s.active?.id ?: run { toast(R.string.quiz_no_subject); return }
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container,
+                QuizFragment.newInstance(subjectId, s.active?.title.orEmpty(), s.gradeNumber))
+            .addToBackStack(null)
             .commit()
     }
 

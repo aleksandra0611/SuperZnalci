@@ -48,6 +48,16 @@ interface ApiService {
 
     @GET("schools")
     fun schools(): Call<SchoolsEnvelope>
+
+    @GET("questions")
+    fun questions(
+        @Query("subjectId") subjectId: String,
+        @Query("gradeNumber") gradeNumber: Int?,
+        @Query("type") type: String?
+    ): Call<QuestionsEnvelope>
+
+    @GET("lessons")
+    fun lessons(@Query("topicIds") topicIds: String): Call<LessonsEnvelope> //delete of we donćt add GET //api/lessons
 }
 
 object ApiClient {
@@ -80,11 +90,15 @@ private fun SubjectDto.safe(): SubjectDto = copy(
     }
 )
 
-private fun <T> Call<T>.go(onFail: (Int?) -> Unit, onOk: (T) -> Unit) {
+internal fun <T> Call<T>.go(onFail: (Int?) -> Unit, onOk: (T) -> Unit) {
     enqueue(object : Callback<T> {
         override fun onResponse(call: Call<T>, response: Response<T>) {
             val body = response.body()
-            if (response.isSuccessful && body != null) onOk(body) else onFail(response.code())
+            if (response.isSuccessful && body != null) {
+                onOk(body)
+            } else {
+                onFail(response.code())
+            }
         }
 
         override fun onFailure(call: Call<T>, t: Throwable) {
@@ -117,27 +131,30 @@ class RetrofitAuthRepository(private val api: ApiService) : AuthRepository {
     }
 }
 
-class RetrofitProfileRepository(private val api: ApiService) : ProfileRepository {
+class RetrofitProfileRepository(
+    private val api: ApiService,
+    private val lessonsRepo: LessonsRepository
+) : ProfileRepository {
 
     override fun loadProfileData(callback: ResultCallback<ProfileData>) {
         api.me().go({ callback(ApiResult.Failure(it)) }) { userEnvelope ->
             val user = userEnvelope.user.safe()
 
             if (user.classroomId == null) {
-                finish(callback, user, null, emptyList())
+                finish(callback, user, null, emptyList(), emptyList())
                 return@go
             }
 
             api.myClassroom().go(
                 onFail = { code ->
-                    if (code == 404) finish(callback, user, null, emptyList())
+                    if (code == 404) finish(callback, user, null, emptyList(), emptyList())
                     else callback(ApiResult.Failure(code))
                 }
             ) { classroomEnvelope ->
                 val classroom = classroomEnvelope.classroom.safe()
 
                 if (classroom.subjectIds.isEmpty()) {
-                    finish(callback, user, classroom, emptyList())
+                    finish(callback, user, classroom, emptyList(), emptyList())
                     return@go
                 }
 
@@ -145,7 +162,17 @@ class RetrofitProfileRepository(private val api: ApiService) : ProfileRepository
                     onFail = { callback(ApiResult.Failure(it)) }
                 ) { subjectsEnvelope ->
                     val subjects = subjectsEnvelope.subjects.orEmpty().map { it.safe() }
-                    finish(callback, user, classroom, subjects)
+                    lessonsRepo.loadLessons(subjects, classroom.gradeNumber) { result ->
+                        when (result) {
+                            is ApiResult.Success -> {
+                                finish(callback, user, classroom, subjects, result.data)
+                            }
+                            is ApiResult.Failure -> {
+                                if (result.httpCode == 401) callback(ApiResult.Failure(401))
+                                else finish(callback, user, classroom, subjects, emptyList())
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -155,7 +182,8 @@ class RetrofitProfileRepository(private val api: ApiService) : ProfileRepository
         callback: ResultCallback<ProfileData>,
         user: UserDto,
         classroom: ClassroomDto?,
-        subjects: List<SubjectDto>
+        subjects: List<SubjectDto>,
+        lessons: List<LessonSummaryDto>
     ) {
         SessionStore.token?.let { SessionStore.save(it, user) }
         callback(
@@ -164,7 +192,7 @@ class RetrofitProfileRepository(private val api: ApiService) : ProfileRepository
                     user = user,
                     classroom = classroom,
                     subjects = subjects,
-                    lessons = emptyList(),        // MISSING: GET /api/lessons
+                    lessons = lessons,
                     attempts = emptyList(),       // MISSING: GET /api/attempts
                     badgeCatalog = emptyList()    // MISSING: GET /api/badges
                 )
@@ -211,12 +239,17 @@ class UnavailablePasswordResetRepository : PasswordResetRepository {
 
 object ServiceLocator {
     private val api = ApiClient.service
+//change if we donćt add GET /api/lessons to val lessons = QuestionsDerivedLessonsRepository(api)
+    val lessons: LessonsRepository =
+        if (QuizConfig.USE_REAL_LESSONS_ENDPOINT) RetrofitLessonsRepository(api)
+        else QuestionsDerivedLessonsRepository(api)
 
     val auth: AuthRepository = RetrofitAuthRepository(api)
-    val profile: ProfileRepository = RetrofitProfileRepository(api)
+    val profile: ProfileRepository = RetrofitProfileRepository(api, lessons)
     val subjects: SubjectsRepository = RetrofitSubjectsRepository(profile)
     val schools: SchoolsRepository = RetrofitSchoolsRepository(api)
     val passwordReset: PasswordResetRepository = UnavailablePasswordResetRepository()
+    val quiz: QuizRepository = RetrofitQuizRepository(api)
 }
 
 // new repository (same file, so it can use the private go()):

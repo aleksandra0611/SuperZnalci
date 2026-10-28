@@ -313,4 +313,49 @@
     <string name="fp_err_code">Vnesi 6-mestno kodo.</string>
     <string name="fp_err_code_invalid">Koda ni pravilna ali je potekla.</string>
     <string name="fp_success">Geslo je spremenjeno. Prijavi se z novim geslom.</string>
+
+        <!-- Quiz screen -->
+    <string name="quiz_title">Kviz Naloga</string>
+    <string name="quiz_back_cd">Nazaj</string>
+    <string name="quiz_close_cd">Zapri kviz</string>
+ 
+    <!-- header -->
+    <string name="quiz_progress_label">Vprašanje %1$d od %2$d</string>
+    <string name="quiz_percent">%1$d%%</string>
+    <string name="quiz_hearts">❤ %1$d</string>
+    <string name="quiz_combo">🔥 %1$d</string>
+ 
+    <!-- question card -->
+    <string name="quiz_tag">%1$s • %2$s</string>
+    <string name="quiz_hint">💡 Namig</string>
+    <string name="quiz_active_task">AKTIVNA NALOGA</string>
+    <string name="quiz_unsupported">Ta vrsta vprašanja še ni podprta. Preskoči jo in nadaljuj.</string>
+ 
+    <!-- button -->
+    <string name="quiz_btn_check">Preveri odgovor</string>
+    <string name="quiz_btn_next">Naslednje vprašanje →</string>
+    <string name="quiz_btn_finish">Zaključi kviz</string>
+ 
+    <!-- feedback -->
+    <string name="quiz_feedback_correct">Odlično! Pravilno! 🎉</string>
+    <string name="quiz_feedback_wrong">Ni pravilno</string>
+    <string name="quiz_feedback_skipped">Vprašanje preskočeno</string>
+    <string name="quiz_feedback_xp">+%1$d XP</string>
+    <string name="quiz_correct_answer">Pravilni odgovor: %1$s</string>
+ 
+    <!-- states -->
+    <string name="quiz_empty">Za ta predmet še ni vprašanj.</string>
+    <string name="quiz_no_subject">Najprej izberi predmet.</string>
+    <string name="quiz_load_back">Nazaj</string>
+ 
+    <!-- exit dialog -->
+    <string name="quiz_exit_title">Zapusti kviz?</string>
+    <string name="quiz_exit_message">Napredek v tem kvizu bo izgubljen.</string>
+    <string name="quiz_exit_confirm">Zapusti</string>
+    <string name="quiz_exit_cancel">Nadaljuj</string>
+ 
+    <!-- temporary result dialog (the results screen is a separate task) -->
+    <string name="quiz_done_title">Kviz končan</string>
+    <string name="quiz_done_message">Pravilnih odgovorov: %1$d/%2$d\nOsvojenih točk: +%3$d XP</string>
+    <string name="quiz_done_ok">V redu</string>
 </resources>
