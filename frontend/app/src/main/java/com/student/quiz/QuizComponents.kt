@@ -24,10 +24,12 @@ interface QuestionComponent {
 object QuestionComponents {
     fun create(context: Context, parent: ViewGroup, question: QuizQuestion): QuestionComponent =
         when (question.type) {
-            QuestionType.MULTIPLE_CHOICE -> ChoiceComponent(context, parent, question)
+            QuestionType.MULTIPLE_CHOICE,
+            QuestionType.TRUE_FALSE -> ChoiceComponent(context, parent, question)
             else -> UnsupportedComponent(context, parent)
         }
 }
+
 
 object QuizUi {
 
@@ -48,7 +50,12 @@ object QuizUi {
         if (stroke != null) setStroke(dp(context, 2), stroke)
     }
 
-    fun answerLabel(context: Context, type: QuestionType, value: String): String = value
+        fun answerLabel(context: Context, type: QuestionType, value: String): String =
+        if (type == QuestionType.TRUE_FALSE) {
+            context.getString(if (value == "true") R.string.quiz_true else R.string.quiz_false)
+        } else {
+            value
+        }
 }
 
 class ChoiceComponent(

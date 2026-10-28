@@ -82,6 +82,8 @@ interface QuizRepository {
 
 object QuizMapper {
 
+    private val TRUE_VALUES = setOf("true", "drži", "da", "1", "yes")
+
     fun typeFor(raw: String?): QuestionType {
         val t = raw.orEmpty().uppercase()
         return when {
@@ -100,8 +102,18 @@ object QuizMapper {
         if (text.isEmpty()) return null
 
         var type = typeFor(dto.type)
-        val answers = dto.answers.asStringList().map { it.trim() }.filter { it.isNotEmpty() }
-        val correct = dto.correctAnswers.asStringList().map { it.trim() }
+                var answers = dto.answers.asStringList().map { it.trim() }.filter { it.isNotEmpty() }
+                var correct = dto.correctAnswers.asStringList().map { it.trim() }
+
+                when (type) {
+                    QuestionType.TRUE_FALSE -> {
+                        val first = correct.firstOrNull()?.lowercase() ?: ""
+                        answers = listOf("true", "false")
+                        correct = listOf(if (first in TRUE_VALUES) "true" else "false")
+                    }
+                    QuestionType.MULTIPLE_CHOICE -> if (answers.size < 2) type = QuestionType.UNKNOWN
+                    else -> Unit
+                }
 
         if (type == QuestionType.MULTIPLE_CHOICE && (answers.size < 2 || correct.isEmpty())) {
             type = QuestionType.UNKNOWN

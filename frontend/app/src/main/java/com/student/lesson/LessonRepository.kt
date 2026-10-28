@@ -27,7 +27,7 @@ class QuestionsDerivedLessonsRepository(private val api: ApiService) : LessonsRe
         var failed = false
 
         subjects.forEachIndexed { index, subject ->
-            api.questions(subject.id, gradeNumber, "MULTIPLE_CHOICE").go(
+            api.questions(subject.id, gradeNumber, null).go(
                 { code ->
                     if (!failed) {
                         failed = true
