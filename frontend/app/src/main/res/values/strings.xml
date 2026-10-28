@@ -330,6 +330,8 @@
     <string name="quiz_hint">💡 Namig</string>
     <string name="quiz_active_task">AKTIVNA NALOGA</string>
     <string name="quiz_unsupported">Ta vrsta vprašanja še ni podprta. Preskoči jo in nadaljuj.</string>
+    <string name="quiz_true">Drži</string>
+    <string name="quiz_false">Ne drži</string>
  
     <!-- button -->
     <string name="quiz_btn_check">Preveri odgovor</string>

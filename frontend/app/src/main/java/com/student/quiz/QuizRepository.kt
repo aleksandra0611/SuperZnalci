@@ -8,7 +8,7 @@ class RetrofitQuizRepository(private val api: ApiService) : QuizRepository {
         lessonId: String?,
         callback: ResultCallback<List<QuizQuestion>>
     ) {
-        api.questions(subjectId, gradeNumber, "MULTIPLE_CHOICE").go({ callback(ApiResult.Failure(it)) }) { envelope ->
+        api.questions(subjectId, gradeNumber, null).go({ callback(ApiResult.Failure(it)) }) { envelope ->
             val all = envelope.questions.orEmpty().mapNotNull { QuizMapper.toQuestion(it) }
             val result = if (lessonId != null) {
                 all.filter { it.lessonId == lessonId }
