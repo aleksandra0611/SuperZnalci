@@ -49,4 +49,23 @@ function toSubjectDto(subject, gradeNumber = null) {
   };
 }
 
-module.exports = { toUserDto, toClassroomDto, toSubjectDto };
+// Vprašanje s pravilnimi odgovori (za učitelja) in podatki, kam spada
+function toQuestionDto(question, { subject, topic, lesson }) {
+  return {
+    id: question._id.toString(),
+    type: question.type,
+    text: question.text,
+    answers: question.answers ?? null,
+    correctAnswers: question.correctAnswers,
+    explanation: question.explanation ?? null,
+    difficulty: question.difficulty,
+    points: question.points,
+    image: question.image ?? null,
+    subjectId: subject._id.toString(),
+    gradeNumber: topic.gradeNumber,
+    topic: { id: topic.id.toString(), name: topic.name },
+    lesson: { id: lesson.id.toString(), name: lesson.name },
+  };
+}
+
+module.exports = { toUserDto, toClassroomDto, toSubjectDto, toQuestionDto };
