@@ -102,21 +102,20 @@ object QuizMapper {
         if (text.isEmpty()) return null
 
         var type = typeFor(dto.type)
-                var answers = dto.answers.asStringList().map { it.trim() }.filter { it.isNotEmpty() }
-                var correct = dto.correctAnswers.asStringList().map { it.trim() }
+        var answers = dto.answers.asStringList().map { it.trim() }.filter { it.isNotEmpty() }
+        var correct = dto.correctAnswers.asStringList().map { it.trim() }
 
-                when (type) {
-                    QuestionType.TRUE_FALSE -> {
-                        val first = correct.firstOrNull()?.lowercase() ?: ""
-                        answers = listOf("true", "false")
-                        correct = listOf(if (first in TRUE_VALUES) "true" else "false")
-                    }
-                    QuestionType.MULTIPLE_CHOICE -> if (answers.size < 2) type = QuestionType.UNKNOWN
-                    else -> Unit
-                }
-
-        if (type == QuestionType.MULTIPLE_CHOICE && (answers.size < 2 || correct.isEmpty())) {
-            type = QuestionType.UNKNOWN
+        when (type) {
+            QuestionType.TRUE_FALSE -> {
+                val first = correct.firstOrNull()?.lowercase() ?: ""
+                answers = listOf("true", "false")
+                correct = listOf(if (first in TRUE_VALUES) "true" else "false")
+            }
+            QuestionType.MULTIPLE_CHOICE ->
+                if (answers.size < 2 || correct.isEmpty()) type = QuestionType.UNKNOWN
+            QuestionType.FILL_BLANK ->
+                if (correct.isEmpty()) type = QuestionType.UNKNOWN
+            else -> Unit
         }
 
         return QuizQuestion(
