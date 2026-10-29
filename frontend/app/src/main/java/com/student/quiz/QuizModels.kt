@@ -27,7 +27,7 @@ data class QuestionDto(
     val lesson: NamedRefDto? = null
 )
 
-enum class QuestionType { MULTIPLE_CHOICE, MULTIPLE_SELECT, TRUE_FALSE, FILL_BLANK, MATCHING, ORDERING, UNKNOWN }
+enum class QuestionType { MULTIPLE_CHOICE, MULTIPLE_SELECT, TRUE_FALSE, FILL_BLANK, IMAGE_QUESTION, MATCHING, ORDERING, UNKNOWN }
 
 enum class AnswerOutcome { CORRECT, WRONG, SKIPPED }
 
@@ -91,6 +91,7 @@ object QuizMapper {
             "SELECT" in t -> QuestionType.MULTIPLE_SELECT
             "MULTIPLE" in t || "CHOICE" in t -> QuestionType.MULTIPLE_CHOICE
             "BLANK" in t || "FILL" in t -> QuestionType.FILL_BLANK
+            "IMAGE" in t -> QuestionType.IMAGE_QUESTION
             "MATCH" in t || "PAIR" in t -> QuestionType.MATCHING
             "ORDER" in t || "SEQUENCE" in t -> QuestionType.ORDERING
             else -> QuestionType.UNKNOWN
@@ -117,6 +118,8 @@ object QuizMapper {
             QuestionType.MULTIPLE_SELECT ->
                 if (answers.size < 2 || correct.isEmpty() || correct.any { it !in answers }) type = QuestionType.UNKNOWN
             QuestionType.FILL_BLANK ->
+                if (correct.isEmpty()) type = QuestionType.UNKNOWN
+            QuestionType.IMAGE_QUESTION ->
                 if (correct.isEmpty()) type = QuestionType.UNKNOWN
             else -> Unit
         }

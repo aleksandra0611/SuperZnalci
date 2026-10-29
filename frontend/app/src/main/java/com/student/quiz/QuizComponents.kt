@@ -28,6 +28,7 @@ object QuestionComponents {
             QuestionType.TRUE_FALSE -> ChoiceComponent(context, parent, question)
             QuestionType.MULTIPLE_SELECT -> MultiSelectComponent(context, parent, question)
             QuestionType.FILL_BLANK -> FillBlankComponent(context, parent, question)
+            QuestionType.IMAGE_QUESTION -> FillBlankComponent(context, parent, question)
             else -> UnsupportedComponent(context, parent)
         }
 }

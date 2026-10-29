@@ -17,6 +17,7 @@ import java.io.IOException
 object ApiConfig {
     // Android emulator -> your computer. For a real phone use the computer's LAN IP
     const val BASE_URL = "http://10.0.2.2:3000/api/"
+    const val IMAGE_BASE_URL = "http://10.0.2.2:3000/" 
 }
 
 class UserEnvelope(val user: UserDto)

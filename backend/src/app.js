@@ -17,6 +17,9 @@ app.use("/api/users", userRoutes);
 app.use("/api/subjects", subjectRoutes);
 app.use("/api/questions", questionRoutes);
 
+const path = require("path");
+app.use("/images", express.static(path.join(__dirname, "..", "data", "images")));
+
 app.use((req, res) => res.status(404).json({ message: "Pot ne obstaja." }));
 
 app.use((err, req, res, next) => {

@@ -13,6 +13,7 @@ import androidx.core.graphics.ColorUtils
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import android.widget.ImageView
 
 class QuizFragment : Fragment(R.layout.fragment_quiz) {
 
@@ -79,6 +80,7 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
     private lateinit var tvHintText: TextView
     private lateinit var tvQuestion: TextView
     private lateinit var questionContainer: LinearLayout
+    private lateinit var ivQuizImage: ImageView
 
     private lateinit var feedbackCard: View
     private lateinit var tvFeedbackTitle: TextView
@@ -132,6 +134,7 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
         tvHintText = view.findViewById(R.id.tvQuizHintText)
         tvQuestion = view.findViewById(R.id.tvQuizQuestion)
         questionContainer = view.findViewById(R.id.questionContainer)
+        ivQuizImage = view.findViewById(R.id.ivQuizImage)
 
         feedbackCard = view.findViewById(R.id.feedbackCard)
         tvFeedbackTitle = view.findViewById(R.id.tvFeedbackTitle)
@@ -225,6 +228,7 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
         tvTag.text = if (q.topicName.isBlank()) subjectName
         else getString(R.string.quiz_tag, subjectName, q.topicName)
         tvQuestion.text = q.text
+        ImageQuiz.bind(ivQuizImage, q.image)
 
         val percent = (current + 1) * 100 / questions.size
         tvProgressLabel.text = getString(R.string.quiz_progress_label, current + 1, questions.size)

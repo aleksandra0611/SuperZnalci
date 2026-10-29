@@ -333,6 +333,7 @@
     <string name="quiz_true">Drži</string>
     <string name="quiz_false">Ne drži</string>
     <string name="quiz_multi_hint">Izberi vse pravilne odgovore</string>
+    <string name="quiz_image_cd">Slika k vprašanju</string>
  
     <!-- button -->
     <string name="quiz_btn_check">Preveri odgovor</string>
