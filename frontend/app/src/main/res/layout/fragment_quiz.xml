@@ -205,6 +205,17 @@
                         android:textColor="@color/on_surface"
                         android:textSize="20sp"
                         android:textStyle="bold" />
+                    
+                    <ImageView
+                        android:id="@+id/ivQuizImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/quiz_image_cd"
+                        android:maxHeight="240dp"
+                        android:scaleType="fitCenter"
+                        android:visibility="gone" />
 
                     <LinearLayout
                         android:id="@+id/questionContainer"
