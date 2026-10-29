@@ -332,6 +332,7 @@
     <string name="quiz_unsupported">Ta vrsta vprašanja še ni podprta. Preskoči jo in nadaljuj.</string>
     <string name="quiz_true">Drži</string>
     <string name="quiz_false">Ne drži</string>
+    <string name="quiz_multi_hint">Izberi vse pravilne odgovore</string>
  
     <!-- button -->
     <string name="quiz_btn_check">Preveri odgovor</string>
