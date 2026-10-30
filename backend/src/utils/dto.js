@@ -17,6 +17,18 @@ function toUserDto(user) {
   };
 }
 
+// Učenec v seznamu učilnice (za učitelja), brez e-pošte in značk
+function toStudentDto(user) {
+  return {
+    id: user._id.toString(),
+    name: user.name,
+    avatar: user.avatar ?? null,
+    totalXp: user.totalXp,
+    streak: user.streak,
+    lastActiveAt: user.lastActiveAt,
+  };
+}
+
 function toClassroomDto(classroom) {
   return {
     id: classroom._id.toString(),
@@ -68,4 +80,4 @@ function toQuestionDto(question, { subject, topic, lesson }) {
   };
 }
 
-module.exports = { toUserDto, toClassroomDto, toSubjectDto, toQuestionDto };
+module.exports = { toUserDto, toStudentDto, toClassroomDto, toSubjectDto, toQuestionDto };

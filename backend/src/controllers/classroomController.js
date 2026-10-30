@@ -1,5 +1,8 @@
 const Classroom = require("../models/classroomModel");
-const { toClassroomDto } = require("../utils/dto");
+const User = require("../models/userModel");
+const { toClassroomDto, toStudentDto } = require("../utils/dto");
+
+const OBJECT_ID = /^[0-9a-fA-F]{24}$/;
 
 // GET /api/classrooms (samo učitelj)
 async function listMyClassrooms(req, res, next) {
@@ -27,4 +30,29 @@ async function getMyClassroom(req, res, next) {
   }
 }
 
-module.exports = { listMyClassrooms, getMyClassroom };
+// GET /api/classrooms/:classroomId/students (samo učitelj, lastnik učilnice)
+async function listClassroomStudents(req, res, next) {
+  try {
+    const { classroomId } = req.params;
+    if (!OBJECT_ID.test(classroomId)) {
+      return res.status(400).json({ message: "Neveljaven id učilnice." });
+    }
+
+    const classroom = await Classroom.findById(classroomId).lean();
+    if (!classroom) {
+      return res.status(404).json({ message: "Učilnica ne obstaja." });
+    }
+    if (!classroom.teacherId.equals(req.user._id)) {
+      return res.status(403).json({ message: "Nimate pravice za to učilnico." });
+    }
+
+    const students = await User.find({ classroomId: classroom._id, role: "STUDENT" })
+      .sort({ name: 1 })
+      .lean();
+    return res.status(200).json({ students: students.map(toStudentDto) });
+  } catch (err) {
+    next(err);
+  }
+}
+
+module.exports = { listMyClassrooms, getMyClassroom, listClassroomStudents };
