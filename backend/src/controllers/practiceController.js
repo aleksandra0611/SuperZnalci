@@ -2,10 +2,7 @@ const Subject = require("../models/subjectModel");
 const Lesson = require("../models/lessonModel");
 const { toPracticeSubjectDto } = require("../utils/dto");
 
-// Vadnica: osnovna vsebina (javne lekcije), dostopna vsem prijavljenim, brez učilnice
-
-// GET /api/practice/subjects?gradeNumber=8
-// Vrne predmete, ki imajo v razredu vsaj eno javno lekcijo, s številom tem, lekcij in vprašanj.
+// Vadnica: lekcije s scope PRACTICE, dostopne vsem prijavljenim, brez učilnice
 async function listPracticeSubjects(req, res, next) {
   try {
     const gradeNumber = Number(req.query.gradeNumber);
@@ -18,9 +15,9 @@ async function listPracticeSubjects(req, res, next) {
       s.grades.filter((g) => g.gradeNumber === gradeNumber).flatMap((g) => g.topics.map((t) => t._id))
     );
 
-    // število javnih lekcij in vprašanj po temah
+    // število lekcij in vprašanj Vadnice po temah
     const counts = await Lesson.aggregate([
-      { $match: { topicId: { $in: topicIds }, isPublic: true } },
+      { $match: { topicId: { $in: topicIds }, scope: "PRACTICE" } },
       {
         $group: {
           _id: "$topicId",
