@@ -5,6 +5,7 @@ const classroomRoutes = require("./routes/classroomRoutes");
 const userRoutes = require("./routes/userRoutes");
 const subjectRoutes = require("./routes/subjectRoutes");
 const questionRoutes = require("./routes/questionRoutes");
+const practiceRoutes = require("./routes/practiceRoutes");
 
 const app = express();
 app.use(cors());
@@ -16,6 +17,7 @@ app.use("/api/classrooms", classroomRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/subjects", subjectRoutes);
 app.use("/api/questions", questionRoutes);
+app.use("/api/practice", practiceRoutes);
 
 const path = require("path");
 app.use("/images", express.static(path.join(__dirname, "..", "data", "images")));
