@@ -1,6 +1,8 @@
 const Subject = require("../models/subjectModel");
 const Lesson = require("../models/lessonModel");
 const { QUESTION_TYPES, LESSON_SCOPES } = require("../models/lessonModel");
+const Classroom = require("../models/classroomModel");
+const mongoose = require("mongoose");
 const { toQuestionDto } = require("../utils/dto");
 
 const OBJECT_ID = /^[0-9a-fA-F]{24}$/;
@@ -97,4 +99,175 @@ async function listQuestions(req, res, next) {
   }
 }
 
-module.exports = { listQuestions };
+
+// GET /api/questions/quiz
+async function generateQuiz(req, res, next) {
+  try {
+    const {
+      subjectId,
+      gradeNumber,
+      topicId,
+      lessonId,
+      scope = "SHARED",
+    } = req.query;
+
+    if (!subjectId || !OBJECT_ID.test(String(subjectId))) {
+      return res.status(400).json({
+        message: "Parameter subjectId mora biti veljaven id predmeta.",
+      });
+    }
+
+    const grade = Number(gradeNumber);
+
+    if (!Number.isInteger(grade) || grade < 1 || grade > 9) {
+      return res.status(400).json({
+        message: "Razred mora biti število od 1 do 9.",
+      });
+    }
+
+    if (topicId && !OBJECT_ID.test(String(topicId))) {
+      return res.status(400).json({
+        message: "Neveljaven id področja.",
+      });
+    }
+
+    if (lessonId && !OBJECT_ID.test(String(lessonId))) {
+      return res.status(400).json({
+        message: "Neveljaven id lekcije.",
+      });
+    }
+
+    const selectedScope = String(scope).trim().toUpperCase();
+
+    if (!LESSON_SCOPES.includes(selectedScope)) {
+      return res.status(400).json({
+        message: `Neveljaven scope. Dovoljeni: ${LESSON_SCOPES.join(", ")}.`,
+      });
+    }
+
+    const count = req.query.count === undefined
+      ? 7
+      : Number(req.query.count);
+
+    if (!Number.isInteger(count) || count < 1 || count > 20) {
+      return res.status(400).json({
+        message: "Število vprašanj mora biti med 1 in 20.",
+      });
+    }
+
+    const subject = await Subject.findById(subjectId).lean();
+
+    if (!subject) {
+      return res.status(404).json({
+        message: "Predmet ne obstaja.",
+      });
+    }
+
+    const topics = [];
+
+    for (const gradeData of subject.grades || []) {
+      if (gradeData.gradeNumber !== grade) continue;
+
+      for (const topic of gradeData.topics || []) {
+        if (topicId && topic._id.toString() !== String(topicId)) {
+          continue;
+        }
+
+        topics.push(topic._id);
+      }
+    }
+
+    if (topics.length === 0) {
+      return res.status(200).json({
+        subjectId,
+        gradeNumber: grade,
+        count: 0,
+        questions: [],
+      });
+    }
+
+    let visibility;
+
+    if (selectedScope === "CLASSROOM") {
+      if (req.user.role === "TEACHER") {
+        visibility = {
+          scope: "CLASSROOM",
+          authorId: req.user._id,
+        };
+      } else if (req.user.role === "STUDENT") {
+        if (!req.user.classroomId) {
+          return res.status(403).json({
+            message: "Niste član nobene učilnice.",
+          });
+        }
+
+        const classroom = await Classroom.findById(
+          req.user.classroomId
+        ).lean();
+
+        if (!classroom) {
+          return res.status(404).json({
+            message: "Učilnica ne obstaja.",
+          });
+        }
+
+        visibility = {
+          scope: "CLASSROOM",
+          authorId: classroom.teacherId,
+        };
+      }
+    } else {
+      // PRACTICE and SHARED content is available to authenticated users
+      visibility = {
+        scope: selectedScope,
+      };
+    }
+
+    const match = {
+      topicId: { $in: topics },
+      ...visibility,
+    };
+
+    if (lessonId) {
+      match._id = new mongoose.Types.ObjectId(lessonId);
+    }
+
+    const questions = await Lesson.aggregate([
+      { $match: match },
+
+      { $unwind: "$questions" },
+
+      { $sample: { size: count } },
+
+      {
+        $project: {
+          _id: 0,
+          id: { $toString: "$questions._id" },
+          type: "$questions.type",
+          text: "$questions.text",
+          answers: "$questions.answers",
+          difficulty: "$questions.difficulty",
+          points: "$questions.points",
+          image: "$questions.image",
+          lessonId: { $toString: "$_id" },
+          lessonName: "$name",
+        },
+      },
+    ]);
+
+    return res.status(200).json({
+      subjectId,
+      gradeNumber: grade,
+      count: questions.length,
+      questions,
+    });
+
+  } catch (err) {
+    next(err);
+  }
+}
+
+module.exports = {
+  listQuestions,
+  generateQuiz,
+};
