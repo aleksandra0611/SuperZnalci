@@ -5,14 +5,18 @@ const answerSchema = new mongoose.Schema({
     questionId: { type: mongoose.Schema.Types.ObjectId, required: true }, // _id of a question inside Lesson.questions
     givenAnswer: { type: mongoose.Schema.Types.Mixed, default: null },
     isCorrect: { type: Boolean, required: true },
+    points: { type: Number, default: 0, min: 0 }, // points earned for this answer, kept even if the question's points change later
 }, { _id: false });
 
 const attemptSchema = new mongoose.Schema({
     studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     lessonId: { type: mongoose.Schema.Types.ObjectId, ref: 'Lesson', required: true },
-    points: { type: Number, required: true, min: 0 },
-    accuracy: { type: Number, required: true, min: 0, max: 100 }, // percent
-    date: { type: Date, default: Date.now },
+    //the attempt is created when the lesson starts, points and accuracy are calculated when it is finished
+    points: { type: Number, default: 0, min: 0 },
+    accuracy: { type: Number, default: 0, min: 0, max: 100 }, // percent
+    date: { type: Date, default: Date.now }, // when the lesson was started
+    finishedAt: { type: Date, default: null }, // null = lesson still in progress, no more answers after it is set
+    isPractice: { type: Boolean, default: false }, // true = Vadnica (PRACTICE lesson), not counted in teacher results
     answers: [answerSchema],
 });
 
