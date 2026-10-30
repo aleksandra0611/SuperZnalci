@@ -14,6 +14,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import android.widget.ImageView
+import android.view.HapticFeedbackConstants
 
 class QuizFragment : Fragment(R.layout.fragment_quiz) {
 
@@ -225,6 +226,9 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
         val q = questions[current]
         checked = false
 
+        btnCheck.background = QuizUi.rounded(requireContext(), QuizUi.color(requireContext(), R.color.primary), null, 16)
+        btnCheck.setTextColor(QuizUi.color(requireContext(), R.color.surface))
+
         tvTag.text = if (q.topicName.isBlank()) subjectName
         else getString(R.string.quiz_tag, subjectName, q.topicName)
         tvQuestion.text = q.text
@@ -301,7 +305,6 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
         updateButton()
     }
 
-    // TODO: answer feedback
     private fun showFeedback(q: QuizQuestion, outcome: AnswerOutcome) {
         val ctx = requireContext()
         val green = QuizUi.color(ctx, R.color.primary)
@@ -318,6 +321,8 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
         val textColor = if (outcome == AnswerOutcome.SKIPPED) dark else white
 
         feedbackCard.background = QuizUi.rounded(ctx, background, null, 20)
+
+        // Title
         tvFeedbackTitle.setText(
             when (outcome) {
                 AnswerOutcome.CORRECT -> R.string.quiz_feedback_correct
@@ -327,6 +332,7 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
         )
         tvFeedbackTitle.setTextColor(textColor)
 
+        // XP badge (+ combo bonus note)
         if (outcome == AnswerOutcome.CORRECT) {
             tvFeedbackXp.visibility = View.VISIBLE
             tvFeedbackXp.text = getString(R.string.quiz_feedback_xp, q.points)
@@ -337,6 +343,7 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
             tvFeedbackXp.visibility = View.GONE
         }
 
+        // Body: correct answer (only when wrong) + combo / heart info + explanation
         val lines = listOfNotNull(
             if (outcome == AnswerOutcome.WRONG) {
                 getString(
@@ -344,13 +351,44 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
                     q.correctAnswers.joinToString(", ") { QuizUi.answerLabel(ctx, q.type, it) }
                 )
             } else null,
+            if (outcome == AnswerOutcome.CORRECT && combo >= 3)
+                getString(R.string.quiz_feedback_combo, combo) else null,
+            if (outcome == AnswerOutcome.WRONG)
+                getString(R.string.quiz_feedback_heart_lost, hearts) else null,
             q.explanation
         )
         tvFeedbackExplanation.text = lines.joinToString("\n")
         tvFeedbackExplanation.setTextColor(textColor)
         tvFeedbackExplanation.visibility = if (lines.isEmpty()) View.GONE else View.VISIBLE
 
+        // Button matches the result
+        if (outcome != AnswerOutcome.SKIPPED) {
+            btnCheck.background = QuizUi.rounded(ctx, background, null, 16)
+            btnCheck.setTextColor(white)
+        }
+
+        // Show with a slide-up animation
         feedbackCard.visibility = View.VISIBLE
+        feedbackCard.alpha = 0f
+        feedbackCard.translationY = QuizUi.dp(ctx, 24).toFloat()
+        feedbackCard.animate()
+            .alpha(1f)
+            .translationY(0f)
+            .setDuration(220)
+            .start()
+
+        // Haptic + accessibility
+        when (outcome) {
+            AnswerOutcome.CORRECT ->
+                feedbackCard.performHapticFeedback(HapticFeedbackConstants.CONFIRM)
+            AnswerOutcome.WRONG ->
+                feedbackCard.performHapticFeedback(HapticFeedbackConstants.REJECT)
+            AnswerOutcome.SKIPPED -> Unit
+        }
+        feedbackCard.announceForAccessibility(
+            "${tvFeedbackTitle.text}. ${tvFeedbackExplanation.text}"
+        )
+
         scroll.post { scroll.fullScroll(View.FOCUS_DOWN) }
     }
 

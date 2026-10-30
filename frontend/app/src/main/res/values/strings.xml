@@ -334,6 +334,8 @@
     <string name="quiz_false">Ne drži</string>
     <string name="quiz_multi_hint">Izberi vse pravilne odgovore</string>
     <string name="quiz_image_cd">Slika k vprašanju</string>
+    <string name="quiz_feedback_combo">🔥 %d v vrsti!</string>
+    <string name="quiz_feedback_heart_lost">Preostale srčke: %d</string>
  
     <!-- button -->
     <string name="quiz_btn_check">Preveri odgovor</string>
