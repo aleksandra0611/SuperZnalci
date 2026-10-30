@@ -61,6 +61,34 @@ function toSubjectDto(subject, gradeNumber = null) {
   };
 }
 
+// Predmet v Vadnici: samo teme izbranega razreda, ki imajo javne lekcije, s števili
+function toPracticeSubjectDto(subject, gradeNumber, countsByTopic) {
+  const topics = (subject.grades || [])
+    .filter((g) => g.gradeNumber === gradeNumber)
+    .flatMap((g) => g.topics || [])
+    .map((t) => {
+      const c = countsByTopic.get(t._id.toString());
+      return {
+        id: t._id.toString(),
+        name: t.name,
+        description: t.description ?? null,
+        lessonCount: c ? c.lessonCount : 0,
+        questionCount: c ? c.questionCount : 0,
+      };
+    })
+    .filter((t) => t.lessonCount > 0);
+
+  return {
+    id: subject._id.toString(),
+    name: subject.name,
+    icon: subject.icon ?? null,
+    topicCount: topics.length,
+    lessonCount: topics.reduce((n, t) => n + t.lessonCount, 0),
+    questionCount: topics.reduce((n, t) => n + t.questionCount, 0),
+    topics,
+  };
+}
+
 // Vprašanje s pravilnimi odgovori (za učitelja) in podatki, kam spada
 function toQuestionDto(question, { subject, topic, lesson }) {
   return {
@@ -80,4 +108,11 @@ function toQuestionDto(question, { subject, topic, lesson }) {
   };
 }
 
-module.exports = { toUserDto, toStudentDto, toClassroomDto, toSubjectDto, toQuestionDto };
+module.exports = {
+  toUserDto,
+  toStudentDto,
+  toClassroomDto,
+  toSubjectDto,
+  toPracticeSubjectDto,
+  toQuestionDto,
+};
