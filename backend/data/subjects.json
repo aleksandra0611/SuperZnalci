@@ -14,77 +14,77 @@
               "$oid": "cb107bcd4677b4949373b2cd"
             },
             "name": "Racionalna števila",
-            "description": null
+            "description": "Cela števila, absolutna in nasprotna vrednost"
           },
           {
             "_id": {
               "$oid": "da7227f2ad90fd6906bb0eb2"
             },
             "name": "Računske operacije",
-            "description": null
+            "description": "Seštevanje, odštevanje, množenje in deljenje racionalnih števil"
           },
           {
             "_id": {
               "$oid": "6ae48e52e56e9e266f34a502"
             },
             "name": "Potence",
-            "description": null
+            "description": "Potence, kvadriranje in kvadratni koren"
           },
           {
             "_id": {
               "$oid": "6ae48e52e56e9e266f34a504"
             },
             "name": "Izrazi s spremenljivko",
-            "description": null
+            "description": "Enočleniki in računanje z njimi"
           },
           {
             "_id": {
               "$oid": "6ae48e52e56e9e266f34a506"
             },
             "name": "Enačbe in neenačbe",
-            "description": null
+            "description": "Reševanje enačb z eno neznanko"
           },
           {
             "_id": {
               "$oid": "6ae48e52e56e9e266f34a508"
             },
             "name": "Večkotniki",
-            "description": null
+            "description": "Diagonale, notranji in zunanji koti večkotnika"
           },
           {
             "_id": {
               "$oid": "6ae48e52e56e9e266f34a50a"
             },
             "name": "Odvisnost količin in sorazmerja",
-            "description": null
+            "description": "Premo in obratno sorazmerje"
           },
           {
             "_id": {
               "$oid": "6ae48e52e56e9e266f34a50c"
             },
             "name": "Podatki",
-            "description": null
+            "description": "Obdelava podatkov in aritmetična sredina"
           },
           {
             "_id": {
               "$oid": "6ae48e52e56e9e266f34a50e"
             },
             "name": "Krog in krožnica",
-            "description": null
+            "description": "Obseg in ploščina kroga"
           },
           {
             "_id": {
               "$oid": "6ae48e52e56e9e266f34a510"
             },
             "name": "Pitagorov izrek",
-            "description": null
+            "description": "Računanje stranic pravokotnega trikotnika"
           },
           {
             "_id": {
               "$oid": "6ae48e52e56e9e266f34a512"
             },
             "name": "Kocka in kvader",
-            "description": null
+            "description": "Prostornina kocke in kvadra, pretvarjanje enot"
           }
         ]
       }
@@ -105,28 +105,28 @@
               "$oid": "cdb437d89c891091670a2a11"
             },
             "name": "Afrika",
-            "description": null
+            "description": "Lega, površje, podnebje in pokrajine Afrike"
           },
           {
             "_id": {
               "$oid": "e47eae6ab5f685652333d4b2"
             },
             "name": "Avstralija in Oceanija",
-            "description": null
+            "description": "Površje, podnebje, prebivalstvo in otoki Oceanije"
           },
           {
             "_id": {
               "$oid": "9578ed3e611f9278f35143cc"
             },
             "name": "Amerika in polarna območja",
-            "description": null
+            "description": "Severna in Južna Amerika, Arktika in Antarktika"
           },
           {
             "_id": {
               "$oid": "6ae492a9854c3790871b63ff"
             },
             "name": "Svetovni problemi",
-            "description": null
+            "description": "Opuščavljanje, krčenje gozdov in pomanjkanje vode"
           }
         ]
       }
@@ -147,42 +147,42 @@
               "$oid": "769f9112e4544b8251544644"
             },
             "name": "Uvod v fiziko",
-            "description": null
+            "description": "Merske enote, merjenje in merske napake"
           },
           {
             "_id": {
               "$oid": "57a0e364fd9a2571b5ce5174"
             },
             "name": "Vesolje",
-            "description": null
+            "description": "Zvezde, planeti in telesa v našem osončju"
           },
           {
             "_id": {
               "$oid": "8ee2d24455bce2e871b4e887"
             },
             "name": "Sile",
-            "description": null
+            "description": "Opis sil, teža, prožnost in trenje"
           },
           {
             "_id": {
               "$oid": "6ae492a940ed5424c07a1562"
             },
             "name": "Svetloba",
-            "description": null
+            "description": "Odboj in lom svetlobe, zrcala in leče"
           },
           {
             "_id": {
               "$oid": "6ae492a940ed5424c07a1575"
             },
             "name": "Enakomerno gibanje",
-            "description": null
+            "description": "Pot, čas in hitrost pri premem gibanju"
           },
           {
             "_id": {
               "$oid": "6ae492a940ed5424c07a1588"
             },
             "name": "Gostota, tlak in vzgon",
-            "description": null
+            "description": "Gostota snovi in tlak na podlago"
           }
         ]
       }
