@@ -8,6 +8,12 @@ const mongoose = require('mongoose');
 
 const QUESTION_TYPES = ['TRUE_FALSE', 'FILL_IN_BLANK', 'MULTIPLE_CHOICE', 'MULTIPLE_SELECT', 'MATCHING', 'IMAGE_QUESTION'];
 
+//Who can see and use the lesson:
+// - PRACTICE: official content only for Vadnica (free practice), visible to everyone, cannot be assigned to a classroom
+// - SHARED: official or shared content that teachers can assign to their classrooms, not shown in Vadnica
+// - CLASSROOM: lesson created by a teacher (authorId), visible only to the author and their classroom
+const LESSON_SCOPES = ['PRACTICE', 'SHARED', 'CLASSROOM'];
+
 const questionSchema = new mongoose.Schema({
     type: { type: String, enum: QUESTION_TYPES, required: true },
     text: { type: String, required: true },
@@ -24,7 +30,7 @@ const lessonSchema = new mongoose.Schema({
     name: { type: String, required: true, trim: true },
     order: { type: Number, required: true, min: 1 },
     authorId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
-    isPublic: { type: Boolean, default: false }, //true = official content, visible to everyone, false = visible only in classroom
+    scope: { type: String, enum: LESSON_SCOPES, required: true },
     questions: [questionSchema],
 });
 
@@ -32,3 +38,4 @@ lessonSchema.index({ topicId: 1, order: 1 });
 
 module.exports = mongoose.model('Lesson', lessonSchema);
 module.exports.QUESTION_TYPES = QUESTION_TYPES;
+module.exports.LESSON_SCOPES = LESSON_SCOPES;

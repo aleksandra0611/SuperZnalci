@@ -61,7 +61,7 @@ function toSubjectDto(subject, gradeNumber = null) {
   };
 }
 
-// Predmet v Vadnici: samo teme izbranega razreda, ki imajo javne lekcije, s števili
+// Predmet v Vadnici: samo teme izbranega razreda, ki imajo lekcije za Vadnico, s števili
 function toPracticeSubjectDto(subject, gradeNumber, countsByTopic) {
   const topics = (subject.grades || [])
     .filter((g) => g.gradeNumber === gradeNumber)
@@ -104,7 +104,7 @@ function toQuestionDto(question, { subject, topic, lesson }) {
     subjectId: subject._id.toString(),
     gradeNumber: topic.gradeNumber,
     topic: { id: topic.id.toString(), name: topic.name },
-    lesson: { id: lesson.id.toString(), name: lesson.name },
+    lesson: { id: lesson.id.toString(), name: lesson.name, scope: lesson.scope },
   };
 }
 

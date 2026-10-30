@@ -9,6 +9,7 @@
     "name": "Cela števila",
     "order": 1,
     "authorId": null,
+    "scope": "SHARED",
     "questions": [
       {
         "type": "TRUE_FALSE",
@@ -113,6 +114,7 @@
     "name": "Absolutna in nasprotna vrednost",
     "order": 2,
     "authorId": null,
+    "scope": "SHARED",
     "questions": [
       {
         "type": "FILL_IN_BLANK",
@@ -229,6 +231,7 @@
     "name": "Seštevanje števil z različnimi ter enakimi predznaki",
     "order": 1,
     "authorId": null,
+    "scope": "SHARED",
     "questions": [
       {
         "type": "MULTIPLE_SELECT",
@@ -349,6 +352,7 @@
     "name": "Izrazi s seštevanjem in odštevanjem",
     "order": 2,
     "authorId": null,
+    "scope": "SHARED",
     "questions": [
       {
         "type": "FILL_IN_BLANK",
@@ -454,6 +458,7 @@
     "name": "Množenje in deljenje racionalnih števil",
     "order": 3,
     "authorId": null,
+    "scope": "SHARED",
     "questions": [
       {
         "type": "MULTIPLE_SELECT",
@@ -611,6 +616,7 @@
     "name": "Lega, površje in vodovje Afrike",
     "order": 1,
     "authorId": null,
+    "scope": "SHARED",
     "questions": [
       {
         "type": "FILL_IN_BLANK",
@@ -716,6 +722,7 @@
     "name": "Severna Afrika",
     "order": 2,
     "authorId": null,
+    "scope": "SHARED",
     "questions": [
       {
         "type": "FILL_IN_BLANK",
@@ -808,6 +815,7 @@
     "name": "Lega in površje Avstralije",
     "order": 1,
     "authorId": null,
+    "scope": "SHARED",
     "questions": [
       {
         "type": "MULTIPLE_CHOICE",
@@ -874,6 +882,7 @@
     "name": "Podnebje in rastlinstvo Avstralije",
     "order": 2,
     "authorId": null,
+    "scope": "SHARED",
     "questions": [
       {
         "type": "MULTIPLE_CHOICE",
@@ -941,6 +950,7 @@
     "name": "Amerika in njena delitev",
     "order": 1,
     "authorId": null,
+    "scope": "SHARED",
     "questions": [
       {
         "type": "FILL_IN_BLANK",
@@ -1030,6 +1040,7 @@
     "name": "Merski sistemi",
     "order": 1,
     "authorId": null,
+    "scope": "SHARED",
     "questions": [
       {
         "type": "MULTIPLE_CHOICE",
@@ -1098,6 +1109,7 @@
     "name": "Zvezde",
     "order": 1,
     "authorId": null,
+    "scope": "SHARED",
     "questions": [
       {
         "type": "FILL_IN_BLANK",
@@ -1174,6 +1186,7 @@
     "name": "Opis sil",
     "order": 1,
     "authorId": null,
+    "scope": "SHARED",
     "questions": [
       {
         "type": "MULTIPLE_CHOICE",
@@ -1227,6 +1240,7 @@
     "name": "Teža in težišče",
     "order": 2,
     "authorId": null,
+    "scope": "SHARED",
     "questions": [
       {
         "type": "FILL_IN_BLANK",
@@ -1293,6 +1307,7 @@
     "name": "Potence in kvadratni koren",
     "order": 1,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "TRUE_FALSE",
@@ -1396,6 +1411,7 @@
     "name": "Seštevanje enočlenikov",
     "order": 1,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "MULTIPLE_SELECT",
@@ -1526,6 +1542,7 @@
     "name": "Reševanje enačb",
     "order": 1,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "FILL_IN_BLANK",
@@ -1632,6 +1649,7 @@
     "name": "Diagonale in koti večkotnika",
     "order": 1,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "FILL_IN_BLANK",
@@ -1733,6 +1751,7 @@
     "name": "Premo in obratno sorazmerje",
     "order": 1,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "FILL_IN_BLANK",
@@ -1836,6 +1855,7 @@
     "name": "Aritmetična sredina",
     "order": 1,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "MULTIPLE_CHOICE",
@@ -1937,6 +1957,7 @@
     "name": "Obseg in ploščina kroga",
     "order": 1,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "MULTIPLE_CHOICE",
@@ -2040,6 +2061,7 @@
     "name": "Dolžine stranic pravokotnega trikotnika",
     "order": 1,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "FILL_IN_BLANK",
@@ -2146,6 +2168,7 @@
     "name": "Prostornina kocke in kvadra",
     "order": 1,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "TRUE_FALSE",
@@ -2271,6 +2294,7 @@
     "name": "Podnebje in rastlinstvo Afrike",
     "order": 3,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "TRUE_FALSE",
@@ -2407,6 +2431,7 @@
     "name": "Južna Afrika",
     "order": 4,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "FILL_IN_BLANK",
@@ -2509,6 +2534,7 @@
     "name": "Prebivalstvo in gospodarstvo Avstralije",
     "order": 3,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "TRUE_FALSE",
@@ -2625,6 +2651,7 @@
     "name": "Oceanija in Nova Zelandija",
     "order": 4,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "MULTIPLE_SELECT",
@@ -2754,6 +2781,7 @@
     "name": "Površje, podnebje in vodovje Severne Amerike",
     "order": 2,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "TRUE_FALSE",
@@ -2894,6 +2922,7 @@
     "name": "Gospodarstvo ZDA in Kanade",
     "order": 3,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "TRUE_FALSE",
@@ -3023,6 +3052,7 @@
     "name": "Površje in podnebje Južne Amerike",
     "order": 4,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "MULTIPLE_SELECT",
@@ -3132,6 +3162,7 @@
     "name": "Polarna območja",
     "order": 5,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "TRUE_FALSE",
@@ -3236,6 +3267,7 @@
     "name": "Svetovni problemi",
     "order": 1,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "FILL_IN_BLANK",
@@ -3364,6 +3396,7 @@
     "name": "Merjenje in velikostne stopnje",
     "order": 2,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "MATCHING",
@@ -3493,6 +3526,7 @@
     "name": "Odboj svetlobe",
     "order": 1,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "TRUE_FALSE",
@@ -3597,6 +3631,7 @@
     "name": "Lom svetlobe",
     "order": 2,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "TRUE_FALSE",
@@ -3705,6 +3740,7 @@
     "name": "Objekti v vesolju in našem osončju",
     "order": 2,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "MULTIPLE_CHOICE",
@@ -3817,6 +3853,7 @@
     "name": "Premo enakomerno gibanje",
     "order": 1,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "MULTIPLE_SELECT",
@@ -3920,6 +3957,7 @@
     "name": "Hookov zakon",
     "order": 3,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "MULTIPLE_CHOICE",
@@ -4029,6 +4067,7 @@
     "name": "Trenje in upor",
     "order": 4,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "TRUE_FALSE",
@@ -4141,6 +4180,7 @@
     "name": "Gostota in specifična teža",
     "order": 1,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "MULTIPLE_CHOICE",
@@ -4242,6 +4282,7 @@
     "name": "Tlak",
     "order": 2,
     "authorId": null,
+    "scope": "PRACTICE",
     "questions": [
       {
         "type": "MULTIPLE_CHOICE",
@@ -4329,6 +4370,353 @@
         "image": null,
         "_id": {
           "$oid": "6ae492a940ed5424c07a1594"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae4b8967612f0c2b6fe6b88"
+    },
+    "topicId": {
+      "$oid": "cb107bcd4677b4949373b2cd"
+    },
+    "name": "Racionalna števila in urejanje",
+    "order": 3,
+    "authorId": null,
+    "scope": "PRACTICE",
+    "questions": [
+      {
+        "type": "TRUE_FALSE",
+        "text": "Vsako celo število je tudi racionalno število.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Drži"
+        ],
+        "explanation": "Množica celih števil je podmnožica množice racionalnih števil. Vsako celo število lahko zapišemo kot ulomek z imenovalcem 1, npr. −13 = −13/1.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae4b8967612f0c2b6fe6b89"
+        }
+      },
+      {
+        "type": "MULTIPLE_SELECT",
+        "text": "Označi vsa števila, ki so racionalna, niso pa cela.",
+        "answers": [
+          "−3/4",
+          "12",
+          "2,5",
+          "−7",
+          "0"
+        ],
+        "correctAnswers": [
+          "−3/4",
+          "2,5"
+        ],
+        "explanation": "Števila 12, −7 in 0 so cela števila (in zato tudi racionalna). Ulomek −3/4 in decimalno število 2,5 sta racionalni števili, ki nista celi.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae4b8967612f0c2b6fe6b8a"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Uredi števila po velikosti od najmanjšega do največjega.\n\n−2,5;  0,5;  −3;  0\n\n_ < _ < _ < _",
+        "answers": null,
+        "correctAnswers": [
+          "-3",
+          "-2,5",
+          "0",
+          "0,5"
+        ],
+        "explanation": "Vsako negativno število je manjše od 0, vsako pozitivno pa večje. Med negativnima številoma je manjše tisto, ki je bolj oddaljeno od 0: −3 < −2,5.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae4b8967612f0c2b6fe6b8b"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "V Ratečah je bila leta 2011 najnižja povprečna mesečna temperatura −7,2 °C (januar), najvišja pa 10,8 °C (avgust). Kolikšna je razlika med njima?",
+        "answers": [
+          "18 °C",
+          "3,6 °C",
+          "−18 °C",
+          "17,2 °C"
+        ],
+        "correctAnswers": [
+          "18 °C"
+        ],
+        "explanation": "Razliko izračunamo tako, da od višje temperature odštejemo nižjo: 10,8 °C − (−7,2 °C) = 10,8 °C + 7,2 °C = 18 °C.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae4b8967612f0c2b6fe6b8c"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Barbara ima na bančnem računu dovoljen limit −600 €. Trenutno stanje na računu je −150 €. Največ koliko evrov lahko še dvigne?",
+        "answers": [
+          "450 €",
+          "750 €",
+          "150 €",
+          "600 €"
+        ],
+        "correctAnswers": [
+          "450 €"
+        ],
+        "explanation": "Stanje ne sme pasti pod −600 €. Od −150 € do −600 € je razlika −150 € − (−600 €) = 450 €.",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae4b8967612f0c2b6fe6b8d"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae4b8967612f0c2b6fe6b8e"
+    },
+    "topicId": {
+      "$oid": "da7227f2ad90fd6906bb0eb2"
+    },
+    "name": "Množenje racionalnih števil",
+    "order": 4,
+    "authorId": null,
+    "scope": "PRACTICE",
+    "questions": [
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Izračunaj.\n\n2 · (−3) = _, (−5) · (−10) = _, 16 · (−3) = _",
+        "answers": null,
+        "correctAnswers": [
+          "-6",
+          "50",
+          "-48"
+        ],
+        "explanation": "Produkt števil z enakima predznakoma je pozitiven, produkt števil z različnima predznakoma pa negativen.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae4b8967612f0c2b6fe6b8f"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Produkt 4,1 · 8 · (−3) · 0 · (−7) ima pozitivno vrednost.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Ne drži"
+        ],
+        "explanation": "Eden od faktorjev je 0, zato je produkt enak 0. Število 0 ni ne pozitivno ne negativno.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae4b8967612f0c2b6fe6b90"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Koliko je (−0,5) · 8?",
+        "answers": [
+          "−4",
+          "4",
+          "−40",
+          "−0,4"
+        ],
+        "correctAnswers": [
+          "−4"
+        ],
+        "explanation": "0,5 · 8 = 4. Faktorja imata različna predznaka, zato je produkt negativen: −4.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae4b8967612f0c2b6fe6b91"
+        }
+      },
+      {
+        "type": "MULTIPLE_SELECT",
+        "text": "Označi vse produkte, ki imajo negativno vrednost.",
+        "answers": [
+          "(−2) · 3",
+          "(−2) · (−3)",
+          "(−1) · (−1) · (−1)",
+          "(−4) · 0",
+          "5 · (−1) · (−2)"
+        ],
+        "correctAnswers": [
+          "(−2) · 3",
+          "(−1) · (−1) · (−1)"
+        ],
+        "explanation": "Produkt je negativen, če ima liho število negativnih faktorjev (in noben faktor ni 0). Produkt s faktorjem 0 je enak 0.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae4b8967612f0c2b6fe6b92"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Produkt števil −6 in −30 je enak produktu števil −9, −4 in 5.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Drži"
+        ],
+        "explanation": "(−6) · (−30) = 180 in (−9) · (−4) · 5 = 36 · 5 = 180. Produkta sta enaka.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae4b8967612f0c2b6fe6b93"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae4b8967612f0c2b6fe6b94"
+    },
+    "topicId": {
+      "$oid": "da7227f2ad90fd6906bb0eb2"
+    },
+    "name": "Zakon o razčlenjevanju",
+    "order": 5,
+    "authorId": null,
+    "scope": "PRACTICE",
+    "questions": [
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Kateri zakon je uporabljen v enakosti 8 · (14 − 9) = 8 · 14 − 8 · 9?",
+        "answers": [
+          "Zakon o razčlenjevanju",
+          "Zakon o zamenjavi",
+          "Zakon o združevanju"
+        ],
+        "correctAnswers": [
+          "Zakon o razčlenjevanju"
+        ],
+        "explanation": "Po zakonu o razčlenjevanju vsoto ali razliko pomnožimo s številom tako, da z njim pomnožimo vsak člen: a · (b − c) = a · b − a · c.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae4b8967612f0c2b6fe6b95"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Kateri zakon je uporabljen v enakosti (4 · (−8)) · 20 = 4 · ((−8) · 20)?",
+        "answers": [
+          "Zakon o združevanju",
+          "Zakon o zamenjavi",
+          "Zakon o razčlenjevanju"
+        ],
+        "correctAnswers": [
+          "Zakon o združevanju"
+        ],
+        "explanation": "Vrstni red faktorjev ostane enak, spremeni se le, katera dva faktorja najprej zmnožimo. To je zakon o združevanju.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae4b8967612f0c2b6fe6b96"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Izračunaj z zakonom o razčlenjevanju.\n\n17 · (52 + 7) = _",
+        "answers": null,
+        "correctAnswers": [
+          "1003"
+        ],
+        "explanation": "17 · (52 + 7) = 17 · 52 + 17 · 7 = 884 + 119 = 1003.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae4b8967612f0c2b6fe6b97"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Izpostavi skupni faktor in izračunaj.\n\n18 · 7 − 16 · 18 = 18 · (_) = _",
+        "answers": null,
+        "correctAnswers": [
+          "-9",
+          "-162"
+        ],
+        "explanation": "Skupni faktor obeh členov je 18: 18 · 7 − 16 · 18 = 18 · (7 − 16) = 18 · (−9) = −162.",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae4b8967612f0c2b6fe6b98"
+        }
+      },
+      {
+        "type": "MATCHING",
+        "text": "Vsakemu številskemu izrazu na levi poišči njegovo vrednost na desni.",
+        "answers": {
+          "left": [
+            "A) 5 · (6 + 14)",
+            "B) −6 · (41 − 21)",
+            "C) 23 · (3 + 8 − 4)",
+            "D) (−13 + 9) · (−8)"
+          ],
+          "right": [
+            "161",
+            "32",
+            "100",
+            "−120"
+          ]
+        },
+        "correctAnswers": [
+          {
+            "left": "A) 5 · (6 + 14)",
+            "right": "100"
+          },
+          {
+            "left": "B) −6 · (41 − 21)",
+            "right": "−120"
+          },
+          {
+            "left": "C) 23 · (3 + 8 − 4)",
+            "right": "161"
+          },
+          {
+            "left": "D) (−13 + 9) · (−8)",
+            "right": "32"
+          }
+        ],
+        "explanation": "Najprej izračunamo vrednost v oklepaju, nato množimo: 5 · 20 = 100, −6 · 20 = −120, 23 · 7 = 161, (−4) · (−8) = 32.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae4b8967612f0c2b6fe6b99"
         }
       }
     ]

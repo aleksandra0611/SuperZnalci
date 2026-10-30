@@ -20,7 +20,7 @@ const upsertAll = (Model, docs) =>
     await mongoose.connect(process.env.MONGODB_URI);
 
     await upsertAll(Subject, read('subjects.json'));
-    await upsertAll(Lesson, read('lessons.json').map((l) => ({ ...l, isPublic: true })));
+    await upsertAll(Lesson, read('lessons.json')); // every lesson has its own scope (PRACTICE / SHARED)
 
     console.log('Seed done');
     await mongoose.disconnect();
