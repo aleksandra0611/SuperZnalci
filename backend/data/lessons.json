@@ -1282,5 +1282,3055 @@
         }
       }
     ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae48e52e56e9e266f34a503"
+    },
+    "topicId": {
+      "$oid": "6ae48e52e56e9e266f34a502"
+    },
+    "name": "Potence in kvadratni koren",
+    "order": 1,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "TRUE_FALSE",
+        "text": "Ali velja: 5 · 5 · 5 = 5³?",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Drži"
+        ],
+        "explanation": "Potenca je skrajšan zapis produkta enakih faktorjev. Osnova 5 nastopa trikrat kot faktor, zato je stopnja potence 3.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4d5"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Izračunaj vrednost potence.\n\n2⁵ = _, 3³ = _, (−2)⁴ = _",
+        "answers": null,
+        "correctAnswers": [
+          "32",
+          "27",
+          "16"
+        ],
+        "explanation": "2⁵ = 2 · 2 · 2 · 2 · 2 = 32, 3³ = 3 · 3 · 3 = 27. Potenca z negativno osnovo in sodo stopnjo je pozitivna: (−2)⁴ = 16.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4d6"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Koliko je 2³ · 2⁴?",
+        "answers": [
+          "2⁷",
+          "2¹²",
+          "4⁷",
+          "4¹²"
+        ],
+        "correctAnswers": [
+          "2⁷"
+        ],
+        "explanation": "Potence z enako osnovo množimo tako, da osnovo prepišemo, stopnji pa seštejemo: 2³ · 2⁴ = 2³⁺⁴ = 2⁷.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4d7"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Izračunaj kvadratni koren.\n\n√0,04 = _, √1,69 = _, √2500 = _",
+        "answers": null,
+        "correctAnswers": [
+          "0,2",
+          "1,3",
+          "50"
+        ],
+        "explanation": "Kvadratni koren je obratna operacija kvadriranja: 0,2² = 0,04, 1,3² = 1,69 in 50² = 2500. Koren decimalnega števila ima pol manj decimalnih mest, koren števila s sodim številom ničel pa pol manj ničel.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4d8"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Ali velja enakost √9 + √16 = √25?",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Ne drži"
+        ],
+        "explanation": "√9 + √16 = 3 + 4 = 7, √25 pa je 5. Vsote ne smemo koreniti po členih.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4d9"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae48e52e56e9e266f34a505"
+    },
+    "topicId": {
+      "$oid": "6ae48e52e56e9e266f34a504"
+    },
+    "name": "Seštevanje enočlenikov",
+    "order": 1,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "MULTIPLE_SELECT",
+        "text": "Označi vse enočlenike, ki so podobni enočleniku 5k³.",
+        "answers": [
+          "−9k³",
+          "5k²",
+          "k³/8",
+          "3k",
+          "0,2k³"
+        ],
+        "correctAnswers": [
+          "−9k³",
+          "k³/8",
+          "0,2k³"
+        ],
+        "explanation": "Podobni enočleniki imajo enake spremenljivke z enakimi stopnjami. Razlikujejo se lahko le v koeficientu.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4da"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Kateri je koeficient enočlenika −ab²c?",
+        "answers": [
+          "−1",
+          "1",
+          "2",
+          "0"
+        ],
+        "correctAnswers": [
+          "−1"
+        ],
+        "explanation": "Koeficient je številski faktor enočlenika. Pred −ab²c ni zapisano število, zato je koeficient −1.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4db"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Izračunaj.\n\na + a + a + a + a = _, 5a + 8a − 2a − 7a = _",
+        "answers": null,
+        "correctAnswers": [
+          "5a",
+          "4a"
+        ],
+        "explanation": "Podobne enočlenike seštejemo tako, da seštejemo njihove koeficiente, spremenljivko pa prepišemo: 5 + 8 − 2 − 7 = 4.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4dc"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Izračunaj.\n\n3x + 5x − 10x = _",
+        "answers": null,
+        "correctAnswers": [
+          "-2x"
+        ],
+        "explanation": "Seštejemo koeficiente: 3 + 5 − 10 = −2, zato je rezultat −2x.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4dd"
+        }
+      },
+      {
+        "type": "MATCHING",
+        "text": "Vsakemu izrazu na levi poišči enakovreden enočlenik na desni.",
+        "answers": {
+          "left": [
+            "A) 2a + 3a",
+            "B) 7a − 9a",
+            "C) 4ab − ab",
+            "D) a + 2a + 3a + 4a"
+          ],
+          "right": [
+            "3ab",
+            "10a",
+            "5a",
+            "−2a"
+          ]
+        },
+        "correctAnswers": [
+          {
+            "left": "A) 2a + 3a",
+            "right": "5a"
+          },
+          {
+            "left": "B) 7a − 9a",
+            "right": "−2a"
+          },
+          {
+            "left": "C) 4ab − ab",
+            "right": "3ab"
+          },
+          {
+            "left": "D) a + 2a + 3a + 4a",
+            "right": "10a"
+          }
+        ],
+        "explanation": "Seštevamo le podobne enočlenike, tako da seštejemo njihove koeficiente.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4de"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae48e52e56e9e266f34a507"
+    },
+    "topicId": {
+      "$oid": "6ae48e52e56e9e266f34a506"
+    },
+    "name": "Reševanje enačb",
+    "order": 1,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Reši enačbi.\n\nx + 7 = 15, x = _\ny − 4 = −10, y = _",
+        "answers": null,
+        "correctAnswers": [
+          "8",
+          "-6"
+        ],
+        "explanation": "Seštevanje in odštevanje sta obratni računski operaciji: x = 15 − 7 = 8 in y = −10 + 4 = −6.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4df"
+        }
+      },
+      {
+        "type": "MULTIPLE_SELECT",
+        "text": "Označi vse enačbe, katerih rešitev je x = 4.",
+        "answers": [
+          "x + 6 = 10",
+          "3x = 12",
+          "x : 2 = 8",
+          "2x − 1 = 7",
+          "16 : x = 4"
+        ],
+        "correctAnswers": [
+          "x + 6 = 10",
+          "3x = 12",
+          "2x − 1 = 7",
+          "16 : x = 4"
+        ],
+        "explanation": "Rešitev preverimo tako, da namesto x vstavimo 4. Pri enačbi x : 2 = 8 dobimo 4 : 2 = 2, kar ni 8 (rešitev te enačbe je x = 16).",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4e0"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Enačbi 4 : x = 16 in 4y = 16 imata enako rešitev, saj obe rešimo z deljenjem.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Ne drži"
+        ],
+        "explanation": "x = 4 : 16 = 0,25, y = 16 : 4 = 4. Enačbi nimata enake rešitve.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4e1"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Reši enačbo 3n + 3 = 300.",
+        "answers": [
+          "n = 99",
+          "n = 100",
+          "n = 101",
+          "n = 97"
+        ],
+        "correctAnswers": [
+          "n = 99"
+        ],
+        "explanation": "Najprej odštejemo 3: 3n = 297. Nato delimo s 3: n = 99.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4e2"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Reši enačbo z oklepaji.\n\n2(x − 3) = 14, x = _",
+        "answers": null,
+        "correctAnswers": [
+          "10"
+        ],
+        "explanation": "Odpravimo oklepaj: 2x − 6 = 14. Prištejemo 6: 2x = 20. Delimo z 2: x = 10.",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4e3"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae48e52e56e9e266f34a509"
+    },
+    "topicId": {
+      "$oid": "6ae48e52e56e9e266f34a508"
+    },
+    "name": "Diagonale in koti večkotnika",
+    "order": 1,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Koliko diagonal poteka iz enega oglišča šestkotnika? _",
+        "answers": null,
+        "correctAnswers": [
+          "3"
+        ],
+        "explanation": "Iz vsakega oglišča n-kotnika poteka n − 3 diagonal (oglišča ne povežemo s samim seboj in z obema sosednjima ogliščema): 6 − 3 = 3.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4e4"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Koliko diagonal ima šestkotnik?",
+        "answers": [
+          "6",
+          "9",
+          "12",
+          "18"
+        ],
+        "correctAnswers": [
+          "9"
+        ],
+        "explanation": "Število vseh diagonal n-kotnika je n · (n − 3) : 2. Za šestkotnik: 6 · 3 : 2 = 9.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4e5"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Vsota zunanjih kotov vsakega izbočenega večkotnika je 360°.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Drži"
+        ],
+        "explanation": "Vsota zunanjih kotov izbočenega večkotnika je vedno 360°, ne glede na število oglišč.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4e6"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Vsota notranjih kotov petkotnika je _°.",
+        "answers": null,
+        "correctAnswers": [
+          "540"
+        ],
+        "explanation": "Vsota notranjih kotov n-kotnika je (n − 2) · 180°. Za petkotnik: 3 · 180° = 540°.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4e7"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Kolikšen je notranji kot pravilnega osemkotnika?",
+        "answers": [
+          "120°",
+          "135°",
+          "140°",
+          "145°"
+        ],
+        "correctAnswers": [
+          "135°"
+        ],
+        "explanation": "Vsota notranjih kotov osemkotnika je 6 · 180° = 1080°. Pravilni osemkotnik ima vse kote enake: 1080° : 8 = 135°.",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4e8"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae48e52e56e9e266f34a50b"
+    },
+    "topicId": {
+      "$oid": "6ae48e52e56e9e266f34a50a"
+    },
+    "name": "Premo in obratno sorazmerje",
+    "order": 1,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Tia vsak dan naredi enako število počepov. V enem tednu jih naredi 126. Koliko počepov naredi vsak dan? _",
+        "answers": null,
+        "correctAnswers": [
+          "18"
+        ],
+        "explanation": "Število počepov je premo sorazmerno s številom dni: 126 : 7 = 18.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4e9"
+        }
+      },
+      {
+        "type": "MULTIPLE_SELECT",
+        "text": "Označi vse enačbe premega sorazmerja.",
+        "answers": [
+          "y = x/3",
+          "y = 3/x",
+          "y = 3x",
+          "x = y + 5"
+        ],
+        "correctAnswers": [
+          "y = x/3",
+          "y = 3x"
+        ],
+        "explanation": "Enačba premega sorazmerja ima obliko y = k · x. Pri y = x/3 je k = 1/3, pri y = 3x pa k = 3. Enačba y = 3/x opisuje obratno sorazmerje.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4ea"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Iz 3 kg sadja naredimo 1,8 l sadnega soka.\n\nKoeficient premega sorazmerja je k = _. Iz 10 kg sadja naredimo _ l soka.",
+        "answers": null,
+        "correctAnswers": [
+          "0,6",
+          "6"
+        ],
+        "explanation": "k = 1,8 : 3 = 0,6 (litra soka na kilogram sadja). Enačba je y = 0,6 · x, zato iz 10 kg dobimo 0,6 · 10 = 6 l soka.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4eb"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Če stranico kvadrata podvojimo, se njegova ploščina tudi podvoji.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Ne drži"
+        ],
+        "explanation": "Obseg se podvoji, ploščina pa se poveča štirikrat: (2a)² = 4a². Ploščina kvadrata ni premo sorazmerna z dolžino stranice.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4ec"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Tri enake cevi napolnijo bazen v 8 urah. V kolikšnem času bi ga napolnile štiri takšne cevi?",
+        "answers": [
+          "6 ur",
+          "10 ur",
+          "32 ur",
+          "2 uri"
+        ],
+        "correctAnswers": [
+          "6 ur"
+        ],
+        "explanation": "Število cevi in čas sta obratno sorazmerni količini, zato je njun produkt stalen: 3 · 8 = 24, 24 : 4 = 6 ur.",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4ed"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae48e52e56e9e266f34a50d"
+    },
+    "topicId": {
+      "$oid": "6ae48e52e56e9e266f34a50c"
+    },
+    "name": "Aritmetična sredina",
+    "order": 1,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Izračunaj aritmetično sredino števil 4, 7, 9 in 12.",
+        "answers": [
+          "8",
+          "32",
+          "7,5",
+          "9"
+        ],
+        "correctAnswers": [
+          "8"
+        ],
+        "explanation": "Podatke seštejemo in vsoto delimo s številom podatkov: (4 + 7 + 9 + 12) : 4 = 32 : 4 = 8.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4ee"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Aritmetično sredino lahko izračunamo za vse podatke, tudi za barvo las ali telefonske številke.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Ne drži"
+        ],
+        "explanation": "Aritmetično sredino računamo samo za številske podatke. Barva las je opisni podatek, telefonska številka pa je le oznaka, zato njuna sredina nima pomena.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4ef"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Aritmetična sredina sedemnajstih števil je 23. Vsota vseh števil je _.",
+        "answers": null,
+        "correctAnswers": [
+          "391"
+        ],
+        "explanation": "Vsota = aritmetična sredina · število podatkov = 23 · 17 = 391.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4f0"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Mojca je v štirih preizkusih dosegla 32, 34, 30 in 40 točk, Rok pa 30, 36, 35 in 35 točk. Primerjaj njuni povprečji.",
+        "answers": [
+          "Povprečji sta enaki.",
+          "Mojčino povprečje je višje za 0,75 točke.",
+          "Povprečji se razlikujeta za 0,5 točke.",
+          "Rokovo povprečje je višje za 1 točko."
+        ],
+        "correctAnswers": [
+          "Povprečji sta enaki."
+        ],
+        "explanation": "Mojca: (32 + 34 + 30 + 40) : 4 = 136 : 4 = 34. Rok: (30 + 36 + 35 + 35) : 4 = 136 : 4 = 34.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4f1"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Aritmetična sredina višin 30 dečkov je 165 cm, aritmetična sredina višin 40 deklic pa 160 cm.\n\nAritmetična sredina višin vseh otrok, zaokrožena na cele centimetre, je _ cm.",
+        "answers": null,
+        "correctAnswers": [
+          "162"
+        ],
+        "explanation": "Ne smemo kar povprečiti obeh sredin, ker skupini nista enako veliki. (30 · 165 cm + 40 · 160 cm) : 70 = 11350 cm : 70 ≐ 162 cm.",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4f2"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae48e52e56e9e266f34a50f"
+    },
+    "topicId": {
+      "$oid": "6ae48e52e56e9e266f34a50e"
+    },
+    "name": "Obseg in ploščina kroga",
+    "order": 1,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Formula za ploščino kroga je:",
+        "answers": [
+          "p = π · r",
+          "p = π · r²",
+          "p = 2 · π · r",
+          "p = π · d"
+        ],
+        "correctAnswers": [
+          "p = π · r²"
+        ],
+        "explanation": "Ploščino kroga izračunamo po formuli p = π · r². Formula o = 2 · π · r = π · d je formula za obseg kroga.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4f3"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Dopolni.\n\nMnožica točk, ki so od izbrane točke oddaljene za enako razdaljo, je _. Del ravnine, ki ga omejuje krožnica, je _.",
+        "answers": null,
+        "correctAnswers": [
+          "krožnica",
+          "krog"
+        ],
+        "explanation": "Krožnica je črta, krog pa je del ravnine znotraj krožnice skupaj s krožnico.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4f4"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Če polmer kroga podvojimo, se ploščina kroga podvoji.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Ne drži"
+        ],
+        "explanation": "Ploščina se poveča štirikrat. Za r = 2 cm je p = 4π cm², za r = 4 cm pa p = 16π cm².",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4f5"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Izberi obseg in ploščino kroga s premerom 14 cm (π ≈ 22/7).",
+        "answers": [
+          "o = 44 cm, p = 154 cm²",
+          "o = 88 cm, p = 154 cm²",
+          "o = 44 cm, p = 22 cm²",
+          "o = 88 cm, p = 22 cm²"
+        ],
+        "correctAnswers": [
+          "o = 44 cm, p = 154 cm²"
+        ],
+        "explanation": "o = π · d = 22/7 · 14 cm = 44 cm. Polmer je 7 cm, zato p = π · r² = 22/7 · 49 cm² = 154 cm².",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4f6"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Krog ima polmer 5 cm. Izračunaj obseg in ploščino kroga (π ≈ 3,14).\n\no = _ cm, p = _ cm²",
+        "answers": null,
+        "correctAnswers": [
+          "31,4",
+          "78,5"
+        ],
+        "explanation": "o = 2 · π · r = 2 · 3,14 · 5 cm = 31,4 cm. p = π · r² = 3,14 · 25 cm² = 78,5 cm².",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4f7"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae48e52e56e9e266f34a511"
+    },
+    "topicId": {
+      "$oid": "6ae48e52e56e9e266f34a510"
+    },
+    "name": "Dolžine stranic pravokotnega trikotnika",
+    "order": 1,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Kateti pravokotnega trikotnika merita 3 cm in 4 cm. Hipotenuza meri _ cm.",
+        "answers": null,
+        "correctAnswers": [
+          "5"
+        ],
+        "explanation": "Po Pitagorovem izreku je c² = a² + b² = 9 + 16 = 25, zato c = 5 cm.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4f8"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Hipotenuza pravokotnega trikotnika meri 20 mm, ena kateta pa 12 mm. Koliko meri druga kateta?",
+        "answers": [
+          "16 mm",
+          "8 mm",
+          "23,3 mm",
+          "32 mm"
+        ],
+        "correctAnswers": [
+          "16 mm"
+        ],
+        "explanation": "Kateto izračunamo tako, da od kvadrata hipotenuze odštejemo kvadrat znane katete: 400 − 144 = 256, √256 = 16 mm.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4f9"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Trikotnik s stranicami 9 m, 12 m in 15 m je pravokoten.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Drži"
+        ],
+        "explanation": "Preverimo Pitagorov izrek za najdaljšo stranico: 9² + 12² = 81 + 144 = 225 = 15². Trikotnik je pravokoten.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4fa"
+        }
+      },
+      {
+        "type": "MULTIPLE_SELECT",
+        "text": "Označi vse pitagorejske trojice.",
+        "answers": [
+          "3, 4, 5",
+          "5, 12, 13",
+          "6, 8, 11",
+          "8, 15, 17",
+          "4, 5, 6"
+        ],
+        "correctAnswers": [
+          "3, 4, 5",
+          "5, 12, 13",
+          "8, 15, 17"
+        ],
+        "explanation": "Pitagorejska trojica so tri naravna števila, za katera velja a² + b² = c²: 9 + 16 = 25, 25 + 144 = 169, 64 + 225 = 289. Pri 6, 8, 11 je 36 + 64 = 100 ≠ 121.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4fb"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Kateti pravokotnega trikotnika merita 7 dm in 24 dm.\n\nHipotenuza c = _ dm, obseg o = _ dm, ploščina p = _ dm²",
+        "answers": null,
+        "correctAnswers": [
+          "25",
+          "56",
+          "84"
+        ],
+        "explanation": "c² = 49 + 576 = 625, c = 25 dm. o = 7 + 24 + 25 = 56 dm. p = (7 · 24) : 2 = 84 dm².",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4fc"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae48e52e56e9e266f34a513"
+    },
+    "topicId": {
+      "$oid": "6ae48e52e56e9e266f34a512"
+    },
+    "name": "Prostornina kocke in kvadra",
+    "order": 1,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "TRUE_FALSE",
+        "text": "Prostornina kvadra je odvisna od ploščine njegove osnovne ploskve in višine kvadra.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Drži"
+        ],
+        "explanation": "Prostornina kvadra je V = O · v, kjer je O ploščina osnovne ploskve (a · b), v pa višina (c).",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4fd"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Kvader ima robove a = 5 cm, b = 3 cm in c = 9 cm. Kolikšna je njegova prostornina?",
+        "answers": [
+          "135 cm³",
+          "17 cm³",
+          "45 cm³",
+          "270 cm³"
+        ],
+        "correctAnswers": [
+          "135 cm³"
+        ],
+        "explanation": "V = a · b · c = 5 cm · 3 cm · 9 cm = 135 cm³.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4fe"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Pretvori.\n\n2000 cm³ = _ dm³, 0,8 dm³ = _ ml",
+        "answers": null,
+        "correctAnswers": [
+          "2",
+          "800"
+        ],
+        "explanation": "1 dm³ = 1000 cm³, zato je 2000 cm³ = 2 dm³. 1 dm³ = 1 l = 1000 ml, zato je 0,8 dm³ = 800 ml.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a4ff"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Prostornina kvadra je 135 cm³. Koliko kock s prostornino 9 cm³ lahko zložiš vanj? _",
+        "answers": null,
+        "correctAnswers": [
+          "15"
+        ],
+        "explanation": "135 cm³ : 9 cm³ = 15, zato v kvader lahko zložiš 15 kock.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a500"
+        }
+      },
+      {
+        "type": "MATCHING",
+        "text": "Vsaki kocki z robom a na levi poišči njeno prostornino na desni.",
+        "answers": {
+          "left": [
+            "A) a = 2 cm",
+            "B) a = 3 cm",
+            "C) a = 5 cm",
+            "D) a = 10 cm"
+          ],
+          "right": [
+            "27 cm³",
+            "1 dm³",
+            "8 cm³",
+            "125 cm³"
+          ]
+        },
+        "correctAnswers": [
+          {
+            "left": "A) a = 2 cm",
+            "right": "8 cm³"
+          },
+          {
+            "left": "B) a = 3 cm",
+            "right": "27 cm³"
+          },
+          {
+            "left": "C) a = 5 cm",
+            "right": "125 cm³"
+          },
+          {
+            "left": "D) a = 10 cm",
+            "right": "1 dm³"
+          }
+        ],
+        "explanation": "Prostornina kocke je V = a³. Kocka z robom 10 cm ima prostornino 1000 cm³ = 1 dm³.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae48e52e56e9e266f34a501"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae492a9854c3790871b63cd"
+    },
+    "topicId": {
+      "$oid": "cdb437d89c891091670a2a11"
+    },
+    "name": "Podnebje in rastlinstvo Afrike",
+    "order": 3,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "TRUE_FALSE",
+        "text": "Afrika je edina celina, ki leži skoraj v celoti v vročem toplotnem pasu.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Drži"
+        ],
+        "explanation": "Sonce nad Afriko skoraj vse leto sije skoraj navpično, zato je podnebje vroče, temperaturne razlike med letom pa so majhne.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63ce"
+        }
+      },
+      {
+        "type": "MULTIPLE_SELECT",
+        "text": "Označi dejavnike, ki vplivajo na podnebje Afrike.",
+        "answers": [
+          "geografska lega",
+          "oddaljenost od morja",
+          "relief",
+          "morski tokovi",
+          "število prebivalcev"
+        ],
+        "correctAnswers": [
+          "geografska lega",
+          "oddaljenost od morja",
+          "relief",
+          "morski tokovi"
+        ],
+        "explanation": "Na podnebje Afrike vplivajo geografska lega, oddaljenost od morja, relief in morski tokovi. Število prebivalcev na podnebje ne vpliva.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63cf"
+        }
+      },
+      {
+        "type": "MATCHING",
+        "text": "Vsakemu tipu podnebja poišči značilno rastlinstvo.",
+        "answers": {
+          "left": [
+            "ekvatorialno podnebje",
+            "savansko podnebje",
+            "puščavsko podnebje",
+            "sredozemsko podnebje"
+          ],
+          "right": [
+            "savana",
+            "sredozemsko rastlinstvo",
+            "tropski deževni gozd",
+            "puščavsko rastlinstvo"
+          ]
+        },
+        "correctAnswers": [
+          {
+            "left": "ekvatorialno podnebje",
+            "right": "tropski deževni gozd"
+          },
+          {
+            "left": "savansko podnebje",
+            "right": "savana"
+          },
+          {
+            "left": "puščavsko podnebje",
+            "right": "puščavsko rastlinstvo"
+          },
+          {
+            "left": "sredozemsko podnebje",
+            "right": "sredozemsko rastlinstvo"
+          }
+        ],
+        "explanation": "Rastlinstvo Afrike je neposredno odvisno od podnebja: vsakemu podnebnemu tipu ustreza svoj rastlinski pas.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63d0"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Kateri morski tok prispeva k nastanku puščave Namib?",
+        "answers": [
+          "hladni Benguelski tok",
+          "topli Zalivski tok",
+          "hladni Labradorski tok",
+          "hladni Humboldtov tok"
+        ],
+        "correctAnswers": [
+          "hladni Benguelski tok"
+        ],
+        "explanation": "Nad hladnim Benguelskim tokom ob jugozahodni obali Afrike izhlapi malo vode, zato je zrak suh in ne prinaša padavin.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63d1"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "V večjem delu Afrike letne čase določajo predvsem razlike v temperaturi.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Ne drži"
+        ],
+        "explanation": "Temperaturne razlike med letom so v Afriki majhne. Letne čase določata predvsem količina in čas padavin (deževna in sušna doba).",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63d2"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae492a9854c3790871b63d3"
+    },
+    "topicId": {
+      "$oid": "cdb437d89c891091670a2a11"
+    },
+    "name": "Južna Afrika",
+    "order": 4,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Politiko rasnega razlikovanja, ki so jo v Južni Afriki uzakonili belci, imenujemo _.",
+        "answers": null,
+        "correctAnswers": [
+          "apartheid"
+        ],
+        "explanation": "Apartheid je pomenil, da so morali črnci in belci živeti ločeno – ločene so bile šole, restavracije, javni prevoz in bolnišnice.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63d4"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Apartheid so v Južni Afriki uzakonili leta _, prve demokratične volitve pa so bile leta _.",
+        "answers": null,
+        "correctAnswers": [
+          "1948",
+          "1994"
+        ],
+        "explanation": "Apartheid so uzakonili leta 1948. Prve demokratične volitve so bile šele leta 1994.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63d5"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Kdo je zmagal na prvih demokratičnih volitvah v Južni Afriki?",
+        "answers": [
+          "Nelson Mandela",
+          "Mahatma Gandhi",
+          "Martin Luther King",
+          "Kofi Annan"
+        ],
+        "correctAnswers": [
+          "Nelson Mandela"
+        ],
+        "explanation": "Leta 1994 je na prvih demokratičnih volitvah zmagal Nelson Mandela, dolgoletni borec za pravice črncev.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63d6"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Puščava Namib leži ob obali Indijskega oceana.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Ne drži"
+        ],
+        "explanation": "Puščava Namib leži ob obali Atlantskega oceana, kjer teče hladni Benguelski tok.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63d7"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Katero gorovje tvori vzhodni rob južnoafriške planote?",
+        "answers": [
+          "Zmajeve gore",
+          "Atlas",
+          "Kilimandžaro",
+          "Etiopsko višavje"
+        ],
+        "correctAnswers": [
+          "Zmajeve gore"
+        ],
+        "explanation": "Zmajeve gore (Drakensberg) so vzhodni rob planote. Vlažni vetrovi z Indijskega oceana se ob njih dvigajo in prinašajo padavine.",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63d8"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae492a9854c3790871b63d9"
+    },
+    "topicId": {
+      "$oid": "e47eae6ab5f685652333d4b2"
+    },
+    "name": "Prebivalstvo in gospodarstvo Avstralije",
+    "order": 3,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "TRUE_FALSE",
+        "text": "Avstralija je zelo redko in neenakomerno poseljena.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Drži"
+        ],
+        "explanation": "Večina prebivalcev živi ob obalah, notranjost celine pa je zaradi suhega podnebja skoraj prazna.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63da"
+        }
+      },
+      {
+        "type": "MULTIPLE_SELECT",
+        "text": "Označi razloge za redko poselitev Avstralije.",
+        "answers": [
+          "pozno odkritje",
+          "velika oddaljenost od drugih celin",
+          "omejevanje priseljevanja do sedemdesetih let 20. stoletja",
+          "obilne padavine v notranjosti celine"
+        ],
+        "correctAnswers": [
+          "pozno odkritje",
+          "velika oddaljenost od drugih celin",
+          "omejevanje priseljevanja do sedemdesetih let 20. stoletja"
+        ],
+        "explanation": "Avstralija je bila odkrita pozno, je daleč od drugih celin, priseljevanje pa je bilo dolgo omejeno. Notranjost celine je suha, ne vlažna.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63db"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Kateri del Avstralije je najgosteje poseljen?",
+        "answers": [
+          "vzhodna in jugovzhodna obala",
+          "osrednji del celine",
+          "zahodna puščavska obala",
+          "severna obala"
+        ],
+        "correctAnswers": [
+          "vzhodna in jugovzhodna obala"
+        ],
+        "explanation": "Vetrovi s Tihega oceana prinašajo padavine na vzhodno in jugovzhodno obalo, zato je tam poselitev najgostejša. Gorovje zadrži vlago, da ne pride v notranjost.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63dc"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Kdo so bili prvi priseljenci v Avstralijo po prihodu Evropejcev?",
+        "answers": [
+          "britanski kaznjenci",
+          "nizozemski trgovci",
+          "španski misijonarji",
+          "francoski vojaki"
+        ],
+        "correctAnswers": [
+          "britanski kaznjenci"
+        ],
+        "explanation": "Prvi priseljenci so bili britanski kaznjenci. Priseljevanje se je povečalo v 19. stoletju predvsem zaradi iskanja zlata.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63dd"
+        }
+      },
+      {
+        "type": "MULTIPLE_SELECT",
+        "text": "Označi glavne izvozne izdelke Avstralije.",
+        "answers": [
+          "kmetijski pridelki",
+          "volna",
+          "nepredelane rude",
+          "avtomobili",
+          "računalniški čipi"
+        ],
+        "correctAnswers": [
+          "kmetijski pridelki",
+          "volna",
+          "nepredelane rude"
+        ],
+        "explanation": "Avstralija izvaža predvsem kmetijske pridelke, volno in nepredelane rude. Ima velika nahajališča rud in energetskih virov.",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63de"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae492a9854c3790871b63df"
+    },
+    "topicId": {
+      "$oid": "e47eae6ab5f685652333d4b2"
+    },
+    "name": "Oceanija in Nova Zelandija",
+    "order": 4,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "MULTIPLE_SELECT",
+        "text": "Označi tri velike otoške skupine Oceanije.",
+        "answers": [
+          "Polinezija",
+          "Mikronezija",
+          "Melanezija",
+          "Indonezija",
+          "Skandinavija"
+        ],
+        "correctAnswers": [
+          "Polinezija",
+          "Mikronezija",
+          "Melanezija"
+        ],
+        "explanation": "Otoke v Tihem oceanu delimo na Polinezijo, Mikronezijo in Melanezijo.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63e0"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Koralni otok s plitvo laguno v sredini imenujemo _.",
+        "answers": null,
+        "correctAnswers": [
+          "atol"
+        ],
+        "explanation": "Atol nastane, ko korale okoli vulkana rastejo hitreje, kot se vulkan pogreza. Ostane koralni obroč z laguno v sredini.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63e1"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Iz katerih dveh glavnih otokov je sestavljena Nova Zelandija?",
+        "answers": [
+          "Severni in Južni otok",
+          "Vzhodni in Zahodni otok",
+          "Tasmanija in Severni otok",
+          "Havaji in Južni otok"
+        ],
+        "correctAnswers": [
+          "Severni in Južni otok"
+        ],
+        "explanation": "Nova Zelandija leži jugovzhodno od Avstralije in jo sestavljata Severni in Južni otok.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63e2"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Kdo so prvotni prebivalci Nove Zelandije?",
+        "answers": [
+          "Maori",
+          "Aborigini",
+          "Inuiti",
+          "Indijanci"
+        ],
+        "correctAnswers": [
+          "Maori"
+        ],
+        "explanation": "Maore so izrinili večinoma britanski priseljenci. Danes so pravno enakopravni, v družbi pa so še vedno v podrejenem položaju.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63e3"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Katera gospodarska dejavnost je glavna na otokih Oceanije?",
+        "answers": [
+          "turizem",
+          "rudarstvo",
+          "težka industrija",
+          "pridelava riža"
+        ],
+        "correctAnswers": [
+          "turizem"
+        ],
+        "explanation": "Glavna gospodarska dejavnost na otokih Oceanije je turizem. Veliko otokov je odvisnih od ZDA, Velike Britanije in Francije.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63e4"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Velesile so oddaljenost otokov Oceanije izkoriščale za jedrske poskuse.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Drži"
+        ],
+        "explanation": "Zaradi velike oddaljenosti so ZDA, Velika Britanija in Francija na otokih Oceanije izvajale jedrske poskuse.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63e5"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae492a9854c3790871b63e6"
+    },
+    "topicId": {
+      "$oid": "9578ed3e611f9278f35143cc"
+    },
+    "name": "Površje, podnebje in vodovje Severne Amerike",
+    "order": 2,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "TRUE_FALSE",
+        "text": "Kordiljere zadržujejo vlažne zahodne vetrove s Tihega oceana, zato je vzhodno od njih manj padavin.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Drži"
+        ],
+        "explanation": "Vzhodno od Kordiljer pade manj kot 500 mm padavin na leto, ker gorovje zadrži vlažne vetrove s Tihega oceana.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63e7"
+        }
+      },
+      {
+        "type": "MULTIPLE_SELECT",
+        "text": "Označi jezera, ki spadajo med Velika jezera.",
+        "answers": [
+          "Gornje jezero",
+          "Michigansko jezero",
+          "Huronsko jezero",
+          "Erijsko jezero",
+          "Ontarijsko jezero",
+          "Viktorijino jezero"
+        ],
+        "correctAnswers": [
+          "Gornje jezero",
+          "Michigansko jezero",
+          "Huronsko jezero",
+          "Erijsko jezero",
+          "Ontarijsko jezero"
+        ],
+        "explanation": "Velika jezera so sistem petih povezanih jezer, ki so nastala ob umiku ledenikov. Viktorijino jezero je v Afriki.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63e8"
+        }
+      },
+      {
+        "type": "MATCHING",
+        "text": "Vsaki reki Severne Amerike poišči ustrezen opis.",
+        "answers": {
+          "left": [
+            "Mississippi",
+            "Kolorado",
+            "Rio Grande",
+            "reka Svetega Lovrenca"
+          ],
+          "right": [
+            "teče ob meji z Mehiko",
+            "povezuje Velika jezera z Atlantskim oceanom",
+            "največja reka, s pritoki Missouri, Ohio in Arkansas",
+            "izdolbla je Veliki kanjon"
+          ]
+        },
+        "correctAnswers": [
+          {
+            "left": "Mississippi",
+            "right": "največja reka, s pritoki Missouri, Ohio in Arkansas"
+          },
+          {
+            "left": "Kolorado",
+            "right": "izdolbla je Veliki kanjon"
+          },
+          {
+            "left": "Rio Grande",
+            "right": "teče ob meji z Mehiko"
+          },
+          {
+            "left": "reka Svetega Lovrenca",
+            "right": "povezuje Velika jezera z Atlantskim oceanom"
+          }
+        ],
+        "explanation": "Mississippi je največja reka Severne Amerike. Kolorado izvira v Skalnem gorovju, Rio Grande teče ob meji z Mehiko, reka Svetega Lovrenca pa je plovna pot do Atlantika.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63e9"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Kateri hladni morski tok vpliva na podnebje severovzhodne obale Severne Amerike?",
+        "answers": [
+          "Labradorski tok",
+          "Benguelski tok",
+          "Humboldtov tok",
+          "Zalivski tok"
+        ],
+        "correctAnswers": [
+          "Labradorski tok"
+        ],
+        "explanation": "Zaradi hladnega Labradorskega toka so temperature na severovzhodni obali do 7 °C nižje kot v Evropi na isti geografski širini.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63ea"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Kolikšen del vse sladke površinske vode na svetu vsebujejo Velika jezera?",
+        "answers": [
+          "skoraj petino",
+          "skoraj polovico",
+          "približno desetino",
+          "skoraj tri četrtine"
+        ],
+        "correctAnswers": [
+          "skoraj petino"
+        ],
+        "explanation": "Velika jezera merijo skupaj okoli 245 000 km² in vsebujejo skoraj petino vse sladke površinske vode na svetu.",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63eb"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae492a9854c3790871b63ec"
+    },
+    "topicId": {
+      "$oid": "9578ed3e611f9278f35143cc"
+    },
+    "name": "Gospodarstvo ZDA in Kanade",
+    "order": 3,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "TRUE_FALSE",
+        "text": "ZDA in Kanada veljata za gospodarski velesili.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Drži"
+        ],
+        "explanation": "Gospodarski razvoj Severne Amerike temelji na bogatih naravnih virih. ZDA in Kanada sodita med gospodarske velesile.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63ed"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Kje v ZDA so pomembna nahajališča železove rude in premoga?",
+        "answers": [
+          "v Apalačih in ob Velikih jezerih",
+          "na Floridi",
+          "v puščavi Mojave",
+          "na Havajskih otokih"
+        ],
+        "correctAnswers": [
+          "v Apalačih in ob Velikih jezerih"
+        ],
+        "explanation": "Železova ruda in premog sta v Apalačih in ob Velikih jezerih, kjer se je razvila industrija.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63ee"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Katera skupina kmetijskih kultur je značilna za toplo podnebje na jugu ZDA?",
+        "answers": [
+          "riž, tobak, bombaž in citrusi",
+          "pšenica, krompir in sladkorna pesa",
+          "ječmen, oves in hmelj",
+          "kava, kakav in banane"
+        ],
+        "correctAnswers": [
+          "riž, tobak, bombaž in citrusi"
+        ],
+        "explanation": "V toplem podnebju na jugu ZDA uspevajo riž, tobak, arašidi, bombaž in citrusi.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63ef"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "S čim poleg rud gospodarsko izstopa Kanada?",
+        "answers": [
+          "z lesom in nafto",
+          "z bombažem in citrusi",
+          "z rižem in čajem",
+          "s kavo in kakavom"
+        ],
+        "correctAnswers": [
+          "z lesom in nafto"
+        ],
+        "explanation": "Kanada izkorišča rude, les in nafto. Na severu sta pomembna gozdarstvo in lesna industrija.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63f0"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Območje visokotehnoloških podjetij okoli mesta San Jose v Kaliforniji imenujemo Silicijeva _.",
+        "answers": null,
+        "correctAnswers": [
+          "dolina"
+        ],
+        "explanation": "Silicijeva dolina je dobila ime po siliciju, iz katerega izdelujejo mikročipe in mikroprocesorje.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63f1"
+        }
+      },
+      {
+        "type": "MULTIPLE_SELECT",
+        "text": "Označi visokotehnološke dejavnosti, ki so v ZDA nadomestile številne starejše industrije.",
+        "answers": [
+          "informacijska tehnologija",
+          "biotehnologija",
+          "zelena energija",
+          "ročno tkalstvo",
+          "kuhanje oglja"
+        ],
+        "correctAnswers": [
+          "informacijska tehnologija",
+          "biotehnologija",
+          "zelena energija"
+        ],
+        "explanation": "Starejše industrije so nadomestile visokotehnološke dejavnosti, kot so informacijska tehnologija, biotehnologija in zelena energija.",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63f2"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae492a9854c3790871b63f3"
+    },
+    "topicId": {
+      "$oid": "9578ed3e611f9278f35143cc"
+    },
+    "name": "Površje in podnebje Južne Amerike",
+    "order": 4,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "MULTIPLE_SELECT",
+        "text": "Označi nižavja ob velikih rekah v osrednjem delu Južne Amerike.",
+        "answers": [
+          "Orinoško nižavje",
+          "Amazonsko nižavje",
+          "Laplatsko nižavje",
+          "Brazilsko višavje",
+          "Gvajansko višavje"
+        ],
+        "correctAnswers": [
+          "Orinoško nižavje",
+          "Amazonsko nižavje",
+          "Laplatsko nižavje"
+        ],
+        "explanation": "Površje Južne Amerike sestavljajo nižavja v osrednjem delu, višavja na vzhodu (Gvajansko in Brazilsko) in Andi na zahodu.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63f4"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Gorstvo ob zahodni obali Južne Amerike se imenuje _.",
+        "answers": null,
+        "correctAnswers": [
+          "Andi"
+        ],
+        "explanation": "Andi so gorska pregrada, ki omejuje vpliv Tihega oceana na notranjost celine. V njih so izraziti višinski pasovi.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63f5"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Ob katerem hladnem morskem toku je nastala puščava Atakama?",
+        "answers": [
+          "Humboldtov (Perujski) tok",
+          "Benguelski tok",
+          "Labradorski tok",
+          "Zalivski tok"
+        ],
+        "correctAnswers": [
+          "Humboldtov (Perujski) tok"
+        ],
+        "explanation": "Hladni Humboldtov (Perujski) tok teče proti severu ob zahodni obali Južne Amerike. Ob njem je nastala puščava Atakama.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63f6"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Večji del Južne Amerike leži v mrzlem toplotnem pasu.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Ne drži"
+        ],
+        "explanation": "Večji del Južne Amerike leži v vročem toplotnem pasu. V mrzlem pasu je le skrajni jug celine.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63f7"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Katero rastlinsko območje po velikosti najbolj izstopa v Južni Ameriki?",
+        "answers": [
+          "tropski deževni gozd v Amazonskem nižavju",
+          "savana na Brazilskem višavju",
+          "puščava Atakama",
+          "stepa na skrajnem jugu"
+        ],
+        "correctAnswers": [
+          "tropski deževni gozd v Amazonskem nižavju"
+        ],
+        "explanation": "Rastlinstvo Južne Amerike je raznovrstno, po velikosti pa izstopa tropski deževni gozd v Amazonskem nižavju.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63f8"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae492a9854c3790871b63f9"
+    },
+    "topicId": {
+      "$oid": "9578ed3e611f9278f35143cc"
+    },
+    "name": "Polarna območja",
+    "order": 5,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "TRUE_FALSE",
+        "text": "Antarktika je celina, severni tečaj pa leži sredi oceana.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Drži"
+        ],
+        "explanation": "Arktika je večinoma območje plavajočega morskega ledu v Severnem ledenem morju, Antarktika pa je celina pod debelo ledeno odejo.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63fa"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Antarktika obsega približno _ milijonov km².",
+        "answers": null,
+        "correctAnswers": [
+          "14"
+        ],
+        "explanation": "Antarktika meri okoli 14 milijonov km² in je večja od Evrope ali Avstralije.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63fb"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Kolikšen delež vse sladke vode na Zemlji je v ledu Antarktike?",
+        "answers": [
+          "70 %",
+          "10 %",
+          "30 %",
+          "95 %"
+        ],
+        "correctAnswers": [
+          "70 %"
+        ],
+        "explanation": "Led na Antarktiki je ponekod debel več kot 3000 m in vsebuje okoli 70 % vse sladke vode na Zemlji.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63fc"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Na Antarktiki živijo stalni prebivalci.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Ne drži"
+        ],
+        "explanation": "Antarktika nima stalnih prebivalcev, tam so le raziskovalne postaje. Južni rob Arktike je redko poseljen.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63fd"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Kdaj je polarni dan na Antarktiki?",
+        "answers": [
+          "v času naše zime",
+          "v času našega poletja",
+          "vse leto",
+          "nikoli"
+        ],
+        "correctAnswers": [
+          "v času naše zime"
+        ],
+        "explanation": "Polarni dan na Arktiki je v času našega poletja, na Antarktiki pa v času naše zime, ker sta na nasprotnih poloblah.",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b63fe"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae492a9854c3790871b6400"
+    },
+    "topicId": {
+      "$oid": "6ae492a9854c3790871b63ff"
+    },
+    "name": "Svetovni problemi",
+    "order": 1,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Proces širjenja puščav zaradi človekovega delovanja ali podnebnih sprememb imenujemo _.",
+        "answers": null,
+        "correctAnswers": [
+          "opuščavljanje"
+        ],
+        "explanation": "Opuščavljanje ogroža milijone ljudi, najbolj revne, ki se ne morejo odseliti.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b6401"
+        }
+      },
+      {
+        "type": "MULTIPLE_SELECT",
+        "text": "Označi vzroke za opuščavljanje.",
+        "answers": [
+          "prekomerna paša",
+          "neustrezno kmetovanje",
+          "podnebne spremembe",
+          "pogozdovanje"
+        ],
+        "correctAnswers": [
+          "prekomerna paša",
+          "neustrezno kmetovanje",
+          "podnebne spremembe"
+        ],
+        "explanation": "Puščave se širijo zaradi prekomerne paše, neustreznega kmetovanja in podnebnih sprememb. Pogozdovanje širjenje puščav zavira.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b6402"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Približno kolikšen delež vseh znanih rastlinskih vrst na svetu raste v tropskem deževnem gozdu?",
+        "answers": [
+          "48 %",
+          "5 %",
+          "15 %",
+          "90 %"
+        ],
+        "correctAnswers": [
+          "48 %"
+        ],
+        "explanation": "Tropski deževni gozd ima zelo veliko biotsko pestrost: v njem raste okoli 48 % vseh znanih rastlinskih vrst.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b6403"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Tropski deževni gozd se krči, ker ga posekajo hitreje, kot lahko ponovno zraste.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Drži"
+        ],
+        "explanation": "Gozd sekajo in požigajo hitreje, kot se obnavlja. Na posekanih površinah pride do erozije in izgube hranil.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b6404"
+        }
+      },
+      {
+        "type": "MULTIPLE_SELECT",
+        "text": "Označi razloge, zakaj ljudje sekajo in požigajo tropski deževni gozd.",
+        "answers": [
+          "pridobivanje kmetijskih površin",
+          "povpraševanje po lesu",
+          "rudarstvo",
+          "gradnja smučišč"
+        ],
+        "correctAnswers": [
+          "pridobivanje kmetijskih površin",
+          "povpraševanje po lesu",
+          "rudarstvo"
+        ],
+        "explanation": "Gozd uničujejo zaradi kmetijskih površin, lesne in rudarske industrije, velike površine pa poplavijo tudi jezovi.",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b6405"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Pomanjkanje sladke vode je lahko vzrok za spore in celo vojne.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Drži"
+        ],
+        "explanation": "Kjer je potreb po vodi več, kot je je na voljo, prihaja do političnih sporov in celo vojn.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a9854c3790871b6406"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae492a940ed5424c07a155c"
+    },
+    "topicId": {
+      "$oid": "769f9112e4544b8251544644"
+    },
+    "name": "Merjenje in velikostne stopnje",
+    "order": 2,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "MATCHING",
+        "text": "Vsakemu merilniku na levi poišči količino, ki jo z njim merimo.",
+        "answers": {
+          "left": [
+            "Ura",
+            "Meter",
+            "Termometer",
+            "Tehtnica"
+          ],
+          "right": [
+            "temperatura",
+            "masa",
+            "čas",
+            "dolžina"
+          ]
+        },
+        "correctAnswers": [
+          {
+            "left": "Ura",
+            "right": "čas"
+          },
+          {
+            "left": "Meter",
+            "right": "dolžina"
+          },
+          {
+            "left": "Termometer",
+            "right": "temperatura"
+          },
+          {
+            "left": "Tehtnica",
+            "right": "masa"
+          }
+        ],
+        "explanation": "Čas merimo z uro, dolžino z metrom, temperaturo s termometrom in maso s tehtnico.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a155d"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Natančnost meritve je odvisna samo od natančnosti merilnika.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Ne drži"
+        ],
+        "explanation": "Natančnost meritve je odvisna od natančnosti merilnika in od natančnosti merilca.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a155e"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Kaj je svetlobno leto?",
+        "answers": [
+          "Razdalja, ki jo svetloba prepotuje v enem letu.",
+          "Čas, ki ga svetloba potrebuje od Sonca do Zemlje.",
+          "Hitrost svetlobe v enem letu.",
+          "Starost najbližje zvezde."
+        ],
+        "correctAnswers": [
+          "Razdalja, ki jo svetloba prepotuje v enem letu."
+        ],
+        "explanation": "Svetlobno leto je enota za dolžino. Svetloba s hitrostjo 3 · 10⁸ m/s v enem letu prepotuje približno 9,5 · 10¹⁵ m.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a155f"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "S katerim merilnikom lahko natančno izmerimo notranji premer cevi?",
+        "answers": [
+          "Kljunasto merilo",
+          "Merilni trak",
+          "Laserski merilnik razdalje",
+          "Tehtnica"
+        ],
+        "correctAnswers": [
+          "Kljunasto merilo"
+        ],
+        "explanation": "S kljunastim merilom merimo zunanji in notranji premer predmetov. Drsnik z dodatno skalo omogoča natančnejše odčitavanje.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1560"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Povprečna vrednost meritev dolžine je 50 cm, absolutna napaka pa 1 cm. Relativna napaka je _ %.",
+        "answers": null,
+        "correctAnswers": [
+          "2"
+        ],
+        "explanation": "Relativna napaka je količnik absolutne napake in povprečne vrednosti: 1 cm : 50 cm = 0,02 = 2 %.",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1561"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae492a940ed5424c07a1563"
+    },
+    "topicId": {
+      "$oid": "6ae492a940ed5424c07a1562"
+    },
+    "name": "Odboj svetlobe",
+    "order": 1,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "TRUE_FALSE",
+        "text": "Svetloba se širi premočrtno.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Drži"
+        ],
+        "explanation": "Svetloba se širi premočrtno, zato jo ponazorimo s svetlobnim žarkom – daljico s puščico, ki kaže smer.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1564"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Odbojni kot je vedno manjši od vpadnega kota.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Ne drži"
+        ],
+        "explanation": "Po odbojnem zakonu se žarek na ravni ploskvi odbije tako, da je odbojni kot enak vpadnemu.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1565"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Žarek svetlobe vpade na ravno zrcalo pod vpadnim kotom 35°. Odbojni kot meri _°.",
+        "answers": null,
+        "correctAnswers": [
+          "35"
+        ],
+        "explanation": "Odbojni kot je enak vpadnemu kotu, zato meri 35°.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1566"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Kakšna je slika predmeta v ravnem zrcalu?",
+        "answers": [
+          "Navidezna, za zrcalom in enako oddaljena od zrcala kot predmet.",
+          "Prava, pred zrcalom.",
+          "Navidezna, dvakrat bolj oddaljena od zrcala kot predmet.",
+          "Prava in pomanjšana."
+        ],
+        "correctAnswers": [
+          "Navidezna, za zrcalom in enako oddaljena od zrcala kot predmet."
+        ],
+        "explanation": "Sliko vidimo tam, kjer je v resnici ni, zato je navidezna. Predmet in slika sta simetrična glede na zrcalo in enako oddaljena od njega.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1567"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Pod kolikšnim kotom glede na vodoravnico morata biti nagnjeni ravni zrcali v periskopu, da se vodoravni žarek odbije navpično?",
+        "answers": [
+          "30°",
+          "45°",
+          "60°",
+          "90°"
+        ],
+        "correctAnswers": [
+          "45°"
+        ],
+        "explanation": "Pri nagibu 45° žarek vpade na zrcalo pod vpadnim kotom 45°, odbije se pod enakim kotom in tako spremeni smer za 90°.",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1568"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae492a940ed5424c07a1569"
+    },
+    "topicId": {
+      "$oid": "6ae492a940ed5424c07a1562"
+    },
+    "name": "Lom svetlobe",
+    "order": 2,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "TRUE_FALSE",
+        "text": "Hitrost svetlobe v zraku je večja kot hitrost svetlobe v vodi.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Drži"
+        ],
+        "explanation": "Svetloba ima v različnih snoveh različno hitrost. Voda je optično gostejša od zraka, zato je svetloba v njej počasnejša.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a156a"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Žarek preide iz zraka v vodo (vpadni kot ni 0°). Kaj velja za lomni kot?",
+        "answers": [
+          "Lomni kot je manjši od vpadnega.",
+          "Lomni kot je večji od vpadnega.",
+          "Lomni kot je enak vpadnemu.",
+          "Žarek se ne lomi."
+        ],
+        "correctAnswers": [
+          "Lomni kot je manjši od vpadnega."
+        ],
+        "explanation": "Kot med žarkom in vpadno pravokotnico je vedno manjši v optično gostejši snovi. Voda je optično gostejša od zraka.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a156b"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Dopolni.\n\nLeča, ki vzporedne žarke zbere v eni točki, je _ leča. Točko, v kateri se žarki zberejo, imenujemo _.",
+        "answers": null,
+        "correctAnswers": [
+          "zbiralna",
+          "gorišče"
+        ],
+        "explanation": "Zbiralna leča zbere vzporedne žarke v gorišču, razpršilna leča pa vpadne žarke razprši.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a156c"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Ko žarek pod kotom prepotuje planparalelno stekleno ploščo, se vzporedno premakne, njegova smer pa ostane enaka.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Drži"
+        ],
+        "explanation": "Žarek se na obeh mejnih ploskvah lomi, zato se vzporedno zamakne, smer pa ostane enaka. Zato vidimo predmet nekoliko drugje, kot je v resnici.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a156d"
+        }
+      },
+      {
+        "type": "MULTIPLE_SELECT",
+        "text": "Označi vse pravilne trditve.",
+        "answers": [
+          "Bela svetloba se ob lomu razkloni na barve.",
+          "Rdeča svetloba se lomi manj kot modra.",
+          "Modra svetloba se lomi manj kot rdeča.",
+          "Pravo sliko zbiralne leče lahko projiciramo na zaslon.",
+          "Razpršilna leča zbere žarke v gorišču."
+        ],
+        "correctAnswers": [
+          "Bela svetloba se ob lomu razkloni na barve.",
+          "Rdeča svetloba se lomi manj kot modra.",
+          "Pravo sliko zbiralne leče lahko projiciramo na zaslon."
+        ],
+        "explanation": "Ob lomu se bela svetloba razkloni, pri čemer se rdeča lomi manj kot modra. Zbiralna leča da pravo sliko, ki jo lahko projiciramo na zaslon, razpršilna leča pa žarke razprši.",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a156e"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae492a940ed5424c07a156f"
+    },
+    "topicId": {
+      "$oid": "57a0e364fd9a2571b5ce5174"
+    },
+    "name": "Objekti v vesolju in našem osončju",
+    "order": 2,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Kateri planet je najbližje Soncu?",
+        "answers": [
+          "Merkur",
+          "Venera",
+          "Zemlja",
+          "Mars"
+        ],
+        "correctAnswers": [
+          "Merkur"
+        ],
+        "explanation": "Vrstni red planetov od Sonca je: Merkur, Venera, Zemlja, Mars, Jupiter, Saturn, Uran, Neptun.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1570"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Dopolni.\n\nNaše osončje ima _ planetov. Tir, po katerem se planeti gibljejo okoli Sonca, je _.",
+        "answers": null,
+        "correctAnswers": [
+          "8",
+          "elipsa"
+        ],
+        "explanation": "Osončje sestavljajo Sonce in osem planetov, ki se okoli Sonca gibljejo po elipsah.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1571"
+        }
+      },
+      {
+        "type": "MULTIPLE_SELECT",
+        "text": "Označi vse zunanje planete.",
+        "answers": [
+          "Jupiter",
+          "Mars",
+          "Saturn",
+          "Uran",
+          "Venera",
+          "Neptun"
+        ],
+        "correctAnswers": [
+          "Jupiter",
+          "Saturn",
+          "Uran",
+          "Neptun"
+        ],
+        "explanation": "Notranji planeti so Merkur, Venera, Zemlja in Mars. Zunanji planeti so Jupiter, Saturn, Uran in Neptun.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1572"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Utrinki so večinoma prašni delci, ki zgorijo, ko zadenejo Zemljino atmosfero.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Drži"
+        ],
+        "explanation": "Utrinki (meteorji) so večinoma prašni delci, pogosto ostanki kometov, ki zgorijo v Zemljini atmosferi.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1573"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Kateri planet je bolj oddaljen od Sonca kot Mars in manj kot Saturn?",
+        "answers": [
+          "Jupiter",
+          "Venera",
+          "Uran",
+          "Neptun"
+        ],
+        "correctAnswers": [
+          "Jupiter"
+        ],
+        "explanation": "Za Marsom sledi Jupiter, nato Saturn. Uran in Neptun sta dlje od Saturna, Venera pa bližje Soncu kot Mars.",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1574"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae492a940ed5424c07a1576"
+    },
+    "topicId": {
+      "$oid": "6ae492a940ed5424c07a1575"
+    },
+    "name": "Premo enakomerno gibanje",
+    "order": 1,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "MULTIPLE_SELECT",
+        "text": "Označi primere, pri katerih se telo giblje premo.",
+        "answers": [
+          "Padanje jabolka z drevesa",
+          "Vožnja z avtomobilom po ravni cesti",
+          "Vožnja s kolesom po poligonu",
+          "Vlak v ovinku"
+        ],
+        "correctAnswers": [
+          "Padanje jabolka z drevesa",
+          "Vožnja z avtomobilom po ravni cesti"
+        ],
+        "explanation": "Gibanje je premo, kadar je tir telesa ravna črta. Pri vožnji po poligonu in v ovinku je tir kriv.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1577"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Pri premem enakomernem gibanju telo v enakih časovnih presledkih opravi enako dolge poti.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Drži"
+        ],
+        "explanation": "Pri premem enakomernem gibanju je hitrost stalna, zato telo v enakih časih opravi enake poti.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1578"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Pešec v 80 s enakomerno prehodi 120 m. Njegova hitrost je _ m/s.",
+        "answers": null,
+        "correctAnswers": [
+          "1,5"
+        ],
+        "explanation": "v = s : t = 120 m : 80 s = 1,5 m/s.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1579"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Pretvori.\n\n1,5 m/s = _ km/h, 72 km/h = _ m/s",
+        "answers": null,
+        "correctAnswers": [
+          "5,4",
+          "20"
+        ],
+        "explanation": "1 m/s = 3,6 km/h. Iz m/s v km/h množimo s 3,6: 1,5 · 3,6 = 5,4. Iz km/h v m/s delimo s 3,6: 72 : 3,6 = 20.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a157a"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Avto vozi enakomerno s hitrostjo 90 km/h. Kolikšno pot opravi v 20 minutah?",
+        "answers": [
+          "30 km",
+          "45 km",
+          "18 km",
+          "1800 km"
+        ],
+        "correctAnswers": [
+          "30 km"
+        ],
+        "explanation": "20 minut je 1/3 ure. s = v · t = 90 km/h · 1/3 h = 30 km.",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a157b"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae492a940ed5424c07a157c"
+    },
+    "topicId": {
+      "$oid": "8ee2d24455bce2e871b4e887"
+    },
+    "name": "Hookov zakon",
+    "order": 3,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Kako imenujemo napravo za merjenje sil?",
+        "answers": [
+          "Silomer",
+          "Termometer",
+          "Barometer",
+          "Merilni trak"
+        ],
+        "correctAnswers": [
+          "Silomer"
+        ],
+        "explanation": "Sile merimo s silomerom. Silomer je vzmetna tehtnica – vzmet z merilom raztezka.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a157d"
+        }
+      },
+      {
+        "type": "MULTIPLE_SELECT",
+        "text": "Označi vsa prožna telesa.",
+        "answers": [
+          "Vzmet",
+          "Elastika",
+          "Glina",
+          "Plastelin",
+          "Žoga"
+        ],
+        "correctAnswers": [
+          "Vzmet",
+          "Elastika",
+          "Žoga"
+        ],
+        "explanation": "Prožno telo se po prenehanju delovanja sile vrne v prvotno obliko. Glina in plastelin sta neprožna.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a157e"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Po Hookovem zakonu sta sila, ki deluje na vzmet, in raztezek vzmeti premo sorazmerna.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Drži"
+        ],
+        "explanation": "Pri dvakrat ali trikrat večji sili je raztezek vzmeti dvakrat ali trikrat večji.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a157f"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Igrača, težka 35 N, je naložena še z 2 kg premoga. Kolikšno silo pokaže silomer? (g = 10 N/kg)",
+        "answers": [
+          "55 N",
+          "37 N",
+          "55 kg",
+          "70 N"
+        ],
+        "correctAnswers": [
+          "55 N"
+        ],
+        "explanation": "Teža 2 kg premoga je 2 kg · 10 N/kg = 20 N. Skupna teža je 35 N + 20 N = 55 N. Silo merimo v newtonih, ne v kilogramih.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1580"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Utež z maso 100 g raztegne vzmet za 5 cm. Če na vzmet obesimo še utež z maso 150 g, se vzmet skupno raztegne za _ cm.",
+        "answers": null,
+        "correctAnswers": [
+          "12,5"
+        ],
+        "explanation": "Skupna masa je 250 g, kar je 2,5-krat več kot 100 g. Po Hookovem zakonu je tudi raztezek 2,5-krat večji: 2,5 · 5 cm = 12,5 cm.",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1581"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae492a940ed5424c07a1582"
+    },
+    "topicId": {
+      "$oid": "8ee2d24455bce2e871b4e887"
+    },
+    "name": "Trenje in upor",
+    "order": 4,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "TRUE_FALSE",
+        "text": "Sila trenja deluje v nasprotni smeri od smeri gibanja telesa.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Drži"
+        ],
+        "explanation": "Ko se telo giblje po podlagi, nanj deluje zaviralna sila trenja v nasprotni smeri od smeri gibanja.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1583"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Klado vlečemo po mizi s stalno hitrostjo. Kaj velja za vlečno silo?",
+        "answers": [
+          "Enaka je sili trenja.",
+          "Večja je od sile trenja.",
+          "Manjša je od sile trenja.",
+          "Enaka je teži klade."
+        ],
+        "correctAnswers": [
+          "Enaka je sili trenja."
+        ],
+        "explanation": "Pri gibanju s stalno hitrostjo je vsota sil enaka nič, zato je vlečna sila enako velika kot sila trenja.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1584"
+        }
+      },
+      {
+        "type": "MULTIPLE_SELECT",
+        "text": "Od česa je odvisen upor pri gibanju telesa skozi vodo ali zrak?",
+        "answers": [
+          "Od vrste snovi, v kateri se telo giblje",
+          "Od oblike telesa",
+          "Od hitrosti gibanja",
+          "Od barve telesa"
+        ],
+        "correctAnswers": [
+          "Od vrste snovi, v kateri se telo giblje",
+          "Od oblike telesa",
+          "Od hitrosti gibanja"
+        ],
+        "explanation": "Upor je odvisen od vrste snovi in oblike telesa, v istem sredstvu pa tudi od velikosti ploskve in hitrosti gibanja. Barva nanj ne vpliva.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1585"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Padalec pada s stalno hitrostjo. Kolikšna je takrat sila upora?",
+        "answers": [
+          "enaka teži padalca",
+          "manjša od teže padalca",
+          "večja od teže padalca",
+          "enaka nič"
+        ],
+        "correctAnswers": [
+          "enaka teži padalca"
+        ],
+        "explanation": "Pri enakomernem gibanju sta sili v ravnovesju: sila upora je enaka teži padalca.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1586"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Iz dveh enakih kosov plastelina naredimo kroglico in tanko ploščico ter ju hkrati spustimo v vodo. Katera pride prej na dno?",
+        "answers": [
+          "Kroglica",
+          "Ploščica",
+          "Obe hkrati"
+        ],
+        "correctAnswers": [
+          "Kroglica"
+        ],
+        "explanation": "Obe imata enako maso, vendar ima ploščica večjo ploskev v smeri gibanja, zato nanjo deluje večji upor. Upor je odvisen od oblike telesa.",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1587"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae492a940ed5424c07a1589"
+    },
+    "topicId": {
+      "$oid": "6ae492a940ed5424c07a1588"
+    },
+    "name": "Gostota in specifična teža",
+    "order": 1,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Formula za gostoto je:",
+        "answers": [
+          "ρ = m/V",
+          "ρ = m · V",
+          "ρ = V/m",
+          "ρ = F/S"
+        ],
+        "correctAnswers": [
+          "ρ = m/V"
+        ],
+        "explanation": "Gostota je razmerje med maso in prostornino. Pove, kolikšno maso ima 1 m³ snovi. Osnovna enota je kg/m³.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a158a"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Kocka ima maso 54 g in prostornino 20 cm³. Gostota snovi je _ g/cm³.",
+        "answers": null,
+        "correctAnswers": [
+          "2,7"
+        ],
+        "explanation": "ρ = m : V = 54 g : 20 cm³ = 2,7 g/cm³.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a158b"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Plini imajo približno 1000-krat manjšo gostoto od kapljevin.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Drži"
+        ],
+        "explanation": "Plini imajo približno 1000-krat manjšo gostoto od kapljevin, gostote kapljevin pa so le nekajkrat manjše od gostot trdnih snovi.",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a158c"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Telesa iz različnih snovi imajo enako maso 2 kg. Katero telo ima najmanjšo prostornino?",
+        "answers": [
+          "Voda",
+          "Etilni alkohol",
+          "Led",
+          "Olje"
+        ],
+        "correctAnswers": [
+          "Voda"
+        ],
+        "explanation": "Pri enaki masi ima najmanjšo prostornino snov z največjo gostoto. Med naštetimi ima največjo gostoto voda (1000 kg/m³).",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a158d"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Gostota vode je 1000 kg/m³. Specifična teža vode je _ N/m³ (g = 10 N/kg).",
+        "answers": null,
+        "correctAnswers": [
+          "10000"
+        ],
+        "explanation": "Specifična teža je razmerje med težo in prostornino. 1 m³ vode ima maso 1000 kg in težo 10000 N, zato je σ = 10000 N/m³.",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a158e"
+        }
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae492a940ed5424c07a158f"
+    },
+    "topicId": {
+      "$oid": "6ae492a940ed5424c07a1588"
+    },
+    "name": "Tlak",
+    "order": 2,
+    "authorId": null,
+    "questions": [
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Formula za tlak je:",
+        "answers": [
+          "p = F/S",
+          "p = F · S",
+          "p = S/F",
+          "p = m/V"
+        ],
+        "correctAnswers": [
+          "p = F/S"
+        ],
+        "explanation": "Tlak je razmerje med silo, ki deluje pravokotno na podlago, in stično ploskvijo. Enota je paskal: 1 Pa = 1 N/m².",
+        "difficulty": "EASY",
+        "points": 5,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1590"
+        }
+      },
+      {
+        "type": "TRUE_FALSE",
+        "text": "Smuči nam pomagajo pri hoji po snegu, ker zmanjšajo našo težo.",
+        "answers": [
+          "Drži",
+          "Ne drži"
+        ],
+        "correctAnswers": [
+          "Ne drži"
+        ],
+        "explanation": "Teža ostane skoraj enaka. Smuči povečajo stično ploskev, zato je tlak na sneg manjši in se manj ugrezamo.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1591"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Omara s težo 500 N stoji na tleh. Stična ploskev med omaro in tlemi meri 0,5 m². Tlak omare na tla je _ Pa.",
+        "answers": null,
+        "correctAnswers": [
+          "1000"
+        ],
+        "explanation": "p = F : S = 500 N : 0,5 m² = 1000 Pa.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1592"
+        }
+      },
+      {
+        "type": "FILL_IN_BLANK",
+        "text": "Omara stoji na tleh s stično ploskvijo 0,5 m². Vanjo damo 20 kg oblek. Za koliko se poveča tlak na tla? _ Pa (g = 10 N/kg)",
+        "answers": null,
+        "correctAnswers": [
+          "400"
+        ],
+        "explanation": "Teža oblek je 20 kg · 10 N/kg = 200 N. Tlak se poveča za 200 N : 0,5 m² = 400 Pa.",
+        "difficulty": "HARD",
+        "points": 15,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1593"
+        }
+      },
+      {
+        "type": "MULTIPLE_CHOICE",
+        "text": "Koliko paskalov je 1 bar?",
+        "answers": [
+          "100 000 Pa",
+          "1000 Pa",
+          "10 Pa",
+          "1 000 000 Pa"
+        ],
+        "correctAnswers": [
+          "100 000 Pa"
+        ],
+        "explanation": "1 bar = 10⁵ Pa = 100 000 Pa.",
+        "difficulty": "MEDIUM",
+        "points": 10,
+        "image": null,
+        "_id": {
+          "$oid": "6ae492a940ed5424c07a1594"
+        }
+      }
+    ]
   }
 ]
