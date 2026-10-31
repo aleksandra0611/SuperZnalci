@@ -348,6 +348,11 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
         view.findViewById<View>(R.id.navProfile).setOnClickListener { openProfile() }
         view.findViewById<View>(R.id.ivAvatar).setOnClickListener { openProfile() }
         view.findViewById<View>(R.id.navLearn).setOnClickListener { openQuiz() }
+        view.findViewById<View>(R.id.navLearn)?.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, LearnFragment())
+                .commit()
+        }
     }
 
     private fun openProfile() {

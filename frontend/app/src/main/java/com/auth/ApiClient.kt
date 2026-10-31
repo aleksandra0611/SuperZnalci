@@ -9,6 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Query
 import java.io.IOException
@@ -63,6 +64,20 @@ interface ApiService {
 
     @GET("classrooms/{id}/leaderboard")
     fun leaderboard(@Path("id") classroomId: String, @Query("period") period: String): Call<LeaderboardEnvelope>
+
+    // --- teacher profile: REAL endpoints ---
+    @GET("classrooms")
+    fun myClassrooms(): Call<ClassroomsEnvelope>
+
+    @GET("classrooms/{id}/students")
+    fun classroomStudents(@Path("id") classroomId: String): Call<StudentsEnvelope>
+
+    // --- teacher profile: MISSING on the backend (mocked while TeacherConfig.USE_REAL_EXTRAS = false) ---
+    @GET("teachers/me/overview")
+    fun teacherExtras(): Call<TeacherExtrasDto>
+
+    @PATCH("users/me/settings")
+    fun updateSettings(@Body body: TeacherSettingsDto): Call<TeacherSettingsDto>
 }
 
 object ApiClient {
@@ -248,6 +263,11 @@ object ServiceLocator {
     val lessons: LessonsRepository =
         if (QuizConfig.USE_REAL_LESSONS_ENDPOINT) RetrofitLessonsRepository(api)
         else QuestionsDerivedLessonsRepository(api)
+
+    val teacherExtras: TeacherExtrasSource =
+        if (TeacherConfig.USE_REAL_EXTRAS) RetrofitTeacherExtrasSource(api)
+        else MockTeacherExtrasSource()
+    val teacher: TeacherRepository = RetrofitTeacherRepository(api, teacherExtras)
 
     val auth: AuthRepository = RetrofitAuthRepository(api)
     val profile: ProfileRepository = RetrofitProfileRepository(api, lessons)
