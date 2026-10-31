@@ -12,6 +12,10 @@ const attemptSchema = new mongoose.Schema({
     studentId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     lessonId: { type: mongoose.Schema.Types.ObjectId, ref: 'Lesson', required: true },
     //the attempt is created when the lesson starts, points and accuracy are calculated when it is finished
+    questionIds: [{
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    }],
     points: { type: Number, default: 0, min: 0 },
     accuracy: { type: Number, default: 0, min: 0, max: 100 }, // percent
     date: { type: Date, default: Date.now }, // when the lesson was started
