@@ -1,25 +1,30 @@
+
 const mongoose = require("mongoose");
 
 const Lesson = require("../models/lessonModel");
 const Subject = require("../models/subjectModel");
 const Classroom = require("../models/classroomModel");
 
+const {
+  getLessonStatuses,
+} = require("../services/lessonUnlockService");
+
 const MAX_TOPIC_IDS = 200;
 
 /**
  * GET /api/lessons?topicIds=id1,id2
  *
- * Vrne seznam lekcij za izbrane teme.
- *
  * STUDENT:
- * - PRACTICE lekcije so dostopne v vadnici.
- * - SHARED lekcije so vidne za učenčev predmet
- *   in razred.
- * - CLASSROOM lekcije so vidne samo, če jih
- *   je ustvaril učitelj učenčeve učilnice.
+ * - PRACTICE lekcije so vidne vsem učencem.
+ * - SHARED lekcije so vidne za predmet in razred.
+ * - CLASSROOM lekcije vidi učenec svojega učitelja.
+ * - Za seznam lekcij Assignment ni potreben.
  *
- * Endpoint vrača samo povzetke lekcij,
- * brez vprašanj in pravilnih odgovorov.
+ * TEACHER:
+ * - Vidi PRACTICE, SHARED in lastne CLASSROOM lekcije.
+ *
+ * SHARED lekcije dobijo status:
+ * DONE / CURRENT / LOCKED in stars.
  */
 async function listLessons(req, res, next) {
   try {
@@ -165,6 +170,15 @@ async function listLessons(req, res, next) {
       })
       .lean();
 
+    let statuses = new Map();
+
+    if (req.user.role === "STUDENT") {
+      statuses = await getLessonStatuses({
+        studentId: req.user._id,
+        topicIds: requestedTopicIds,
+      });
+    }
+
     const result = lessons.map((lesson) => {
       const questions = lesson.questions || [];
 
@@ -174,19 +188,37 @@ async function listLessons(req, res, next) {
         0
       );
 
+      const lessonStatus = statuses.get(
+        String(lesson._id)
+      );
+
+      const usesUnlocking =
+        req.user.role === "STUDENT" &&
+        lesson.scope === "SHARED";
+
       return {
         id: String(lesson._id),
         topicId: String(lesson.topicId),
         name: lesson.name,
-
         order: lesson.order ?? 0,
 
         isPublic: lesson.scope === "PRACTICE",
 
         questionCount: questions.length,
         totalPoints,
-
         description: null,
+
+        status: usesUnlocking
+          ? (lessonStatus?.status ?? "LOCKED")
+          : null,
+
+        stars: usesUnlocking
+          ? (lessonStatus?.stars ?? 0)
+          : 0,
+
+        bestAccuracy: usesUnlocking
+          ? (lessonStatus?.bestAccuracy ?? null)
+          : null,
       };
     });
 
