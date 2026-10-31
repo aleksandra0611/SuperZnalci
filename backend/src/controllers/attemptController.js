@@ -11,6 +11,7 @@ const { finishStoredAttempt } = require("../services/attemptService");
 const { awardPointsForAttempt } = require("../services/pointsService");
 const { calculateScore } = require("../services/scoreService");
 const { awardRewardsForAttempt } = require("../services/rewardsService");
+const { isLessonUnlocked, UNLOCK_MIN_ACCURACY } = require("../services/lessonUnlockService");
 
 // POST /api/lessons/:lessonId/attempts
 async function startAttempt(req, res, next) {
@@ -37,8 +38,7 @@ async function startAttempt(req, res, next) {
       });
     }
 
-    // Preverimo dostop.
-    // PRACTICE je dostopen vsakemu prijavljenemu učencu
+    // PRACTICE je dostopen vsakemu prijavljenemu učencu, SHARED se odklepa po vrsti, CLASSROOM (domača naloga) mora biti dodeljena učilnici
     if (lesson.scope !== "PRACTICE") {
       if (!req.user.classroomId) {
         return res.status(403).json({
@@ -80,24 +80,36 @@ async function startAttempt(req, res, next) {
         (id) => String(id) === String(subject._id)
       );
 
-      const assignment = await Assignment.findOne({
-        classroomId: classroom._id,
-        lessonId: lesson._id,
-      }).lean();
+      // domača naloga mora biti dodeljena učilnici
+      const assignment = lesson.scope === "CLASSROOM"
+        ? await Assignment.findOne({
+          classroomId: classroom._id,
+          lessonId: lesson._id,
+        }).lean()
+        : null;
 
       const validAuthor =
         lesson.scope !== "CLASSROOM" ||
         String(lesson.authorId) ===
-          String(classroom.teacherId);
+        String(classroom.teacherId);
 
       if (
         !sameGrade ||
         !hasSubject ||
-        !assignment ||
+        (lesson.scope === "CLASSROOM" && !assignment) ||
         !validAuthor
       ) {
         return res.status(403).json({
           message: "Nimate dostopa do te lekcije.",
+        });
+      }
+
+      if (
+        lesson.scope === "SHARED" &&
+        !(await isLessonUnlocked({ studentId: req.user._id, lesson }))
+      ) {
+        return res.status(403).json({
+          message: `Lekcija je še zaklenjena. Najprej reši prejšnjo lekcijo z vsaj ${UNLOCK_MIN_ACCURACY} %.`,
         });
       }
     }
@@ -107,6 +119,11 @@ async function startAttempt(req, res, next) {
       type: question.type,
       text: question.text,
       answers: question.answers,
+      // število praznih mest (brez rešitev), da aplikacija ve, koliko polj prikazati
+      blankCount:
+        question.type === "FILL_IN_BLANK" && Array.isArray(question.correctAnswers)
+          ? question.correctAnswers.length
+          : null,
       difficulty: question.difficulty,
       points: question.points,
       image: question.image,

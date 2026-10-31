@@ -66,6 +66,16 @@ interface ApiService {
     @GET("lessons")
     fun lessons(@Query("topicIds") topicIds: String): Call<LessonsEnvelope> //delete of we donćt add GET //api/lessons
 
+    // --- attempt API: solving a lesson, every answer is checked on the server ---
+    @POST("lessons/{lessonId}/attempts")
+    fun startAttempt(@Path("lessonId") lessonId: String): Call<StartAttemptResponse>
+
+    @POST("attempts/{attemptId}/answers")
+    fun submitAnswer(@Path("attemptId") attemptId: String, @Body body: AnswerRequest): Call<AnswerResultDto>
+
+    @POST("attempts/{attemptId}/finish")
+    fun finishAttempt(@Path("attemptId") attemptId: String): Call<FinishResultDto>
+
     // --- Vadnica (practice content, no classroom needed) ---
     @GET("practice/subjects")
     fun practiceSubjects(@Query("gradeNumber") gradeNumber: Int): Call<PracticeSubjectsEnvelope>

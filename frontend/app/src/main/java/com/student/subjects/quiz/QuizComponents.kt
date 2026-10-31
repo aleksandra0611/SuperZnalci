@@ -10,7 +10,11 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
+import com.google.gson.JsonElement
+import com.google.gson.JsonPrimitive
 
+// One question on the screen. The component does not know the correct answer:
+// it gives the student's answer in the API format and then shows what the server said.
 interface QuestionComponent {
     val root: View
 
@@ -18,7 +22,13 @@ interface QuestionComponent {
 
     fun hasAnswer(): Boolean
 
-    fun check(): AnswerOutcome
+    // givenAnswer for POST /api/attempts/{attemptId}/answers
+    fun answer(): JsonElement
+
+    // locked while the answer is being checked and after it was checked
+    fun setLocked(locked: Boolean)
+
+    fun showResult(result: AnswerResult)
 }
 
 object QuestionComponents {
@@ -29,6 +39,7 @@ object QuestionComponents {
             QuestionType.MULTIPLE_SELECT -> MultiSelectComponent(context, parent, question)
             QuestionType.FILL_BLANK -> FillBlankComponent(context, parent, question)
             QuestionType.IMAGE_QUESTION -> FillBlankComponent(context, parent, question)
+            QuestionType.MATCHING -> MatchingComponent(context, parent, question)
             else -> UnsupportedComponent(context, parent)
         }
 }
@@ -53,11 +64,12 @@ object QuizUi {
         if (stroke != null) setStroke(dp(context, 2), stroke)
     }
 
-        fun answerLabel(context: Context, type: QuestionType, value: String): String =
-        if (type == QuestionType.TRUE_FALSE) {
-            context.getString(if (value == "true") R.string.quiz_true else R.string.quiz_false)
-        } else {
-            value
+    // TRUE_FALSE answers come from the server as "Drži" / "Ne drži"; older data may use true / false
+    fun answerLabel(context: Context, type: QuestionType, value: String): String =
+        when {
+            type == QuestionType.TRUE_FALSE && value.equals("true", ignoreCase = true) -> context.getString(R.string.quiz_true)
+            type == QuestionType.TRUE_FALSE && value.equals("false", ignoreCase = true) -> context.getString(R.string.quiz_false)
+            else -> value
         }
 }
 
@@ -100,11 +112,16 @@ class ChoiceComponent(
 
     override fun hasAnswer() = selected >= 0
 
-    override fun check(): AnswerOutcome {
-        if (selected < 0) return AnswerOutcome.SKIPPED
+    override fun answer(): JsonElement = JsonPrimitive(question.answers[selected])
+
+    override fun setLocked(locked: Boolean) {
+        this.locked = locked
+    }
+
+    override fun showResult(result: AnswerResult) {
         locked = true
         rows.indices.forEach { i ->
-            val isRight = question.answers[i] in question.correctAnswers
+            val isRight = question.answers[i] in result.correctAnswers
             render(
                 i,
                 when {
@@ -113,11 +130,6 @@ class ChoiceComponent(
                     else -> State.DISABLED
                 }
             )
-        }
-        return if (question.answers[selected] in question.correctAnswers) {
-            AnswerOutcome.CORRECT
-        } else {
-            AnswerOutcome.WRONG
         }
     }
 
@@ -155,6 +167,7 @@ class ChoiceComponent(
     private fun c(@ColorRes res: Int) = QuizUi.color(context, res)
 }
 
+// Only for broken data (unknown type, missing options). The quiz skips it without asking the server.
 class UnsupportedComponent(context: Context, parent: ViewGroup) : QuestionComponent {
 
     override val root: View = TextView(context).apply {
@@ -169,5 +182,9 @@ class UnsupportedComponent(context: Context, parent: ViewGroup) : QuestionCompon
 
     override fun hasAnswer() = true
 
-    override fun check() = AnswerOutcome.SKIPPED
+    override fun answer(): JsonElement = JsonPrimitive("")
+
+    override fun setLocked(locked: Boolean) = Unit
+
+    override fun showResult(result: AnswerResult) = Unit
 }

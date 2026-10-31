@@ -1,27 +1,27 @@
 package com.example.superznalci
 
+import com.google.gson.JsonElement
+
 class RetrofitQuizRepository(private val api: ApiService) : QuizRepository {
 
-    override fun loadQuestions(
-        subjectId: String,
-        gradeNumber: Int?,
-        lessonId: String?,
-        practice: Boolean,
-        callback: ResultCallback<List<QuizQuestion>>
-    ) {
-        val scope = if (practice) "PRACTICE" else null
-        api.questions(subjectId, gradeNumber, null, scope).go({ callback(ApiResult.Failure(it)) }) { envelope ->
-            val all = envelope.questions.orEmpty().mapNotNull { QuizMapper.toQuestion(it) }
-            val result = if (lessonId != null) {
-                all.filter { it.lessonId == lessonId }
-            } else {
-                all.shuffled().take(QuizConfig.QUESTIONS_PER_QUIZ)
-            }
-            callback(ApiResult.Success(result))
+    override fun startLesson(lessonId: String, callback: ResultCallback<QuizSession>) {
+        api.startAttempt(lessonId).go({ callback(ApiResult.Failure(it)) }) { response ->
+            val questions = response.questions.orEmpty().mapNotNull { QuizMapper.toQuestion(it, lessonId) }
+            callback(ApiResult.Success(QuizSession(response.attemptId, questions)))
         }
     }
 
-    override fun submitAttempt(attempt: QuizAttempt, callback: ResultCallback<Unit>) {
-        callback(ApiResult.Success(Unit))
+    override fun submitAnswer(
+        attemptId: String,
+        questionId: String,
+        givenAnswer: JsonElement,
+        callback: ResultCallback<AnswerResult>
+    ) {
+        api.submitAnswer(attemptId, AnswerRequest(questionId, givenAnswer))
+            .go({ callback(ApiResult.Failure(it)) }) { callback(ApiResult.Success(QuizMapper.toResult(it))) }
+    }
+
+    override fun finish(attemptId: String, callback: ResultCallback<FinishResultDto>) {
+        api.finishAttempt(attemptId).go({ callback(ApiResult.Failure(it)) }) { callback(ApiResult.Success(it)) }
     }
 }
