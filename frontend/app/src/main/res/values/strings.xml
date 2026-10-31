@@ -399,4 +399,54 @@
     <string name="lb_badges_title">Osvojene značke pri vaji</string>
     <string name="lb_btn_continue">Nadaljuj z naslednjo lekcijo →</string>
     <string name="lb_btn_review">Pregled napačnih vprašanj (%1$d)</string>
+    <!-- Paste inside <resources> in res/values/strings.xml -->
+
+    <!-- streak + daily goal -->
+    <plurals name="learn_streak_days">
+        <item quantity="one">%d dan zapored!</item>
+        <item quantity="two">%d dni zapored!</item>
+        <item quantity="few">%d dni zapored!</item>
+        <item quantity="other">%d dni zapored!</item>
+    </plurals>
+    <string name="learn_streak_record">Tvoj rekord je %1$d dni. Zdrži še naprej!</string>
+    <string name="learn_goal_title">Dnevni cilj vaj</string>
+    <string name="learn_goal_count">%1$d / %2$d lekcije</string>
+    <string name="learn_goal_reached">Cilj dosežen</string>
+
+    <!-- homework -->
+    <string name="learn_hw_label">DOMAČA NALOGA</string>
+    <string name="learn_hw_meta">Dodelila %1$s • %2$s</string>
+    <string name="learn_hw_meta_no_teacher">%1$s</string>
+    <string name="learn_hw_btn">Nadaljuj z učenjem ▷</string>
+    <string name="learn_due_today">Danes do %1$s</string>
+    <string name="learn_due_date">Do %1$s</string>
+
+    <!-- chapter path -->
+    <string name="learn_chapter_label">POGLAVJE %1$d</string>
+    <string name="learn_no_path">Za tvoj razred še ni lekcij.</string>
+    <string name="learn_node_tag">Na vrsti si! • %1$s</string>
+    <string name="learn_node_level">Stopnja %1$d od %2$d</string>
+    <string name="learn_locked">Zaklenjeno</string>
+    <string name="learn_locked_toast">Najprej dokončaj prejšnjo lekcijo.</string>
+    <string name="learn_boss_title">Preizkus znanja</string>
+    <string name="learn_boss_sub">Boss Kviz</string>
+    <plurals name="learn_questions">
+        <item quantity="one">%d vprašanje</item>
+        <item quantity="two">%d vprašanji</item>
+        <item quantity="few">%d vprašanja</item>
+        <item quantity="other">%d vprašanj</item>
+    </plurals>
+
+    <!-- missions -->
+    <string name="learn_missions_title">Dnevne misije</string>
+    <string name="learn_reset_in">Ponastavitev čez %1$dh</string>
+    <string name="learn_mission_flawless_sub">%1$d / %2$d dokončano</string>
+    <string name="learn_mission_xp_sub">Danes zbrano: %1$d / %2$d XP</string>
+    <string name="learn_mission_duel_sub">%1$d / %2$d izziv</string>
+    <string name="learn_mission_generic_sub">%1$d / %2$d</string>
+    <string name="learn_reward_btn">+%1$d XP 🎁</string>
+    <string name="learn_reward_text">+%1$d XP</string>
+    <string name="learn_reward_claimed">Nagrada prevzeta!</string>
+    <string name="learn_claimed">Prevzeto</string>
+    <string name="learn_challenge_btn">Izzovi</string>
 </resources>

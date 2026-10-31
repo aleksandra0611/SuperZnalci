@@ -258,6 +258,14 @@ object ServiceLocator {
     val leaderboard: LeaderboardRepository =
     if (LeaderboardConfig.USE_REAL_LEADERBOARD) RetrofitLeaderboardRepository(api, profile)
     else MockLeaderboardRepository()
+    val learnExtras: LearnExtrasSource =
+        if (LearnConfig.USE_REAL_EXTRAS) RetrofitLearnExtrasSource()
+        else MockLearnExtrasSource()
+
+    val learn: LearnRepository = LearnRepositoryImpl(
+        profile = profile,
+        extras = learnExtras
+    )
 }
 
 // new repository (same file, so it can use the private go()):
