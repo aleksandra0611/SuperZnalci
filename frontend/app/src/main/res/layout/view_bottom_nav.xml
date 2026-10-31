@@ -1,111 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottomNav"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/sub_white"
-    android:orientation="horizontal"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp">
+    android:orientation="vertical"
+    android:background="@color/surface">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/outline" />
 
     <LinearLayout
-        android:id="@+id/navLearn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="@color/surface"
+        android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_sub_nav_learn"
-            android:tint="@color/sub_text" />
+        <LinearLayout
+            android:id="@+id/navLearn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/subjects_nav_learn"
-            android:textColor="@color/sub_text"
-            android:textSize="11sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/ivNavLearn"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_explore"
+                android:tint="@color/on_surface_muted" />
 
-    <LinearLayout
-        android:id="@+id/navSubjects"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvNavLearn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/profile_nav_learn"
+                android:textColor="@color/on_surface_muted"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_sub_nav_subjects"
-            android:tint="@color/sub_green_dark" />
+        <LinearLayout
+            android:id="@+id/navSubjects"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/subjects_nav_subjects"
-            android:textColor="@color/sub_green_dark"
-            android:textSize="11sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/ivNavSubjects"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_menu_book"
+                android:tint="@color/on_surface_muted" />
 
-    <LinearLayout
-        android:id="@+id/navLeaderboard"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvNavSubjects"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/profile_nav_subjects"
+                android:textColor="@color/on_surface_muted"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_sub_nav_leaderboard"
-            android:tint="@color/sub_text" />
+        <LinearLayout
+            android:id="@+id/navLeaderboard"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/subjects_nav_leaderboard"
-            android:textColor="@color/sub_text"
-            android:textSize="11sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/ivNavLeaderboard"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_leaderboard"
+                android:tint="@color/on_surface_muted" />
 
-    <LinearLayout
-        android:id="@+id/navProfile"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvNavLeaderboard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/profile_nav_leaderboard"
+                android:textColor="@color/on_surface_muted"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_sub_nav_profile"
-            android:tint="@color/sub_text" />
+        <LinearLayout
+            android:id="@+id/navProfile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/subjects_nav_profile"
-            android:textColor="@color/sub_text"
-            android:textSize="11sp"
-            android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/ivNavProfile"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_person_nav"
+                android:tint="@color/on_surface_muted" />
+
+            <TextView
+                android:id="@+id/tvNavProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/profile_nav_profile"
+                android:textColor="@color/on_surface_muted"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -12,6 +12,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 import java.io.IOException
+import retrofit2.http.Path
 
 
 object ApiConfig {
@@ -59,6 +60,9 @@ interface ApiService {
 
     @GET("lessons")
     fun lessons(@Query("topicIds") topicIds: String): Call<LessonsEnvelope> //delete of we donćt add GET //api/lessons
+
+    @GET("classrooms/{id}/leaderboard")
+    fun leaderboard(@Path("id") classroomId: String, @Query("period") period: String): Call<LeaderboardEnvelope>
 }
 
 object ApiClient {
@@ -251,6 +255,9 @@ object ServiceLocator {
     val schools: SchoolsRepository = RetrofitSchoolsRepository(api)
     val passwordReset: PasswordResetRepository = UnavailablePasswordResetRepository()
     val quiz: QuizRepository = RetrofitQuizRepository(api)
+    val leaderboard: LeaderboardRepository =
+    if (LeaderboardConfig.USE_REAL_LEADERBOARD) RetrofitLeaderboardRepository(api, profile)
+    else MockLeaderboardRepository()
 }
 
 // new repository (same file, so it can use the private go()):

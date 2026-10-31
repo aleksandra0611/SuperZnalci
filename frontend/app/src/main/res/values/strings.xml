@@ -364,4 +364,39 @@
     <string name="quiz_done_title">Kviz končan</string>
     <string name="quiz_done_message">Pravilnih odgovorov: %1$d/%2$d\nOsvojenih točk: +%3$d XP</string>
     <string name="quiz_done_ok">V redu</string>
+
+    <!-- result card -->
+    <string name="lb_result_title">Odlično opravljeno! 🎉</string>
+    <string name="lb_result_subtitle">Rezultat tvoje vaje: %1$s</string>
+    <string name="lb_private_chip">🔒 Osebni rezultat</string>
+    <string name="lb_stat_xp">+%1$d XP</string>
+    <string name="lb_stat_xp_label">Točke</string>
+    <string name="lb_stat_accuracy">%1$d %%</string>
+    <string name="lb_stat_accuracy_label">Natančnost</string>
+    <string name="lb_stat_time_label">Čas reševanja</string>
+    <string name="lb_private_note">Podroben vpogled v napake je viden le tebi in učitelju.</string>
+
+    <!-- podium -->
+    <string name="lb_board_title">🏆 Tedenski zmagovalni oder</string>
+    <string name="lb_board_class">Razred %1$s</string>
+    <string name="lb_xp">%1$s XP</string>
+    <string name="lb_place_n">%1$d. MESTO</string>
+    <string name="lb_place_first">PRVAK</string>
+
+    <!-- my row -->
+    <string name="lb_me_tag">TI</string>
+    <string name="lb_me_gap">Samo še %1$d XP do %2$d. mesta!</string>
+    <string name="lb_me_top">Na vrhu si! Ohrani vodstvo.</string>
+    <string name="lb_me_delta">+%1$d</string>
+
+    <!-- cheer -->
+    <string name="lb_cheer_title">%1$s je na %2$d. mestu!</string>
+    <string name="lb_cheer_sub">Pošlji čestitko za %1$d. mesto.</string>
+    <string name="lb_cheer_btn">👏 Čestitaj</string>
+    <string name="lb_cheer_sent">Čestitka poslana!</string>
+
+    <!-- badges + buttons -->
+    <string name="lb_badges_title">Osvojene značke pri vaji</string>
+    <string name="lb_btn_continue">Nadaljuj z naslednjo lekcijo →</string>
+    <string name="lb_btn_review">Pregled napačnih vprašanj (%1$d)</string>
 </resources>

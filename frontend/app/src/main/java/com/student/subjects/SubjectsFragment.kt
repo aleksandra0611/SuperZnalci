@@ -44,6 +44,7 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
 
         val root = view.findViewById<View>(R.id.main)
         root.applySystemBarsPadding()
+        BottomNavHelper.setSelected(view, R.id.navSubjects)
 
         if (SessionStore.user == null) {
             goToLogin()
@@ -343,9 +344,7 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
 
     private fun setupNavigation(view: View) {
         val pending = View.OnClickListener { toast(R.string.profile_pending) }
-        listOf(R.id.navLeaderboard).forEach {
-            view.findViewById<View>(it).setOnClickListener(pending)
-        }
+        view.findViewById<View>(R.id.navLeaderboard).setOnClickListener { openLeaderboard() }
         view.findViewById<View>(R.id.navProfile).setOnClickListener { openProfile() }
         view.findViewById<View>(R.id.ivAvatar).setOnClickListener { openProfile() }
         view.findViewById<View>(R.id.navLearn).setOnClickListener { openQuiz() }
@@ -364,6 +363,12 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
             .replace(R.id.fragment_container,
                 QuizFragment.newInstance(subjectId, s.active?.title.orEmpty(), s.gradeNumber))
             .addToBackStack(null)
+            .commit()
+    }
+
+    private fun openLeaderboard() {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, LeaderboardFragment())
             .commit()
     }
 
