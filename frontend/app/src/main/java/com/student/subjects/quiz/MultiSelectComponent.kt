@@ -9,6 +9,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
+import com.google.gson.JsonArray
+import com.google.gson.JsonElement
 
 class MultiSelectComponent(
     private val context: Context,
@@ -56,12 +58,19 @@ class MultiSelectComponent(
 
     override fun hasAnswer() = selected.isNotEmpty()
 
-    override fun check(): AnswerOutcome {
-        if (selected.isEmpty()) return AnswerOutcome.SKIPPED
+    override fun answer(): JsonElement = JsonArray().apply {
+        selected.sorted().forEach { add(question.answers[it]) }
+    }
+
+    override fun setLocked(locked: Boolean) {
+        this.locked = locked
+    }
+
+    override fun showResult(result: AnswerResult) {
         locked = true
 
         val right = question.answers.indices
-            .filter { question.answers[it] in question.correctAnswers }
+            .filter { question.answers[it] in result.correctAnswers }
             .toSet()
 
         rows.indices.forEach { i ->
@@ -77,7 +86,6 @@ class MultiSelectComponent(
                 }
             )
         }
-        return if (selected == right) AnswerOutcome.CORRECT else AnswerOutcome.WRONG
     }
 
     private fun toggle(index: Int) {
