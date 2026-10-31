@@ -345,14 +345,18 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         // TODO: connect each of these to a real screen.
         listOf(
             R.id.btnEditAvatar, R.id.rowAvatar, R.id.rowReminders,
-            R.id.tvAllSubjects, R.id.tvAllBadges,
-            R.id.navLearn
+            R.id.tvAllSubjects, R.id.tvAllBadges
         ).forEach { view.findViewById<View>(it).setOnClickListener(pending) }
 
         view.findViewById<View>(R.id.navLeaderboard).setOnClickListener { openLeaderboard() }
         view.findViewById<View>(R.id.btnCopyCode).setOnClickListener { copyClassCode(p.classCode) }
         view.findViewById<View>(R.id.rowLogout).setOnClickListener { confirmLogout() }
         view.findViewById<View>(R.id.navSubjects).setOnClickListener { openSubjects() }
+        view.findViewById<View>(R.id.navLearn)?.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, LearnFragment())
+                .commit()
+        }
     }
 
     private fun copyClassCode(code: String) {
