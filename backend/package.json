@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "node src/seed/seedSubjects.js",
+    "seed:badges": "node src/seed/seedBadges.js",
     "dev": "node --watch src/server.js",
     "start": "node src/server.js"
   },
