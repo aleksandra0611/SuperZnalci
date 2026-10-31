@@ -10,6 +10,7 @@ const { saveValidatedAnswer } = require("../services/attemptService");
 const { finishStoredAttempt } = require("../services/attemptService");
 const { awardPointsForAttempt } = require("../services/pointsService");
 const { calculateScore } = require("../services/scoreService");
+const { awardRewardsForAttempt } = require("../services/rewardsService");
 
 // POST /api/lessons/:lessonId/attempts
 async function startAttempt(req, res, next) {
@@ -409,6 +410,11 @@ async function finishAttempt(req, res, next) {
       studentId: req.user._id,
     });
 
+    const rewardsResult = await awardRewardsForAttempt({
+      attemptId,
+      studentId: req.user._id,
+    });
+
     return res.status(200).json({
       message: "Kviz je uspešno zaključen.",
 
@@ -431,6 +437,10 @@ async function finishAttempt(req, res, next) {
       totalXp: xpResult.totalXp,
       streak: xpResult.streak,
       xpAlreadyAwarded: xpResult.alreadyAwarded,
+
+      newBadges: rewardsResult.newBadges,
+      newBadgesCount: rewardsResult.newBadgesCount,
+      totalBadges: rewardsResult.totalBadges,
     });
 
   } catch (err) {
