@@ -449,4 +449,63 @@
     <string name="learn_reward_claimed">Nagrada prevzeta!</string>
     <string name="learn_claimed">Prevzeto</string>
     <string name="learn_challenge_btn">Izzovi</string>
+
+    <string name="teacher_name_fmt">prof. %1$s</string>
+    <string name="teacher_verified">Preverjen pedagoški profil</string>
+    <string name="teacher_edit_profile">Uredi profil</string>
+    <string name="teacher_avatar_desc">Profilna slika</string>
+    <!--  stat cards  -->
+    <string name="teacher_stat_classes_badge">Oddelki</string>
+    <string name="teacher_stat_classes_caption">Aktivnih razredov (%1$s)</string>
+    <string name="teacher_stat_students_badge">Učenci</string>
+    <string name="teacher_stat_students_caption">Vseh vpisanih učencev</string>
+    <string name="teacher_stat_quizzes_badge">Gradiva</string>
+    <string name="teacher_stat_quizzes_caption">Ustvarjenih kvizov</string>
+    <string name="teacher_stat_accuracy_caption">Povprečna uspešnost</string>
+    <string name="teacher_accuracy_value">%1$d %%</string>
+    <string name="teacher_accuracy_delta">%1$+.1f%%</string>
+    <!--  classes  -->
+    <string name="teacher_classes_title">Moji razredi in kode za vpis</string>
+    <string name="teacher_classes_count">%1$d oddelka</string>
+    <string name="teacher_class_title">Razred %1$s</string>
+    <string name="teacher_class_students">%1$d učencev</string>
+    <string name="teacher_class_code_label">Koda:</string>
+    <string name="teacher_copy">Kopiraj</string>
+    <string name="teacher_copy_desc">Kopiraj kodo</string>
+    <string name="teacher_share_desc">Deli kodo</string>
+    <string name="teacher_code_copied">Koda kopirana</string>
+    <string name="teacher_share_text">Pridruži se razredu %1$s v aplikaciji SuperZnalci s kodo: %2$s</string>
+    <string name="teacher_share_chooser">Deli kodo</string>
+    <string name="teacher_shift_morning">Jutranja izmena</string>
+    <string name="teacher_shift_afternoon">Popoldanska izmena</string>
+    <string name="teacher_create_class">Ustvari nov razred ali učno skupino</string>
+    <!--  subjects  -->
+    <string name="teacher_subjects_title">Predmeti, ki jih poučujem</string>
+    <string name="teacher_subjects_subtitle">Prilagojen učni načrt za %1$d. razred</string>
+    <string name="teacher_subjects_subtitle_empty">Dodajte predmete v svoje razrede</string>
+    <string name="teacher_edit">Uredi</string>
+    <string name="teacher_add_subject">Dodaj predmet</string>
+    <string name="teacher_subject_modules">%1$d modula</string>
+    <!--  settings  -->
+    <string name="teacher_settings_title">Nastavitve in šolske integracije</string>
+    <string name="teacher_setting_email_title">E-poštna obvestila ob oddajah</string>
+    <string name="teacher_setting_email_desc">Prejmi takojšnje opozorilo ob rešenem kvizu</string>
+    <string name="teacher_setting_weekly_title">Tedensko poročilo napredka</string>
+    <string name="teacher_setting_weekly_desc">Zbirna analitika za razrednika vsak ponedeljek</string>
+    <string name="teacher_setting_security_title">Varnost in geslo</string>
+    <string name="teacher_setting_security_desc">Dvostopenjska avtentikacija in seje</string>
+    <!--  footer  -->
+    <string name="teacher_support_label">Tehnična podpora za učitelje:</string>
+    <string name="teacher_support_email">podpora@superznalci.si</string>
+    <string name="teacher_logout">Odjava iz računa</string>
+    <string name="teacher_footer_version">SuperZnalci za Šole • Verzija 2.4.0 (Akreditiran kurikul RS)</string>
+    <!--  bottom nav  -->
+    <string name="teacher_nav_learn">Učenje</string>
+    <string name="teacher_nav_subjects">Predmeti</string>
+    <string name="teacher_nav_classroom">Učilnica</string>
+    <string name="teacher_nav_leaderboard">Lestvica</string>
+    <string name="teacher_nav_profile">Profil</string>
+    <!--  misc  -->
+    <string name="teacher_coming_soon">Ta funkcija bo kmalu na voljo.</string>
+    <string name="teacher_settings_save_failed">Nastavitve ni bilo mogoče shraniti.</string>
 </resources>

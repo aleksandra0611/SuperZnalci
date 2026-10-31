@@ -158,10 +158,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     // After a successful student login: show the profile and drop login/registration from the back stack
-    private fun openProfile() {
+    private fun openProfile(fragment: Fragment = ProfileFragment()) {
         parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, ProfileFragment())
+            .replace(R.id.fragment_container, fragment)
             .commit()
     }
 
@@ -304,12 +304,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             return
         }
 
-        // TODO: open the teacher home screen once it exists
-        AlertDialog.Builder(requireContext())
-            .setTitle(R.string.login_success_title)
-            .setMessage(getString(R.string.login_success_msg, response.user.name))
-            .setPositiveButton(android.R.string.ok, null)
-            .show()
+        // Teachers go to their own profile screen
+        openProfile(TeacherProfileFragment())
     }
 
     private fun onStudentRegistered(email: String) {

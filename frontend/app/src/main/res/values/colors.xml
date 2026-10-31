@@ -49,4 +49,22 @@
     <color name="quiz_correct_bg">#DDF5E8</color>
     <color name="quiz_wrong_bg">#FDE4E4</color>
     <color name="quiz_wrong">#D64545</color>
+    <color name="t_bg">#F6F8FA</color>
+    <color name="t_card">#FFFFFF</color>
+    <color name="t_stroke">#E8ECEF</color>
+    <color name="t_text">#1B2430</color>
+    <color name="t_muted">#6B7785</color>
+    <color name="t_green">#0E7A55</color>
+    <color name="t_green_soft">#D5F5E6</color>
+    <color name="t_mint">#62F0B5</color>
+    <color name="t_indigo">#4F46E5</color>
+    <color name="t_indigo_soft">#E3E4FD</color>
+    <color name="t_orange_soft">#FFE5CC</color>
+    <color name="t_orange_text">#9A5B13</color>
+    <color name="t_chip_bg">#EEF1F4</color>
+    <color name="t_red">#C62828</color>
+    <color name="t_red_soft">#FBD9D6</color>
+    <color name="t_header_start">#D5F5E6</color>
+    <color name="t_header_end">#FFFFFF</color>
+    <color name="t_switch_off">#C9D1D9</color>
 </resources>
