@@ -9,6 +9,7 @@ const practiceRoutes = require("./routes/practiceRoutes");
 const attemptRoutes = require("./routes/attemptRoutes");
 const badgeRoutes = require("./routes/badgeRoutes");
 const studentStatisticsRoutes = require("./routes/studentStatisticsRoutes");
+const lessonRoutes = require("./routes/lessonRoutes");
 
 const app = express();
 app.use(cors());
@@ -27,6 +28,7 @@ app.use("/api/practice", practiceRoutes);
 app.use("/api", attemptRoutes);
 app.use("/api/badges", badgeRoutes);
 app.use("/api/students", studentStatisticsRoutes);
+app.use("/api/lessons", lessonRoutes);
 
 const path = require("path");
 

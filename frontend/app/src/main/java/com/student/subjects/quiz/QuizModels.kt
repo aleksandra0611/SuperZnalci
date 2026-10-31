@@ -2,7 +2,7 @@ package com.example.superznalci
 import com.google.gson.JsonElement
 
 object QuizConfig {
-    const val USE_REAL_LESSONS_ENDPOINT = false
+    const val USE_REAL_LESSONS_ENDPOINT = true
 
     const val START_HEARTS = 5
 }
