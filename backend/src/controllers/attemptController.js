@@ -8,6 +8,8 @@ const Assignment = require("../models/assignmentModel");
 const { validateAnswer } = require("../services/answerValidationService");
 const { saveValidatedAnswer } = require("../services/attemptService");
 const { finishStoredAttempt } = require("../services/attemptService");
+const { awardPointsForAttempt } = require("../services/pointsService");
+const { calculateScore } = require("../services/scoreService");
 
 // POST /api/lessons/:lessonId/attempts
 async function startAttempt(req, res, next) {
@@ -321,8 +323,8 @@ async function submitAnswer(req, res, next) {
 /**
  * POST /api/attempts/:attemptId/finish
  *
- * Učenec zaključi kviz.
- * Body ni potreben.
+ * Učenec zaključi kviz, izračuna rezultat in dodeli XP ter streak
+ * Body ni potreben
  */
 async function finishAttempt(req, res, next) {
   try {
@@ -334,11 +336,78 @@ async function finishAttempt(req, res, next) {
       });
     }
 
-    const { attempt, result } =
-      await finishStoredAttempt({
-        attemptId,
-        studentId: req.user._id,
+    let attempt;
+    let result;
+
+    const existingAttempt = await Attempt.findOne({
+      _id: attemptId,
+      studentId: req.user._id,
+    }).lean();
+
+    if (!existingAttempt) {
+      return res.status(404).json({
+        message: "Poskus ne obstaja.",
       });
+    }
+
+    if (existingAttempt.finishedAt) {
+      attempt = existingAttempt;
+
+      const lesson = await Lesson.findById(
+        attempt.lessonId
+      ).lean();
+
+      if (!lesson) {
+        return res.status(404).json({
+          message: "Lekcija ne obstaja.",
+        });
+      }
+
+      result = calculateScore(attempt, lesson);
+    } else {
+      try {
+        const finished = await finishStoredAttempt({
+          attemptId,
+          studentId: req.user._id,
+        });
+
+        attempt = finished.attempt;
+        result = finished.result;
+
+      } catch (error) {
+        if (error.status !== 409) {
+          throw error;
+        }
+
+        const latest = await Attempt.findOne({
+          _id: attemptId,
+          studentId: req.user._id,
+        }).lean();
+
+        if (!latest || !latest.finishedAt) {
+          throw error;
+        }
+
+        attempt = latest;
+
+        const lesson = await Lesson.findById(
+          attempt.lessonId
+        ).lean();
+
+        if (!lesson) {
+          return res.status(404).json({
+            message: "Lekcija ne obstaja.",
+          });
+        }
+
+        result = calculateScore(attempt, lesson);
+      }
+    }
+
+    const xpResult = await awardPointsForAttempt({
+      attemptId,
+      studentId: req.user._id,
+    });
 
     return res.status(200).json({
       message: "Kviz je uspešno zaključen.",
@@ -351,13 +420,17 @@ async function finishAttempt(req, res, next) {
 
       points: result.points,
       maxPoints: result.maxPoints,
-
       accuracy: result.accuracy,
       stars: result.stars,
 
       correctCount: result.correctCount,
       incorrectCount: result.incorrectCount,
       totalQuestions: result.totalQuestions,
+
+      xpEarned: xpResult.xpEarned,
+      totalXp: xpResult.totalXp,
+      streak: xpResult.streak,
+      xpAlreadyAwarded: xpResult.alreadyAwarded,
     });
 
   } catch (err) {
