@@ -1,4 +1,3 @@
-
 const mongoose = require("mongoose");
 
 const Attempt = require("../models/attemptModel");
@@ -6,6 +5,8 @@ const Lesson = require("../models/lessonModel");
 const Subject = require("../models/subjectModel");
 const Classroom = require("../models/classroomModel");
 const Assignment = require("../models/assignmentModel");
+const { validateAnswer } = require("../services/answerValidationService");
+const { saveValidatedAnswer } = require("../services/attemptService");
 
 // POST /api/lessons/:lessonId/attempts
 async function startAttempt(req, res, next) {
@@ -169,7 +170,156 @@ async function listMyAttempts(req, res, next) {
   }
 }
 
+/**
+ * POST /api/attempts/:attemptId/answers
+ *
+ * Body:
+ * {
+ *   "questionId": "...",
+ *   "givenAnswer": ...
+ * }
+ */
+async function submitAnswer(req, res, next) {
+  try {
+    const { attemptId } = req.params;
+    const { questionId, givenAnswer } = req.body || {};
+
+    if (
+      !mongoose.isValidObjectId(attemptId) ||
+      !mongoose.isValidObjectId(questionId)
+    ) {
+      return res.status(400).json({
+        message: "Neveljaven attemptId ali questionId.",
+      });
+    }
+
+    if (
+      !Object.prototype.hasOwnProperty.call(
+        req.body || {},
+        "givenAnswer"
+      )
+    ) {
+      return res.status(400).json({
+        message: "Manjka givenAnswer.",
+      });
+    }
+
+    const attempt = await Attempt.findOne({
+      _id: attemptId,
+      studentId: req.user._id,
+    }).lean();
+
+    if (!attempt) {
+      return res.status(404).json({
+        message: "Poskus ne obstaja.",
+      });
+    }
+
+    if (attempt.finishedAt !== null) {
+      return res.status(409).json({
+        message: "Poskus je že zaključen.",
+      });
+    }
+
+    const included = (attempt.questionIds || []).some(
+      (id) => String(id) === String(questionId)
+    );
+
+    if (!included) {
+      return res.status(400).json({
+        message: "Vprašanje ne pripada temu poskusu.",
+      });
+    }
+
+    // Na vprašanje lahko odgovorimo samo enkrat
+    const alreadyAnswered = attempt.answers.some(
+      (answer) =>
+        String(answer.questionId) === String(questionId)
+    );
+
+    if (alreadyAnswered) {
+      return res.status(409).json({
+        message: "Na to vprašanje ste že odgovorili.",
+      });
+    }
+
+    const lesson = await Lesson.findById(
+      attempt.lessonId
+    ).lean();
+
+    if (!lesson) {
+      return res.status(404).json({
+        message: "Lekcija ne obstaja.",
+      });
+    }
+
+    const question = lesson.questions.find(
+      (q) => String(q._id) === String(questionId)
+    );
+
+    if (!question) {
+      return res.status(404).json({
+        message: "Vprašanje ne obstaja.",
+      });
+    }
+
+    let isCorrect;
+
+    try {
+      isCorrect = validateAnswer(
+        question,
+        givenAnswer
+      );
+    } catch (error) {
+      if (error.status === 400) {
+        return res.status(400).json({
+          message: error.message,
+        });
+      }
+
+      throw error;
+    }
+
+    const earnedPoints = isCorrect
+      ? question.points
+      : 0;
+
+    const updatedAttempt = await saveValidatedAnswer({
+      attemptId,
+      studentId: req.user._id,
+      questionId,
+      givenAnswer,
+      isCorrect,
+      points: earnedPoints,
+    });
+
+    return res.status(200).json({
+      message: "Odgovor je bil uspešno preverjen.",
+      attemptId: String(updatedAttempt._id),
+      questionId: String(question._id),
+      isCorrect,
+      earnedPoints,
+      maxPoints: question.points,
+      correctAnswers: question.correctAnswers,
+      explanation: question.explanation,
+      answeredCount: updatedAttempt.answers.length,
+      totalQuestions: updatedAttempt.questionIds.length,
+    });
+
+  } catch (err) {
+    if (err.status) {
+      return res.status(err.status).json({
+        message: err.message,
+      });
+    }
+
+    next(err);
+  }
+}
+
+
 module.exports = {
   startAttempt,
   listMyAttempts,
+  submitAnswer,
 };
