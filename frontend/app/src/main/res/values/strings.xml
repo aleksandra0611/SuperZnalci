@@ -508,4 +508,43 @@
     <!--  misc  -->
     <string name="teacher_coming_soon">Ta funkcija bo kmalu na voljo.</string>
     <string name="teacher_settings_save_failed">Nastavitve ni bilo mogoče shraniti.</string>
+
+    <string name="ts_brand">SUPERZNALCI %1$d.R</string>
+    <string name="ts_title">Predmeti</string>
+    <string name="ts_new_subject">Nov predmet</string>
+    <string name="ts_topics_count">%1$d teme</string>
+    <string name="ts_active">Aktivno</string>
+    <string name="ts_curriculum">Učni načrt za %1$d. razred OŠ • Letnik %2$s</string>
+    <string name="ts_stat_modules">Moduli</string>
+    <string name="ts_stat_lessons">Lekcij</string>
+    <string name="ts_stat_questions">Vprašanj</string>
+    <string name="ts_edit_plan">Uredi načrt</string>
+    <string name="ts_add_topic">Dodaj temo</string>
+    <string name="ts_module_label">MODUL %1$d</string>
+    <string name="ts_module_active">Aktivno za učenje</string>
+    <string name="ts_module_preparing">V pripravi</string>
+    <string name="ts_visible_title">Vidno učencem</string>
+    <string name="ts_visible_desc">Skrij celoten modul do začetka pouka</string>
+    <string name="ts_published">Objavljeno</string>
+    <string name="ts_draft">Osnutek</string>
+    <string name="ts_lesson_meta_completion">%1$d vprašanj • %2$d %% zaključenost</string>
+    <string name="ts_lesson_meta_accuracy">Uspešnost: %1$d %%</string>
+    <string name="ts_lesson_meta_draft">%1$d vprašanj • Pripravljen kviz</string>
+    <string name="ts_lesson_meta_locked">%1$d vprašanj • Zaklenjeno do %2$s</string>
+    <string name="ts_change_date">Spremeni datum</string>
+    <string name="ts_set_date">Nastavi datum</string>
+    <string name="ts_publish_now">Objavi zdaj</string>
+    <string name="ts_add_lesson">Dodaj novo lekcijo v to temo</string>
+    <string name="ts_catalog_title">Uradna baza Zavoda RS za šolstvo</string>
+    <string name="ts_catalog_desc">Hitro uvozi standardizirana preverjanja znanja in interaktivne naloge, prilagojene ciljem učnega načrta za %1$d. razred.</string>
+    <string name="ts_catalog_import">Uvozi standardizirane naloge</string>
+    <string name="ts_catalog_browse">Pregled kataloga</string>
+    <string name="ts_empty">Za ta razred še ni predmetov.</string>
+    <string name="ts_empty_classes">Nimate še nobenega razreda.</string>
+    <string name="ts_publish_failed">Objava ni uspela.</string>
+    <string name="ts_nav_learn">Učenje</string>
+    <string name="ts_nav_subjects">Predmeti</string>
+    <string name="ts_nav_classroom">Učilnica</string>
+    <string name="ts_nav_leaderboard">Lestvica</string>
+    <string name="ts_nav_profile">Profil</string>
 </resources>

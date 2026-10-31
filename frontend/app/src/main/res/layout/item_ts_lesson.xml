@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="12dp"
+    android:background="@drawable/bg_ts_inner"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="40dp"
+            android:layout_height="40dp">
+
+            <TextView
+                android:id="@+id/tvNumber"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_t_pill"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/ivLock"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:padding="9dp"
+                android:src="@drawable/ic_ts_lock"
+                android:tint="@color/ts_muted"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvLessonTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/t_text"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvLessonMeta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/ts_muted"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvLessonStatus"
+            style="@style/TsPill"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
+
+    <!-- objavljena lekcija -->
+    <LinearLayout
+        android:id="@+id/rowIcons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <ImageView android:id="@+id/btnEdit" style="@style/TsIconBtn" android:src="@drawable/ic_ts_edit" android:tint="@color/t_text"/>
+        <ImageView android:id="@+id/btnTune" style="@style/TsIconBtn" android:src="@drawable/ic_ts_tune" android:tint="@color/t_text"/>
+        <ImageView android:id="@+id/btnDelete" style="@style/TsIconBtn" android:src="@drawable/ic_ts_more_h" android:tint="@color/t_text"/>
+    </LinearLayout>
+
+    <!-- osnutek / zaklenjena lekcija -->
+    <LinearLayout
+        android:id="@+id/rowDraft"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/btnChangeDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableStart="@drawable/ic_ts_clock"
+            android:drawablePadding="6dp"
+            android:drawableTint="@color/t_green"
+            android:gravity="center_vertical"
+            android:textColor="@color/t_green"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/btnPublishNow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_ts_btn_green"
+            android:paddingStart="14dp"
+            android:paddingTop="9dp"
+            android:paddingEnd="14dp"
+            android:paddingBottom="9dp"
+            android:text="@string/ts_publish_now"
+            android:textColor="@android:color/white"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <ImageView android:id="@+id/btnEditDraft" style="@style/TsIconBtn" android:src="@drawable/ic_ts_edit" android:tint="@color/t_text"/>
+    </LinearLayout>
+</LinearLayout>

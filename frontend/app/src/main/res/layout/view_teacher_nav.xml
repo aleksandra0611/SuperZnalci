@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/surface"
+    android:orientation="horizontal"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <LinearLayout
+        android:id="@+id/navLearn"
+        style="@style/TsNavItem">
+        <ImageView style="@style/TsNavIcon" android:src="@drawable/ic_ts_school" android:contentDescription="@null"/>
+        <TextView style="@style/TsNavLabel" android:text="@string/ts_nav_learn"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/navSubjects"
+        style="@style/TsNavItem">
+        <ImageView style="@style/TsNavIcon" android:src="@drawable/ic_ts_book" android:contentDescription="@null"/>
+        <TextView style="@style/TsNavLabel" android:text="@string/ts_nav_subjects"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/navClassroom"
+        style="@style/TsNavItem">
+        <ImageView style="@style/TsNavIcon" android:src="@drawable/ic_ts_groups" android:contentDescription="@null"/>
+        <TextView style="@style/TsNavLabel" android:text="@string/ts_nav_classroom"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/navLeaderboard"
+        style="@style/TsNavItem">
+        <ImageView style="@style/TsNavIcon" android:src="@drawable/ic_ts_leaderboard" android:contentDescription="@null"/>
+        <TextView style="@style/TsNavLabel" android:text="@string/ts_nav_leaderboard"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/navProfile"
+        style="@style/TsNavItem">
+        <ImageView style="@style/TsNavIcon" android:src="@drawable/ic_ts_person" android:contentDescription="@null"/>
+        <TextView style="@style/TsNavLabel" android:text="@string/ts_nav_profile"/>
+    </LinearLayout>
+</LinearLayout>

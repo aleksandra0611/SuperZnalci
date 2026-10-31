@@ -14,6 +14,8 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 import java.io.IOException
 import retrofit2.http.Path
+import retrofit2.http.DELETE
+import retrofit2.http.PUT
 
 
 object ApiConfig {
@@ -78,6 +80,30 @@ interface ApiService {
 
     @PATCH("users/me/settings")
     fun updateSettings(@Body body: TeacherSettingsDto): Call<TeacherSettingsDto>
+
+    // --- teacher subjects: MISSING on the backend (mocked while TeacherSubjectsConfig.USE_REAL_* = false) ---
+    @GET("classrooms/{id}/lesson-stats")
+    fun lessonStats(@Path("id") classroomId: String): Call<LessonStatsEnvelope>
+
+    @GET("classrooms/{id}/assignments")
+    fun assignments(@Path("id") classroomId: String): Call<AssignmentsEnvelope>
+
+    @PUT("classrooms/{id}/assignments/{lessonId}")
+    fun putAssignment(
+        @Path("id") classroomId: String,
+        @Path("lessonId") lessonId: String,
+        @Body body: AssignmentRequest
+    ): Call<AssignmentEnvelope>
+
+    @GET("classrooms/{id}/topic-settings")
+    fun topicSettings(@Path("id") classroomId: String): Call<TopicSettingsEnvelope>
+
+    @PUT("classrooms/{id}/topic-settings/{topicId}")
+    fun putTopicSetting(
+        @Path("id") classroomId: String,
+        @Path("topicId") topicId: String,
+        @Body body: TopicSettingRequest
+    ): Call<TopicSettingEnvelope>
 }
 
 object ApiClient {
@@ -286,6 +312,14 @@ object ServiceLocator {
         profile = profile,
         extras = learnExtras
     )
+     val classroomContent: ClassroomContentSource =
+        if (TeacherSubjectsConfig.USE_REAL_CONTENT) RetrofitClassroomContentSource(api)
+        else MockClassroomContentSource()
+    val topicSettings: TopicSettingsSource =
+        if (TeacherSubjectsConfig.USE_REAL_TOPIC_SETTINGS) RetrofitTopicSettingsSource(api)
+        else MockTopicSettingsSource()
+    val teacherSubjects: TeacherSubjectsRepository =
+        RetrofitTeacherSubjectsRepository(api, classroomContent, topicSettings)
 }
 
 // new repository (same file, so it can use the private go()):
