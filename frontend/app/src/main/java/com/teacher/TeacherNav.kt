@@ -34,6 +34,7 @@ object TeacherNav {
         val target: Fragment? = when (id) {
             R.id.navSubjects -> TeacherSubjectsFragment()
             R.id.navProfile -> TeacherProfileFragment()
+            R.id.navClassroom -> TeacherClassroomFragment()
             else -> null
         }
         if (target == null) {

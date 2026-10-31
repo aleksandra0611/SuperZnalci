@@ -75,4 +75,6 @@
     <color name="ts_amber_text">#9A5B00</color>
     <color name="ts_pill_orange">#FFE8CC</color>
     <color name="ts_pill_indigo">#E4E3FF</color>
+    <color name="tc_red">#C62828</color>
+    <color name="tc_red_soft">#FDECEC</color>
 </resources>

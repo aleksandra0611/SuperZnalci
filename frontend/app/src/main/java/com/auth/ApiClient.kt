@@ -126,6 +126,21 @@ interface ApiService {
         @Path("topicId") topicId: String,
         @Body body: TopicSettingRequest
     ): Call<TopicSettingEnvelope>
+
+    @GET("classrooms/{id}/overview")
+    fun classroomOverview(@Path("id") classroomId: String): Call<ClassroomOverviewDto>
+
+    @GET("classrooms/{id}/student-results")
+    fun studentResults(@Path("id") classroomId: String): Call<StudentResultsEnvelope>
+
+    @POST("classrooms/{id}/join-code")
+    fun regenerateJoinCode(@Path("id") classroomId: String): Call<JoinCodeEnvelope>
+
+    @POST("questions")
+    fun createQuestion(@Body body: QuestionCreateRequest): Call<QuestionCreatedEnvelope>
+
+    @DELETE("questions/{id}")
+    fun deleteQuestion(@Path("id") questionId: String): Call<Unit>
 }
 
 object ApiClient {
@@ -343,6 +358,14 @@ object ServiceLocator {
         else MockTopicSettingsSource()
     val teacherSubjects: TeacherSubjectsRepository =
         RetrofitTeacherSubjectsRepository(api, classroomContent, topicSettings)
+    val classroomInsights: ClassroomInsightsSource =
+        if (TeacherClassroomConfig.USE_REAL_INSIGHTS) RetrofitClassroomInsightsSource(api)
+        else MockClassroomInsightsSource()
+    val questionAuthoring: QuestionAuthoringSource =
+        if (TeacherClassroomConfig.USE_REAL_AUTHORING) RetrofitQuestionAuthoringSource(api)
+        else MockQuestionAuthoringSource()
+    val teacherClassroom: TeacherClassroomRepository =
+        RetrofitTeacherClassroomRepository(api, classroomInsights, questionAuthoring)
 }
 
 // new repository (same file, so it can use the private go()):
