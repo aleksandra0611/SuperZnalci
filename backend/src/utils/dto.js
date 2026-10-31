@@ -89,6 +89,48 @@ function toPracticeSubjectDto(subject, gradeNumber, countsByTopic) {
   };
 }
 
+// Predmet v Vadnici s temami in lekcijami. bestByLesson: lessonId -> { bestAccuracy, bestPoints, stars }
+function toPracticeSubjectDetailDto(subject, gradeNumber, lessons, bestByLesson) {
+  const topics = (subject.grades || [])
+    .filter((g) => g.gradeNumber === gradeNumber)
+    .flatMap((g) => g.topics || [])
+    .map((t) => {
+      const topicLessons = lessons
+        .filter((l) => l.topicId.toString() === t._id.toString())
+        .map((l) => {
+          const best = bestByLesson.get(l._id.toString());
+          return {
+            id: l._id.toString(),
+            name: l.name,
+            order: l.order,
+            questionCount: (l.questions || []).length,
+            completed: Boolean(best),
+            stars: best ? best.stars : 0,
+            bestAccuracy: best ? best.bestAccuracy : null,
+            bestPoints: best ? best.bestPoints : null,
+          };
+        });
+      const completedCount = topicLessons.filter((l) => l.completed).length;
+
+      return {
+        id: t._id.toString(),
+        name: t.name,
+        description: t.description ?? null,
+        lessonCount: topicLessons.length,
+        completedCount,
+        progress: topicLessons.length ? Math.round((completedCount / topicLessons.length) * 100) : 0,
+        lessons: topicLessons,
+      };
+    })
+    .filter((t) => t.lessonCount > 0);
+
+  return {
+    subject: { id: subject._id.toString(), name: subject.name, icon: subject.icon ?? null },
+    gradeNumber,
+    topics,
+  };
+}
+
 // Vprašanje s pravilnimi odgovori (za učitelja) in podatki, kam spada
 function toQuestionDto(question, { subject, topic, lesson }) {
   return {
@@ -114,5 +156,6 @@ module.exports = {
   toClassroomDto,
   toSubjectDto,
   toPracticeSubjectDto,
+  toPracticeSubjectDetailDto,
   toQuestionDto,
 };
