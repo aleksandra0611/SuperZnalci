@@ -342,6 +342,14 @@
     <string name="quiz_btn_check">Preveri odgovor</string>
     <string name="quiz_btn_next">Naslednje vprašanje →</string>
     <string name="quiz_btn_finish">Zaključi kviz</string>
+    <string name="quiz_btn_checking">Preverjam …</string>
+    <string name="quiz_btn_finishing">Zaključujem …</string>
+
+    <!-- matching -->
+    <string name="quiz_match_hint">Vsaki možnosti na levi izberi pravi par</string>
+    <string name="quiz_match_choose">Izberi …</string>
+    <string name="quiz_match_duplicate">Vsako možnost na desni lahko izbereš samo enkrat.</string>
+    <string name="quiz_match_correct">Pravilno: %1$s</string>
  
     <!-- feedback -->
     <string name="quiz_feedback_correct">Odlično! Pravilno! 🎉</string>
@@ -352,8 +360,11 @@
  
     <!-- states -->
     <string name="quiz_empty">Za ta predmet še ni vprašanj.</string>
-    <string name="quiz_no_subject">Najprej izberi predmet.</string>
     <string name="quiz_load_back">Nazaj</string>
+    <string name="quiz_lesson_unavailable">Ta lekcija ti ni na voljo.</string>
+    <string name="quiz_answer_failed">Odgovora ni bilo mogoče preveriti. Poskusi znova.</string>
+    <string name="quiz_finish_failed">Kviza ni bilo mogoče zaključiti.</string>
+    <string name="quiz_already_finished">Ta kviz je že zaključen, rezultat je shranjen.</string>
  
     <!-- exit dialog -->
     <string name="quiz_exit_title">Zapusti kviz?</string>
@@ -361,9 +372,15 @@
     <string name="quiz_exit_confirm">Zapusti</string>
     <string name="quiz_exit_cancel">Nadaljuj</string>
  
-    <!-- temporary result dialog (the results screen is a separate task) -->
+    <!-- temporary result dialog (the results screen is a separate task); values come from POST /attempts/{id}/finish -->
     <string name="quiz_done_title">Kviz končan</string>
-    <string name="quiz_done_message">Pravilnih odgovorov: %1$d/%2$d\nOsvojenih točk: +%3$d XP</string>
+    <string name="quiz_done_stars">%1$s</string>
+    <string name="quiz_done_correct">Pravilnih odgovorov: %1$d/%2$d</string>
+    <string name="quiz_done_points">Točke: %1$d/%2$d</string>
+    <string name="quiz_done_xp">Osvojeno: +%1$d XP</string>
+    <string name="quiz_done_no_xp">Za to lekcijo XP ni bil ponovno podeljen.</string>
+    <string name="quiz_done_streak">🔥 Niz dni: %1$d</string>
+    <string name="quiz_done_badges">Nove značke: %1$s</string>
     <string name="quiz_done_ok">V redu</string>
 
     <!-- result card -->

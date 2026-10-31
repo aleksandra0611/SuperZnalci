@@ -13,6 +13,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.google.gson.JsonArray
+import com.google.gson.JsonElement
+import com.google.gson.JsonPrimitive
 
 class FillBlankComponent(
     private val context: Context,
@@ -29,7 +32,7 @@ class FillBlankComponent(
     private var locked = false
 
     init {
-        val count = question.correctAnswers.size
+        val count = question.blankCount
 
         repeat(count) { index ->
             val row = LinearLayout(context).apply {
@@ -82,16 +85,32 @@ class FillBlankComponent(
 
     override fun hasAnswer() = fields.isNotEmpty() && fields.all { it.text.isNotBlank() }
 
-    override fun check(): AnswerOutcome {
-        if (!hasAnswer()) return AnswerOutcome.SKIPPED
+    // FILL_IN_BLANK: one value per blank; IMAGE_QUESTION: a single value
+    override fun answer(): JsonElement =
+        if (question.type == QuestionType.IMAGE_QUESTION) {
+            JsonPrimitive(fields.first().text.toString().trim())
+        } else {
+            JsonArray().apply { fields.forEach { add(it.text.toString().trim()) } }
+        }
+
+    override fun setLocked(locked: Boolean) {
+        this.locked = locked
+        fields.forEach { it.isEnabled = !locked }
+        if (locked) hideKeyboard()
+    }
+
+    override fun showResult(result: AnswerResult) {
         locked = true
         hideKeyboard()
 
-        var allRight = true
         fields.forEachIndexed { i, field ->
-            val right = normalize(field.text.toString()) == normalize(question.correctAnswers[i])
-            if (!right) allRight = false
+            // the server decides; per blank we only colour the fields that match its solution
+            val right = result.correct ||
+                (question.type == QuestionType.FILL_BLANK &&
+                    i < result.correctAnswers.size &&
+                    normalize(field.text.toString()) == normalize(result.correctAnswers[i]))
 
+            field.isEnabled = true
             field.clearFocus()
             field.isFocusable = false
             field.isFocusableInTouchMode = false
@@ -99,7 +118,6 @@ class FillBlankComponent(
             field.keyListener = null
             render(field, if (right) State.CORRECT else State.WRONG)
         }
-        return if (allRight) AnswerOutcome.CORRECT else AnswerOutcome.WRONG
     }
 
     private fun render(field: EditText, state: State) {

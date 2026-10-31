@@ -107,6 +107,11 @@ async function startAttempt(req, res, next) {
       type: question.type,
       text: question.text,
       answers: question.answers,
+      // število praznih mest (brez rešitev), da aplikacija ve, koliko polj prikazati
+      blankCount:
+        question.type === "FILL_IN_BLANK" && Array.isArray(question.correctAnswers)
+          ? question.correctAnswers.length
+          : null,
       difficulty: question.difficulty,
       points: question.points,
       image: question.image,

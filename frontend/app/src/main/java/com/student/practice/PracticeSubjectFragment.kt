@@ -232,7 +232,7 @@ class PracticeSubjectFragment : Fragment(R.layout.fragment_practice_subject) {
         parentFragmentManager.beginTransaction()
             .replace(
                 R.id.fragment_container,
-                QuizFragment.newInstance(subjectId, subjectName, gradeNumber, lesson.id, practice = true)
+                QuizFragment.newInstance(subjectId, subjectName, gradeNumber, lesson.id)
             )
             .addToBackStack(null)
             .commit()

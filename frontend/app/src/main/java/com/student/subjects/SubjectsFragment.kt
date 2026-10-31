@@ -348,7 +348,6 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
         view.findViewById<View>(R.id.navPractice).setOnClickListener { openPractice() }
         view.findViewById<View>(R.id.navProfile).setOnClickListener { openProfile() }
         view.findViewById<View>(R.id.ivAvatar).setOnClickListener { openProfile() }
-        view.findViewById<View>(R.id.navLearn).setOnClickListener { openQuiz() }
         view.findViewById<View>(R.id.navLearn)?.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, LearnFragment())
@@ -359,16 +358,6 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
     private fun openProfile() {
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, ProfileFragment())
-            .commit()
-    }
-
-    private fun openQuiz() {
-        val s = screen ?: return
-        val subjectId = s.active?.id ?: run { toast(R.string.quiz_no_subject); return }
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container,
-                QuizFragment.newInstance(subjectId, s.active?.title.orEmpty(), s.gradeNumber))
-            .addToBackStack(null)
             .commit()
     }
 
