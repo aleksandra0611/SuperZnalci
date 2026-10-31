@@ -7,6 +7,7 @@ const Classroom = require("../models/classroomModel");
 const Assignment = require("../models/assignmentModel");
 const { validateAnswer } = require("../services/answerValidationService");
 const { saveValidatedAnswer } = require("../services/attemptService");
+const { finishStoredAttempt } = require("../services/attemptService");
 
 // POST /api/lessons/:lessonId/attempts
 async function startAttempt(req, res, next) {
@@ -317,9 +318,62 @@ async function submitAnswer(req, res, next) {
   }
 }
 
+/**
+ * POST /api/attempts/:attemptId/finish
+ *
+ * Učenec zaključi kviz.
+ * Body ni potreben.
+ */
+async function finishAttempt(req, res, next) {
+  try {
+    const { attemptId } = req.params;
+
+    if (!mongoose.isValidObjectId(attemptId)) {
+      return res.status(400).json({
+        message: "Neveljaven attemptId.",
+      });
+    }
+
+    const { attempt, result } =
+      await finishStoredAttempt({
+        attemptId,
+        studentId: req.user._id,
+      });
+
+    return res.status(200).json({
+      message: "Kviz je uspešno zaključen.",
+
+      attemptId: String(attempt._id),
+      lessonId: String(attempt.lessonId),
+
+      isPractice: attempt.isPractice,
+      finishedAt: attempt.finishedAt,
+
+      points: result.points,
+      maxPoints: result.maxPoints,
+
+      accuracy: result.accuracy,
+      stars: result.stars,
+
+      correctCount: result.correctCount,
+      incorrectCount: result.incorrectCount,
+      totalQuestions: result.totalQuestions,
+    });
+
+  } catch (err) {
+    if (err.status) {
+      return res.status(err.status).json({
+        message: err.message,
+      });
+    }
+
+    next(err);
+  }
+}
 
 module.exports = {
   startAttempt,
   listMyAttempts,
   submitAnswer,
+  finishAttempt,
 };

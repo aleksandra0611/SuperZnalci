@@ -7,6 +7,7 @@ const {
   startAttempt,
   listMyAttempts,
   submitAnswer,
+  finishAttempt,
 } = require("../controllers/attemptController");
 
 const router = express.Router();
@@ -23,6 +24,12 @@ router.post(
   "/attempts/:attemptId/answers",
   requireRole("STUDENT"),
   submitAnswer
+);
+
+router.post(
+  "/attempts/:attemptId/finish",
+  requireRole("STUDENT"),
+  finishAttempt
 );
 
 router.get(

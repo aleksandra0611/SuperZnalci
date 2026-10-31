@@ -1,6 +1,9 @@
-
 const mongoose = require("mongoose");
 const Attempt = require("../models/attemptModel");
+const Lesson = require("../models/lessonModel");
+const {
+  calculateScore,
+} = require("./scoreService");
 
 function attemptError(message, status = 400) {
   const error = new Error(message);
@@ -10,10 +13,6 @@ function attemptError(message, status = 400) {
 
 /**
  * Shrani odgovor, ki ga je backend že preveril.
- *
- * To funkcijo bo poklical Answer validation controller.
- * Podatek isCorrect se NE sme vzeti neposredno iz
- * frontend requesta.
  */
 async function saveValidatedAnswer({
   attemptId,
@@ -53,19 +52,19 @@ async function saveValidatedAnswer({
     throw attemptError("Poskus je že zaključen.", 409);
   }
 
-  const included = attempt.questionIds.some(
+  const included = (attempt.questionIds || []).some(
     (id) => String(id) === String(questionId)
   );
 
   if (!included) {
     throw attemptError(
-      "Vprašanje ne pripada temu poskusu.",
-      400
+      "Vprašanje ne pripada temu poskusu."
     );
   }
 
   const alreadyAnswered = attempt.answers.some(
-    (a) => String(a.questionId) === String(questionId)
+    (answer) =>
+      String(answer.questionId) === String(questionId)
   );
 
   if (alreadyAnswered) {
@@ -80,6 +79,7 @@ async function saveValidatedAnswer({
       _id: attemptId,
       studentId,
       finishedAt: null,
+      questionIds: questionId,
       "answers.questionId": { $ne: questionId },
     },
     {
@@ -106,15 +106,14 @@ async function saveValidatedAnswer({
 }
 
 /**
- * Shrani končni rezultat, ki ga je izračunal Calculate score backend.
- *
- * points in accuracy morata biti izračunana na strežniku, ne poslana iz Android aplikacije.
+ * Zaključi attempt:
+ * - preveri odgovore
+ * - izračuna rezultat na backendu
+ * - shrani points, accuracy in finishedAt
  */
 async function finishStoredAttempt({
   attemptId,
   studentId,
-  points,
-  accuracy,
 }) {
   if (
     !mongoose.isValidObjectId(attemptId) ||
@@ -123,53 +122,60 @@ async function finishStoredAttempt({
     throw attemptError("Neveljaven ID.");
   }
 
-  if (
-    typeof points !== "number" ||
-    !Number.isFinite(points) ||
-    points < 0 ||
-    typeof accuracy !== "number" ||
-    !Number.isFinite(accuracy) ||
-    accuracy < 0 ||
-    accuracy > 100
-  ) {
-    throw attemptError("Neveljaven rezultat kviza.");
-  }
-
   const attempt = await Attempt.findOne({
     _id: attemptId,
     studentId,
-  });
+  }).lean();
 
   if (!attempt) {
-    throw attemptError("Poskus ne obstaja.", 404);
+    throw attemptError(
+      "Poskus ne obstaja.",
+      404
+    );
   }
 
   if (attempt.finishedAt !== null) {
-    throw attemptError("Poskus je že zaključen.", 409);
-  }
-
-  if (attempt.answers.length !== attempt.questionIds.length) {
     throw attemptError(
-      "Vsa vprašanja še niso odgovorjena.",
-      400
+      "Poskus je že zaključen.",
+      409
     );
   }
+
+  const lesson = await Lesson.findById(
+    attempt.lessonId
+  ).lean();
+
+  if (!lesson) {
+    throw attemptError(
+      "Lekcija ne obstaja.",
+      404
+    );
+  }
+
+  const result = calculateScore(attempt, lesson);
+
+  const finishedAt = new Date();
 
   const updated = await Attempt.findOneAndUpdate(
     {
       _id: attemptId,
       studentId,
       finishedAt: null,
-      "answers.0": { $exists: true },
+      "answers": {
+        $size: result.totalQuestions,
+      },
     },
     {
       $set: {
-        points,
-        accuracy,
-        finishedAt: new Date(),
+        points: result.points,
+        accuracy: result.accuracy,
+        finishedAt,
       },
     },
-    { new: true, runValidators: true }
+    {
+      new: true,
+      runValidators: true,
+    }
   );
 
   if (!updated) {
@@ -179,7 +185,10 @@ async function finishStoredAttempt({
     );
   }
 
-  return updated;
+  return {
+    attempt: updated,
+    result,
+  };
 }
 
 module.exports = {
