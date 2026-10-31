@@ -37,6 +37,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         val root = view.findViewById<View>(R.id.main)
         root.applySystemBarsPadding()
+        BottomNavHelper.setSelected(view, R.id.navProfile)
 
         if (SessionStore.user == null) {
             goToLogin()
@@ -345,9 +346,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         listOf(
             R.id.btnEditAvatar, R.id.rowAvatar, R.id.rowReminders,
             R.id.tvAllSubjects, R.id.tvAllBadges,
-            R.id.navLearn, R.id.navLeaderboard
+            R.id.navLearn
         ).forEach { view.findViewById<View>(it).setOnClickListener(pending) }
 
+        view.findViewById<View>(R.id.navLeaderboard).setOnClickListener { openLeaderboard() }
         view.findViewById<View>(R.id.btnCopyCode).setOnClickListener { copyClassCode(p.classCode) }
         view.findViewById<View>(R.id.rowLogout).setOnClickListener { confirmLogout() }
         view.findViewById<View>(R.id.navSubjects).setOnClickListener { openSubjects() }
@@ -382,6 +384,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     parentFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, SubjectsFragment())
         .commit()
+    }
+
+    private fun openLeaderboard() {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, LeaderboardFragment())
+            .commit()
     }
 
     // helpers
