@@ -15,6 +15,7 @@ object BottomNavHelper {
 
         updateItem(root, R.id.navLearn, R.id.ivNavLearn, R.id.tvNavLearn, selectedId, green, grey)
         updateItem(root, R.id.navSubjects, R.id.ivNavSubjects, R.id.tvNavSubjects, selectedId, green, grey)
+        updateItem(root, R.id.navPractice, R.id.ivNavPractice, R.id.tvNavPractice, selectedId, green, grey)
         updateItem(root, R.id.navLeaderboard, R.id.ivNavLeaderboard, R.id.tvNavLeaderboard, selectedId, green, grey)
         updateItem(root, R.id.navProfile, R.id.ivNavProfile, R.id.tvNavProfile, selectedId, green, grey)
     }

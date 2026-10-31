@@ -345,6 +345,7 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
     private fun setupNavigation(view: View) {
         val pending = View.OnClickListener { toast(R.string.profile_pending) }
         view.findViewById<View>(R.id.navLeaderboard).setOnClickListener { openLeaderboard() }
+        view.findViewById<View>(R.id.navPractice).setOnClickListener { openPractice() }
         view.findViewById<View>(R.id.navProfile).setOnClickListener { openProfile() }
         view.findViewById<View>(R.id.ivAvatar).setOnClickListener { openProfile() }
         view.findViewById<View>(R.id.navLearn).setOnClickListener { openQuiz() }
@@ -374,6 +375,12 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
     private fun openLeaderboard() {
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, LeaderboardFragment())
+            .commit()
+    }
+
+    private fun openPractice() {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, PracticeFragment())
             .commit()
     }
 

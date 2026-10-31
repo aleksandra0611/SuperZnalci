@@ -64,6 +64,10 @@ interface ApiService {
     @GET("lessons")
     fun lessons(@Query("topicIds") topicIds: String): Call<LessonsEnvelope> //delete of we donćt add GET //api/lessons
 
+    // --- Vadnica (practice content, no classroom needed) ---
+    @GET("practice/subjects")
+    fun practiceSubjects(@Query("gradeNumber") gradeNumber: Int): Call<PracticeSubjectsEnvelope>
+
     @GET("classrooms/{id}/leaderboard")
     fun leaderboard(@Path("id") classroomId: String, @Query("period") period: String): Call<LeaderboardEnvelope>
 
@@ -301,6 +305,7 @@ object ServiceLocator {
     val schools: SchoolsRepository = RetrofitSchoolsRepository(api)
     val passwordReset: PasswordResetRepository = UnavailablePasswordResetRepository()
     val quiz: QuizRepository = RetrofitQuizRepository(api)
+    val practice: PracticeRepository = RetrofitPracticeRepository(api)
     val leaderboard: LeaderboardRepository =
     if (LeaderboardConfig.USE_REAL_LEADERBOARD) RetrofitLeaderboardRepository(api, profile)
     else MockLeaderboardRepository()

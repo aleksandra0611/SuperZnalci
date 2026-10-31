@@ -352,6 +352,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         view.findViewById<View>(R.id.btnCopyCode).setOnClickListener { copyClassCode(p.classCode) }
         view.findViewById<View>(R.id.rowLogout).setOnClickListener { confirmLogout() }
         view.findViewById<View>(R.id.navSubjects).setOnClickListener { openSubjects() }
+        view.findViewById<View>(R.id.navPractice).setOnClickListener { openPractice() }
         view.findViewById<View>(R.id.navLearn)?.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, LearnFragment())
@@ -393,6 +394,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private fun openLeaderboard() {
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, LeaderboardFragment())
+            .commit()
+    }
+
+    private fun openPractice() {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, PracticeFragment())
             .commit()
     }
 

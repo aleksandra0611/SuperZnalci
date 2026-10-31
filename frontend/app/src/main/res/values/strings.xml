@@ -198,6 +198,7 @@
     <!-- Bottom navigation -->
     <string name="profile_nav_learn">Učenje</string>
     <string name="profile_nav_subjects">Predmeti</string>
+    <string name="profile_nav_practice">Vadnica</string>
     <string name="profile_nav_leaderboard">Lestvica</string>
     <string name="profile_nav_profile">Profil</string>
 
@@ -547,4 +548,30 @@
     <string name="ts_nav_classroom">Učilnica</string>
     <string name="ts_nav_leaderboard">Lestvica</string>
     <string name="ts_nav_profile">Profil</string>
+
+    <!-- Vadnica (practice) -->
+    <string name="practice_title">Vadnica</string>
+    <string name="practice_chip">Brez ocen</string>
+    <string name="practice_subtitle">Vprašanja za vse – samostojna vaja v svojem tempu</string>
+    <string name="practice_info_title">Vadi brez stresa:</string>
+    <string name="practice_info">Noben napačen odgovor se ne beleži v šolsko redovalnico.</string>
+    <string name="practice_grade_label">Izbira razreda</string>
+    <string name="practice_grade_active">%d. razred aktivno</string>
+    <string name="practice_grade_short">raz.</string>
+    <string name="practice_subjects_title">Predmeti za %d. razred</string>
+    <string name="practice_subject_meta">%1$s · %2$s</string>
+    <string name="practice_open">Pregled</string>
+    <string name="practice_empty">Za ta razred v Vadnici še ni vprašanj.</string>
+    <plurals name="practice_subject_count">
+        <item quantity="one">%d predmet</item>
+        <item quantity="two">%d predmeta</item>
+        <item quantity="few">%d predmeti</item>
+        <item quantity="other">%d predmetov</item>
+    </plurals>
+    <plurals name="practice_questions">
+        <item quantity="one">%d vprašanje</item>
+        <item quantity="two">%d vprašanji</item>
+        <item quantity="few">%d vprašanja</item>
+        <item quantity="other">%d vprašanj</item>
+    </plurals>
 </resources>

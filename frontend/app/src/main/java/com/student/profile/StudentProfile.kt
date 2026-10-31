@@ -240,8 +240,9 @@ object ProfileMapper {
 
     // Subject.icon is a text key from the backend; unknown keys get the book icon
     fun iconFor(icon: String?): Int = when (icon) {
-        "calculate" -> R.drawable.ic_calculate
-        "public" -> R.drawable.ic_public
+        "calculate", "calculator" -> R.drawable.ic_calculate
+        "public", "globe" -> R.drawable.ic_public
+        "atom" -> R.drawable.ic_bolt
         else -> R.drawable.ic_menu_book
     }
 
