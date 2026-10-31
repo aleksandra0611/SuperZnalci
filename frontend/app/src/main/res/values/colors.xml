@@ -67,4 +67,12 @@
     <color name="t_header_start">#D5F5E6</color>
     <color name="t_header_end">#FFFFFF</color>
     <color name="t_switch_off">#C9D1D9</color>
+    <color name="ts_bg">#F6F8FA</color>
+    <color name="ts_stroke">#E6EAEE</color>
+    <color name="ts_muted">#6B7680</color>
+    <color name="ts_inner">#F1F3F5</color>
+    <color name="ts_amber_bg">#FFEFD2</color>
+    <color name="ts_amber_text">#9A5B00</color>
+    <color name="ts_pill_orange">#FFE8CC</color>
+    <color name="ts_pill_indigo">#E4E3FF</color>
 </resources>
