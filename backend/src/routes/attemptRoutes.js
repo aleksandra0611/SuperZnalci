@@ -10,6 +10,10 @@ const {
   finishAttempt,
 } = require("../controllers/attemptController");
 
+const {
+  getAttemptMistakes,
+} = require("../controllers/mistakesController");
+
 const router = express.Router();
 
 router.use(authenticate);
@@ -30,6 +34,12 @@ router.post(
   "/attempts/:attemptId/finish",
   requireRole("STUDENT"),
   finishAttempt
+);
+
+router.get(
+  "/attempts/:attemptId/mistakes",
+  requireRole("STUDENT"),
+  getAttemptMistakes
 );
 
 router.get(
