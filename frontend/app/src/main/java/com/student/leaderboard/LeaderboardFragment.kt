@@ -323,6 +323,11 @@ class LeaderboardFragment : Fragment(R.layout.fragment_leaderboard) {
 
     private fun setupNavigation(view: View) {
         view.findViewById<View>(R.id.navSubjects)?.setOnClickListener { openSubjects() }
+        view.findViewById<View>(R.id.navPractice)?.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, PracticeFragment())
+                .commit()
+        }
         view.findViewById<View>(R.id.navProfile)?.setOnClickListener { openProfile() }
         view.findViewById<View>(R.id.navLearn)?.setOnClickListener { toast(R.string.profile_pending) }
         view.findViewById<View>(R.id.navLearn)?.setOnClickListener {

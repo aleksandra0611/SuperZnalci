@@ -432,6 +432,10 @@ class LearnFragment : Fragment(R.layout.fragment_learn) {
         replaceWith(SubjectsFragment())
     }
 
+    view.findViewById<View>(R.id.navPractice)?.setOnClickListener {
+        replaceWith(PracticeFragment())
+    }
+
     view.findViewById<View>(R.id.navLeaderboard)?.setOnClickListener {
         openLeaderboard()
     }
