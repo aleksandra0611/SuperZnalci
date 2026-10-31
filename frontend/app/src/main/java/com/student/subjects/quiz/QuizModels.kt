@@ -74,6 +74,7 @@ interface QuizRepository {
         subjectId: String,
         gradeNumber: Int?,
         lessonId: String?,
+        practice: Boolean,  // true = Vadnica lesson (scope PRACTICE)
         callback: ResultCallback<List<QuizQuestion>>
     )
 

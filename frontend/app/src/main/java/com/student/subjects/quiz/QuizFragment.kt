@@ -23,6 +23,7 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
         private const val ARG_SUBJECT_NAME = "subject_name"
         private const val ARG_GRADE = "grade_number"
         private const val ARG_LESSON = "lesson_id"
+        private const val ARG_PRACTICE = "practice"
 
         private const val STATE_OUTCOMES = "state_outcomes"
         private const val STATE_HEARTS = "state_hearts"
@@ -34,13 +35,15 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
                 subjectId: String,
                 subjectName: String,
                 gradeNumber: Int?,
-                lessonId: String? = null
+                lessonId: String? = null,
+                practice: Boolean = false
             ) = QuizFragment().apply {
                 arguments = bundleOf(
                     ARG_SUBJECT_ID to subjectId,
                     ARG_SUBJECT_NAME to subjectName,
                     ARG_GRADE to (gradeNumber ?: 0),
-                    ARG_LESSON to lessonId
+                    ARG_LESSON to lessonId,
+                    ARG_PRACTICE to practice
                 )
             }
     }
@@ -49,6 +52,7 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
     private val subjectName: String get() = arguments?.getString(ARG_SUBJECT_NAME).orEmpty()
     private val gradeNumber: Int? get() = arguments?.getInt(ARG_GRADE)?.takeIf { it > 0 }
     private val lessonId: String? get() = arguments?.getString(ARG_LESSON)
+    private val practice: Boolean get() = arguments?.getBoolean(ARG_PRACTICE) ?: false
 
     private val repo: QuizRepository get() = ServiceLocator.quiz
 
@@ -174,7 +178,7 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
         tvEmpty.visibility = View.GONE
         btnCheck.visibility = View.GONE
 
-        repo.loadQuestions(subjectId, gradeNumber, lessonId) { result ->
+        repo.loadQuestions(subjectId, gradeNumber, lessonId, practice) { result ->
             if (view == null) return@loadQuestions
             loading.visibility = View.GONE
 

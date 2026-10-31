@@ -54,11 +54,13 @@ interface ApiService {
     @GET("schools")
     fun schools(): Call<SchoolsEnvelope>
 
+    // scope: null = SHARED + the teacher's own lessons, "PRACTICE" = Vadnica lessons
     @GET("questions")
     fun questions(
         @Query("subjectId") subjectId: String,
         @Query("gradeNumber") gradeNumber: Int?,
-        @Query("type") type: String?
+        @Query("type") type: String?,
+        @Query("scope") scope: String? = null
     ): Call<QuestionsEnvelope>
 
     @GET("lessons")
@@ -67,6 +69,12 @@ interface ApiService {
     // --- Vadnica (practice content, no classroom needed) ---
     @GET("practice/subjects")
     fun practiceSubjects(@Query("gradeNumber") gradeNumber: Int): Call<PracticeSubjectsEnvelope>
+
+    @GET("practice/subjects/{id}")
+    fun practiceSubject(
+        @Path("id") subjectId: String,
+        @Query("gradeNumber") gradeNumber: Int
+    ): Call<PracticeSubjectDetailDto>
 
     @GET("classrooms/{id}/leaderboard")
     fun leaderboard(@Path("id") classroomId: String, @Query("period") period: String): Call<LeaderboardEnvelope>

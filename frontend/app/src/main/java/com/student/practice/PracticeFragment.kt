@@ -44,7 +44,7 @@ class PracticeFragment : Fragment(R.layout.fragment_practice) {
             return
         }
 
-        setupNavigation(view)
+        setupPracticeNavigation(this, view)
         bindInfo(view)
 
         val grade = gradeNumber
@@ -186,23 +186,16 @@ class PracticeFragment : Fragment(R.layout.fragment_practice) {
             resources.getQuantityString(R.plurals.subjects_topics, subject.topicCount, subject.topicCount),
             resources.getQuantityString(R.plurals.practice_questions, subject.questionCount, subject.questionCount)
         )
-        // TODO (next task): open the topics and lessons of the subject
-        card.setOnClickListener { toast(R.string.profile_pending) }
+        card.setOnClickListener { openSubject(subject) }
     }
 
     // navigation
 
-    private fun setupNavigation(view: View) {
-        view.findViewById<View>(R.id.navLearn)?.setOnClickListener { replaceWith(LearnFragment()) }
-        view.findViewById<View>(R.id.navSubjects)?.setOnClickListener { replaceWith(SubjectsFragment()) }
-        view.findViewById<View>(R.id.navLeaderboard)?.setOnClickListener { replaceWith(LeaderboardFragment()) }
-        view.findViewById<View>(R.id.navProfile)?.setOnClickListener { replaceWith(ProfileFragment()) }
-        view.findViewById<View>(R.id.ivAvatar)?.setOnClickListener { replaceWith(ProfileFragment()) }
-    }
-
-    private fun replaceWith(fragment: Fragment) {
+    private fun openSubject(subject: PracticeSubjectDto) {
+        val grade = gradeNumber ?: return
         parentFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
+            .replace(R.id.fragment_container, PracticeSubjectFragment.newInstance(subject.id, subject.name, grade))
+            .addToBackStack(null)
             .commit()
     }
 
@@ -233,4 +226,22 @@ class PracticeFragment : Fragment(R.layout.fragment_practice) {
         val GRADES = 1..9
         val ACCENTS = SubjectAccent.values()
     }
+}
+
+// Bottom navigation of the Vadnica screens (the tab itself is already selected)
+internal fun setupPracticeNavigation(fragment: Fragment, view: View) {
+    fun open(target: Fragment) {
+        fragment.parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        fragment.parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, target)
+            .commit()
+    }
+    view.findViewById<View>(R.id.navLearn)?.setOnClickListener { open(LearnFragment()) }
+    view.findViewById<View>(R.id.navSubjects)?.setOnClickListener { open(SubjectsFragment()) }
+    view.findViewById<View>(R.id.navPractice)?.setOnClickListener {
+        if (fragment !is PracticeFragment) open(PracticeFragment())
+    }
+    view.findViewById<View>(R.id.navLeaderboard)?.setOnClickListener { open(LeaderboardFragment()) }
+    view.findViewById<View>(R.id.navProfile)?.setOnClickListener { open(ProfileFragment()) }
+    view.findViewById<View>(R.id.ivAvatar)?.setOnClickListener { open(ProfileFragment()) }
 }
