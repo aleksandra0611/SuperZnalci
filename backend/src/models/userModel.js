@@ -9,6 +9,8 @@ const userSchema = new mongoose.Schema({
     avatar: { type: String, default: null },
     totalXp: { type: Number, default: 0, min: 0 },
     streak: { type: Number, default: 0, min: 0 },
+    lastStreakAt: { type: Date, default: null },
+    xpAwardedAttemptIds: [{type: mongoose.Schema.Types.ObjectId, ref: "Attempt" }],  //Poskusi, za katere so bili XP že dodeljeni, tako isti attempt nikoli ne dobi XP dvakrat.
     registeredAt: { type: Date, default: Date.now },
     lastActiveAt: { type: Date, default: null },  //za streak, proveravamo kada je poslednji put bio aktivan
 
