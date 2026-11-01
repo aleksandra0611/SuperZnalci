@@ -814,7 +814,6 @@
                         android:paddingTop="4dp"
                         android:paddingEnd="10dp"
                         android:paddingBottom="4dp"
-                        android:text="@string/profile_reminder_time"
                         android:textColor="@color/primary_dark"
                         android:textSize="12sp"
                         android:textStyle="bold" />

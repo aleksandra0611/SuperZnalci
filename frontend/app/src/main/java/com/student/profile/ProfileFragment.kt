@@ -22,6 +22,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import java.text.NumberFormat
 import java.util.Locale
+import android.widget.ScrollView
+import android.Manifest
+import android.app.TimePickerDialog
+import android.content.pm.PackageManager
+import android.os.Build
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import java.util.Calendar
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
@@ -123,7 +131,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         view.findViewById<ProgressBar>(R.id.progressLevel).progress =
             ((p.xp - p.xpLevelStart) * 100 / range).coerceIn(0, 100)
 
-        setText(view, R.id.tvXpStart, getString(R.string.profile_xp_start, xp(p.xpLevelStart), p.level))
+        setText(view, R.id.tvXpStart, getString(R.string.profile_xp_start, xp(p.xp), p.level))   // current XP
         setText(view, R.id.tvXpGoal, getString(R.string.profile_xp_goal, xp(p.xpGoal), p.level + 1))
     }
 
@@ -232,7 +240,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     setBackgroundResource(R.drawable.bg_copy_btn)
                     setTextColor(color(R.color.on_surface))
                 }
-                setOnClickListener { toast(R.string.profile_pending) }   // TODO: open the subject
+                setOnClickListener { openSubjects(subject.id) }
             }
 
             container.addView(item)
@@ -358,6 +366,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 .replace(R.id.fragment_container, LearnFragment())
                 .commit()
         }
+        view.findViewById<View>(R.id.tvAllBadges).setOnClickListener { showAllBadges(p) }
+        view.findViewById<View>(R.id.tvAllSubjects).setOnClickListener { openSubjects(null) }
+        view.findViewById<View>(R.id.rowReminders).setOnClickListener { onReminderClicked() }
     }
 
     private fun copyClassCode(code: String) {
@@ -385,10 +396,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             .commit()
     }
 
-    private fun openSubjects() {
-    parentFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, SubjectsFragment())
-        .commit()
+    private fun openSubjects(subjectId: String? = null) {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, SubjectsFragment.newInstance(subjectId))
+            .commit()
     }
 
     private fun openLeaderboard() {
@@ -401,6 +412,68 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, PracticeFragment())
             .commit()
+    }
+
+    private fun showAllBadges(p: StudentProfile) {
+        val ctx = requireContext()
+        val inflater = LayoutInflater.from(ctx)
+        val grid = LinearLayout(ctx).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(dp(16), dp(16), dp(16), dp(8))
+        }
+        p.allBadges.chunked(2).forEach { pair ->
+            val row = LinearLayout(ctx).apply {
+                orientation = LinearLayout.HORIZONTAL
+                layoutParams = LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+                ).apply { bottomMargin = dp(12) }
+            }
+            pair.forEachIndexed { index, entry ->
+                val item = inflater.inflate(R.layout.item_badge, row, false)
+                item.layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1f)
+                    .apply { if (index == 0) marginEnd = dp(6) else marginStart = dp(6) }
+                bindBadge(item, entry.badge)
+                item.alpha = if (entry.earned) 1f else 0.35f   // locked = faded
+                row.addView(item)
+            }
+            if (pair.size == 1) row.addView(View(ctx), LinearLayout.LayoutParams(0, 0, 1f))
+            grid.addView(row)
+        }
+        AlertDialog.Builder(ctx)
+            .setTitle(getString(R.string.profile_all_badges_title, p.badgesEarned, p.badgesTotal))
+            .setView(ScrollView(ctx).apply { addView(grid) })
+            .setPositiveButton(android.R.string.ok, null)
+            .show()
+    }
+
+    private val notificationPermission =
+    registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+        if (granted) showReminderPicker() else toast(R.string.reminder_permission_denied)
+    }
+
+    private fun onReminderClicked() {
+        if (Build.VERSION.SDK_INT >= 33 &&
+            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS)
+            != PackageManager.PERMISSION_GRANTED
+        ) notificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
+        else showReminderPicker()
+    }
+
+    private fun showReminderPicker() {
+        val saved = ReminderManager.savedTime(requireContext())
+        val now = Calendar.getInstance()
+        TimePickerDialog(
+            requireContext(),
+            { _, hour, minute ->
+                ReminderManager.set(requireContext(), hour, minute)
+                ReminderManager.showNotification(requireContext()) 
+                val time = String.format(Locale.getDefault(), "%02d:%02d", hour, minute)
+                Toast.makeText(requireContext(), getString(R.string.reminder_set, time), Toast.LENGTH_SHORT).show()
+            },
+            saved?.first ?: now.get(Calendar.HOUR_OF_DAY),
+            saved?.second ?: now.get(Calendar.MINUTE),
+            true
+        ).show()
     }
 
     // helpers

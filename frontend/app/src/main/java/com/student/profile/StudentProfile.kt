@@ -18,6 +18,7 @@ enum class SubjectAccent(@ColorRes val bar: Int, @ColorRes val text: Int) {
 }
 
 data class SubjectProgress(
+    val id: String,
     val title: String,
     val lessonsDone: Int,
     val lessonsTotal: Int,
@@ -39,6 +40,7 @@ data class BadgeItem(
 
 // The next badge the student has not earned yet. The backend only has a text condition for it
 data class LockedBadge(val title: String, val condition: String)
+data class BadgeEntry(val badge: BadgeItem, val earned: Boolean)
 
 data class QuizResult(
     val title: String,
@@ -68,6 +70,7 @@ data class StudentProfile(
     val solvedTasks: Int,
     val accuracy: Int,
     val subjects: List<SubjectProgress>,
+    val allBadges: List<BadgeEntry>,
     val badgesEarned: Int,
     val badgesTotal: Int,
     val badges: List<BadgeItem>,
@@ -121,6 +124,7 @@ object ProfileMapper {
         val grade = classroom?.gradeNumber
         val level = levelFor(user.totalXp)
         val (className, school) = ClassroomNaming.parse(classroom?.name.orEmpty())
+        val allAnswers = data.attempts.flatMap { it.answers }
 
         // best accuracy and stars per lesson
         val bestAccuracy: Map<String, Double> = data.attempts
@@ -144,13 +148,13 @@ object ProfileMapper {
         val activeIndex = latestAttempt?.let { lessonToSubject[it.lessonId] } ?: 0
 
         val subjects = data.subjects.mapIndexed { index, subject ->
-            val lessonIds = lessonToSubject.filterValues { it == index }.keys
-            val done = lessonIds.filter { it in bestAccuracy }
+            val lessons = data.lessons.filter { !it.isPublic && lessonToSubject[it.id] == index }
             SubjectProgress(
+                id = subject.id,
                 title = if (grade != null) "${subject.name} $grade" else subject.name,
-                lessonsDone = done.size,
-                lessonsTotal = lessonIds.size,
-                stars = done.sumOf { lessonStars[it] ?: 0 },
+                lessonsDone = lessons.count { it.status == "DONE" },
+                lessonsTotal = lessons.size,
+                stars = lessons.sumOf { it.stars },
                 accent = ACCENTS[index % ACCENTS.size],
                 iconRes = iconFor(subject.icon),
                 isActive = index == activeIndex
@@ -181,6 +185,13 @@ object ProfileMapper {
 
         // badges: earned ones come from User.badges, text from the catalog
         val earnedIds = user.badges.map { it.badgeId }.toSet()
+        val allBadges = data.badgeCatalog.mapIndexed { index, badge ->
+            val style = BADGE_STYLES[index % BADGE_STYLES.size]
+            BadgeEntry(
+                BadgeItem(badge.name, badge.condition, style.color, style.icon, style.glyph),
+                badge.id in earnedIds
+            )
+        }
         val earned = data.badgeCatalog.withIndex()
             .filter { it.value.id in earnedIds }
             .map { (index, badge) ->
@@ -203,12 +214,14 @@ object ProfileMapper {
             xp = user.totalXp,
             xpLevelStart = xpForLevel(level),
             xpGoal = xpForLevel(level + 1),
-            stars = lessonStars.values.sum(),
-            streakDays = effectiveStreak(user.streak, IsoDate.parse(user.lastActiveAt), now),
-            week = weekFor(user.streak, IsoDate.parse(user.lastActiveAt), now),
-            solvedTasks = data.attempts.sumOf { it.answers.size },
-            accuracy = if (data.attempts.isEmpty()) 0 else data.attempts.map { it.accuracy }.average().roundToInt(),
+            stars = data.lessons.sumOf { it.stars },
+            streakDays = effectiveStreak(user.streak, user.streakAnchorMillis(), now),
+            week = weekFor(user.streak, user.streakAnchorMillis(), now),
+            solvedTasks = allAnswers.size,
+            accuracy = if (allAnswers.isEmpty()) 0
+                    else (allAnswers.count { it.isCorrect } * 100.0 / allAnswers.size).roundToInt(),
             subjects = subjects,
+            allBadges = allBadges,
             badgesEarned = earned.size,
             badgesTotal = data.badgeCatalog.size,
             badges = earned,

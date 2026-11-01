@@ -188,7 +188,6 @@
     <string name="profile_section_settings">Nastavitve profila</string>
     <string name="profile_settings_avatar">Spremeni avatar ali lik</string>
     <string name="profile_settings_reminders">Opomniki za učenje</string>
-    <string name="profile_reminder_time">19:00</string>
     <string name="profile_settings_logout">Odjava iz računa</string>
     <string name="profile_logout_title">Odjava</string>
     <string name="profile_logout_message">Se res želiš odjaviti?</string>
@@ -822,5 +821,26 @@
         <item quantity="few">pred %d dnevi</item>
         <item quantity="other">pred %d dnevi</item>
     </plurals>
+
+    <string name="profile_all_badges_title">Vse značke (%1$d/%2$d)</string>
+    <string name="reminder_channel">Dnevni opomnik</string>
+    <string name="reminder_title">Čas za učenje!</string>
+    <string name="reminder_text">Odpri SuperZnalce in nadaljuj z učenjem.</string>
+    <string name="reminder_set">Opomnik nastavljen na %1$s</string>
+    <string name="reminder_permission_denied">Za opomnike dovoli obvestila.</string>
+    <string name="mistakes_title">Napačni odgovori</string>
+    <string name="mistakes_summary">%1$s • %2$d/%3$d pravilnih</string>
+    <string name="mistakes_your">Tvoj odgovor: %1$s</string>
+    <string name="mistakes_correct">Pravilen odgovor: %1$s</string>
+    <string name="mistakes_none">Vsi odgovori so pravilni! 🎉</string>
+    <string name="mistakes_true">Drži</string>
+    <string name="mistakes_false">Ne drži</string>
+    <string name="mistakes_empty_answer">(brez odgovora)</string>
+
+    <string name="avatar_title">Spremeni sliko</string>
+    <string name="avatar_take_photo">Naredi fotografijo</string>
+    <string name="avatar_choose_gallery">Izberi iz galerije</string>
+    <string name="avatar_saved">Slika je shranjena</string>
+    <string name="avatar_failed">Slike ni bilo mogoče shraniti</string>
 
 </resources>

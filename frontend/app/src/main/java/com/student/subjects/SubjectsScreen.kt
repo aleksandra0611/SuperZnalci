@@ -65,7 +65,6 @@ data class SubjectsScreen(
     val className: String,
     val school: String,
     val classCode: String,
-    val studentCount: Int,
     val challengeDone: Int,
     val challengeGoal: Int,
     val tabs: List<SubjectTab>,
@@ -111,7 +110,7 @@ object SubjectsMapper {
         val contexts = data.subjects.mapIndexed { index, subject ->
             val topics = subject.grades.filter { it.gradeNumber == grade }.flatMap { it.topics }
             val topicIds = topics.map { it.id }.toSet()
-            Ctx(subject, index, topics, data.lessons.filter { it.topicId in topicIds })
+            Ctx(subject, index, topics, data.lessons.filter { !it.isPublic && it.topicId in topicIds })
         }
 
         val tabs = contexts.map { ctx ->
@@ -137,7 +136,7 @@ object SubjectsMapper {
                 id = ctx.subject.id,
                 title = if (grade != null) "${ctx.subject.name} $grade" else ctx.subject.name,
                 teacher = data.classroomInfo.teacherName,
-                xp = 0, // replaced by SubjectsFragment.bindStats()
+                xp = user.totalXp, // replaced by SubjectsFragment.bindStats()
                 level = ProfileMapper.levelFor(user.totalXp),
                 percent = percent(done, ctx.lessons.size),
                 lessonsDone = done,
@@ -148,13 +147,12 @@ object SubjectsMapper {
         }
 
         return SubjectsScreen(
-            streakDays = ProfileMapper.effectiveStreak(user.streak, IsoDate.parse(user.lastActiveAt), now),
+            streakDays = ProfileMapper.effectiveStreak(user.streak, user.streakAnchorMillis(), now),
             stars = data.lessons.sumOf { it.stars },
             gradeNumber = grade,
             className = className.ifBlank { "—" },
             school = school,
             classCode = classroom?.joinCode ?: "—",
-            studentCount = data.classroomInfo.studentCount,
             challengeDone = attemptsThisWeek(data.attempts, now).coerceAtMost(WEEKLY_GOAL),
             challengeGoal = WEEKLY_GOAL,
             tabs = tabs,
