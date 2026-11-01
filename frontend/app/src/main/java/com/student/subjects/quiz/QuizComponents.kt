@@ -13,8 +13,7 @@ import androidx.core.content.ContextCompat
 import com.google.gson.JsonElement
 import com.google.gson.JsonPrimitive
 
-// One question on the screen. The component does not know the correct answer:
-// it gives the student's answer in the API format and then shows what the server said.
+
 interface QuestionComponent {
     val root: View
 
@@ -22,10 +21,8 @@ interface QuestionComponent {
 
     fun hasAnswer(): Boolean
 
-    // givenAnswer for POST /api/attempts/{attemptId}/answers
     fun answer(): JsonElement
 
-    // locked while the answer is being checked and after it was checked
     fun setLocked(locked: Boolean)
 
     fun showResult(result: AnswerResult)
@@ -64,7 +61,6 @@ object QuizUi {
         if (stroke != null) setStroke(dp(context, 2), stroke)
     }
 
-    // TRUE_FALSE answers come from the server as "Drži" / "Ne drži"; older data may use true / false
     fun answerLabel(context: Context, type: QuestionType, value: String): String =
         when {
             type == QuestionType.TRUE_FALSE && value.equals("true", ignoreCase = true) -> context.getString(R.string.quiz_true)
@@ -167,7 +163,6 @@ class ChoiceComponent(
     private fun c(@ColorRes res: Int) = QuizUi.color(context, res)
 }
 
-// Only for broken data (unknown type, missing options). The quiz skips it without asking the server.
 class UnsupportedComponent(context: Context, parent: ViewGroup) : QuestionComponent {
 
     override val root: View = TextView(context).apply {

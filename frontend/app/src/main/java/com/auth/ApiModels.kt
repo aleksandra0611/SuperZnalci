@@ -112,7 +112,10 @@ data class LessonSummaryDto(
     val isPublic: Boolean = true,
     val questionCount: Int = 0,
     val totalPoints: Int = 0,
-    val description: String? = null
+    val description: String? = null,
+    val status: String? = null,
+    val stars: Int = 0,
+    val bestAccuracy: Double? = null
 )
 
 data class AttemptAnswerDto(
@@ -127,8 +130,11 @@ data class AttemptDto(
     val points: Int,
     val accuracy: Double, 
     val date: String,                  // ISO-8601
+    val finishedAt: String? = null,
     val answers: List<AttemptAnswerDto> = emptyList()
 )
+
+class AttemptsEnvelope(val attempts: List<AttemptDto>?)
 
 /**
  * Classroom.name is the only place where grade, department and school can be kept,
@@ -170,6 +176,35 @@ object IsoDate {
         } catch (e: ParseException) {
             null
         }
+    }
+}
+
+data class StatisticsSummaryDto(
+    val totalXp: Int = 0,
+    val streak: Int = 0,
+    val completedQuizzes: Int = 0
+)
+
+data class SubjectStatDto(
+    val subjectId: String = "",
+    val subjectName: String = "",
+    val totalPoints: Int = 0,
+    val completedQuizzes: Int = 0,
+    val averageAccuracy: Double = 0.0
+)
+
+data class StatisticsDto(
+    val summary: StatisticsSummaryDto = StatisticsSummaryDto(),
+    val subjectStatistics: List<SubjectStatDto> = emptyList()
+)
+
+interface StatsRepository {
+    fun load(callback: ResultCallback<StatisticsDto>)
+}
+
+class RetrofitStatsRepository(private val api: ApiService) : StatsRepository {
+    override fun load(callback: ResultCallback<StatisticsDto>) {
+        api.myStatistics().go({ callback(ApiResult.Failure(it)) }) { callback(ApiResult.Success(it)) }
     }
 }
 
