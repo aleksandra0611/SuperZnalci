@@ -10,6 +10,7 @@ function toUserDto(user) {
     streak: user.streak,
     registeredAt: user.registeredAt, // Date se v JSON zapiše kot ISO-8601
     lastActiveAt: user.lastActiveAt,
+    lastStreakAt: user.lastStreakAt ?? null,
     badges: user.badges.map((b) => ({
       badgeId: b.badgeId.toString(),
       awardedAt: b.awardedAt,

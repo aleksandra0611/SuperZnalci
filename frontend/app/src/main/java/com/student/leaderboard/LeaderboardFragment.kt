@@ -301,20 +301,19 @@ class LeaderboardFragment : Fragment(R.layout.fragment_leaderboard) {
     private fun bindButtons(view: View, s: LeaderboardScreen) {
         view.findViewById<TextView>(R.id.btnContinue).apply {
             background = rounded(color(R.color.primary), 16)
-            // TODO: open the next lesson of the subject
             setOnClickListener { openSubjects() }
         }
 
         val wrong = s.result?.wrongCount ?: 0
+        val result = s.result
         view.findViewById<TextView>(R.id.btnReviewWrong).apply {
-            if (s.result == null) {
+            if (result == null) {
                 visibility = View.GONE
             } else {
                 visibility = View.VISIBLE
-                text = getString(R.string.lb_btn_review, wrong)
+                text = getString(R.string.lb_btn_review, result.wrongCount)
                 background = rounded(color(R.color.quiz_surface_alt), 16)
-                // TODO: screen with the wrong answers of the last attempt
-                setOnClickListener { toast(R.string.profile_pending) }
+                setOnClickListener { openMistakes(result.attemptId) }
             }
         }
     }
@@ -353,6 +352,13 @@ class LeaderboardFragment : Fragment(R.layout.fragment_leaderboard) {
         parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, LoginFragment())
+            .commit()
+    }
+
+    private fun openMistakes(attemptId: String) {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, MistakesFragment.newInstance(attemptId))
+            .addToBackStack(null)
             .commit()
     }
 

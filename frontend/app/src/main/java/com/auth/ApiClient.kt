@@ -64,7 +64,10 @@ interface ApiService {
     ): Call<QuestionsEnvelope>
 
     @GET("lessons")
-    fun lessons(@Query("topicIds") topicIds: String): Call<LessonsEnvelope> //delete of we donćt add GET //api/lessons
+    fun lessons(@Query("topicIds") topicIds: String): Call<LessonsEnvelope>
+
+    @GET("students/me/statistics")
+    fun myStatistics(): Call<StatisticsDto>
 
     // --- attempt API: solving a lesson, every answer is checked on the server ---
     @POST("lessons/{lessonId}/attempts")
@@ -75,6 +78,12 @@ interface ApiService {
 
     @POST("attempts/{attemptId}/finish")
     fun finishAttempt(@Path("attemptId") attemptId: String): Call<FinishResultDto>
+
+    @GET("attempts")
+    fun attempts(): Call<AttemptsEnvelope>
+
+    @GET("attempts/{id}/mistakes")
+    fun attemptMistakes(@Path("id") attemptId: String): Call<MistakesDto>
 
     // --- Vadnica (practice content, no classroom needed) ---
     @GET("practice/subjects")
@@ -126,6 +135,53 @@ interface ApiService {
         @Path("topicId") topicId: String,
         @Body body: TopicSettingRequest
     ): Call<TopicSettingEnvelope>
+
+    @GET("classrooms/{id}/overview")
+    fun classroomOverview(@Path("id") classroomId: String): Call<ClassroomOverviewDto>
+
+    @GET("classrooms/{id}/student-results")
+    fun studentResults(@Path("id") classroomId: String): Call<StudentResultsEnvelope>
+
+    @POST("classrooms/{id}/join-code")
+    fun regenerateJoinCode(@Path("id") classroomId: String): Call<JoinCodeEnvelope>
+
+    @POST("questions")
+    fun createQuestion(@Body body: QuestionCreateRequest): Call<QuestionCreatedEnvelope>
+
+    @DELETE("questions/{id}")
+    fun deleteQuestion(@Path("id") questionId: String): Call<Unit>
+
+    @GET("classrooms/{id}/student-insights")
+    fun studentInsights(
+        @Path("id") classroomId: String,
+        @Query("subjectId") subjectId: String?
+    ): Call<TeacherInsightsEnvelope>
+
+    @GET("classrooms/{id}/students/{studentId}/detail")
+    fun studentDetail(
+        @Path("id") classroomId: String,
+        @Path("studentId") studentId: String
+    ): Call<TeacherStudentDetailDto>
+
+    @POST("classrooms/{id}/students/{studentId}/praise")
+    fun sendPraise(
+        @Path("id") classroomId: String,
+        @Path("studentId") studentId: String,
+        @Body body: TeacherPraiseRequest
+    ): Call<Unit>
+
+    // --- teacher learn: MISSING on the backend (mocked while TeacherLearnConfig.USE_REAL_EXTRAS = false) ---
+    @GET("classrooms/{id}/overview")
+    fun classOverview(@Path("id") classroomId: String): Call<ClassOverviewDto>
+
+    @GET("classrooms/{id}/struggling-students")
+    fun strugglingStudents(@Path("id") classroomId: String): Call<StrugglingEnvelope>
+
+    @POST("classrooms/{id}/reminders")
+    fun sendReminder(@Path("id") classroomId: String, @Body body: ReminderRequest): Call<ReminderResponse>
+
+    @GET("badges")
+    fun badges(): Call<BadgesEnvelope>
 }
 
 object ApiClient {
@@ -246,7 +302,7 @@ class RetrofitProfileRepository(
         }
     }
 
-    private fun finish(
+        private fun finish(
         callback: ResultCallback<ProfileData>,
         user: UserDto,
         classroom: ClassroomDto?,
@@ -254,6 +310,46 @@ class RetrofitProfileRepository(
         lessons: List<LessonSummaryDto>
     ) {
         SessionStore.token?.let { SessionStore.save(it, user) }
+
+        api.attempts().go(
+            onFail = { code ->
+                if (code == 401) callback(ApiResult.Failure(401))
+                else loadBadges(callback, user, classroom, subjects, lessons, emptyList())
+            }
+        ) { envelope ->
+            val finished = envelope.attempts.orEmpty().filter { it.finishedAt != null }
+            loadBadges(callback, user, classroom, subjects, lessons, finished)
+        }
+    }
+
+    private fun loadBadges(
+        callback: ResultCallback<ProfileData>,
+        user: UserDto,
+        classroom: ClassroomDto?,
+        subjects: List<SubjectDto>,
+        lessons: List<LessonSummaryDto>,
+        attempts: List<AttemptDto>
+    ) {
+        api.badges().go(
+            onFail = { code ->
+                if (code == 401) callback(ApiResult.Failure(401))
+                else deliver(callback, user, classroom, subjects, lessons, attempts, emptyList())
+            }
+        ) { envelope ->
+            val catalog = envelope.badges.orEmpty().mapNotNull { it.toBadgeDto() }
+            deliver(callback, user, classroom, subjects, lessons, attempts, catalog)
+        }
+    }
+
+    private fun deliver(
+        callback: ResultCallback<ProfileData>,
+        user: UserDto,
+        classroom: ClassroomDto?,
+        subjects: List<SubjectDto>,
+        lessons: List<LessonSummaryDto>,
+        attempts: List<AttemptDto>,
+        badgeCatalog: List<BadgeDto>
+    ) {
         callback(
             ApiResult.Success(
                 ProfileData(
@@ -261,8 +357,8 @@ class RetrofitProfileRepository(
                     classroom = classroom,
                     subjects = subjects,
                     lessons = lessons,
-                    attempts = emptyList(),       // MISSING: GET /api/attempts
-                    badgeCatalog = emptyList()    // MISSING: GET /api/badges
+                    attempts = attempts,
+                    badgeCatalog = badgeCatalog
                 )
             )
         )
@@ -307,11 +403,8 @@ class UnavailablePasswordResetRepository : PasswordResetRepository {
 
 object ServiceLocator {
     private val api = ApiClient.service
-//change if we donćt add GET /api/lessons to val lessons = QuestionsDerivedLessonsRepository(api)
-    val lessons: LessonsRepository =
-        if (QuizConfig.USE_REAL_LESSONS_ENDPOINT) RetrofitLessonsRepository(api)
-        else QuestionsDerivedLessonsRepository(api)
 
+    val lessons: LessonsRepository = RetrofitLessonsRepository(api)
     val teacherExtras: TeacherExtrasSource =
         if (TeacherConfig.USE_REAL_EXTRAS) RetrofitTeacherExtrasSource(api)
         else MockTeacherExtrasSource()
@@ -323,14 +416,10 @@ object ServiceLocator {
     val schools: SchoolsRepository = RetrofitSchoolsRepository(api)
     val passwordReset: PasswordResetRepository = UnavailablePasswordResetRepository()
     val quiz: QuizRepository = RetrofitQuizRepository(api)
+    val stats: StatsRepository = RetrofitStatsRepository(api)
     val practice: PracticeRepository = RetrofitPracticeRepository(api)
-    val leaderboard: LeaderboardRepository =
-    if (LeaderboardConfig.USE_REAL_LEADERBOARD) RetrofitLeaderboardRepository(api, profile)
-    else MockLeaderboardRepository()
-    val learnExtras: LearnExtrasSource =
-        if (LearnConfig.USE_REAL_EXTRAS) RetrofitLearnExtrasSource()
-        else MockLearnExtrasSource()
-
+    val leaderboard: LeaderboardRepository = RetrofitLeaderboardRepository(api, profile)
+    val learnExtras: LearnExtrasSource = RetrofitLearnExtrasSource()
     val learn: LearnRepository = LearnRepositoryImpl(
         profile = profile,
         extras = learnExtras
@@ -343,6 +432,24 @@ object ServiceLocator {
         else MockTopicSettingsSource()
     val teacherSubjects: TeacherSubjectsRepository =
         RetrofitTeacherSubjectsRepository(api, classroomContent, topicSettings)
+    val classroomInsights: ClassroomInsightsSource =
+        if (TeacherClassroomConfig.USE_REAL_INSIGHTS) RetrofitClassroomInsightsSource(api)
+        else MockClassroomInsightsSource()
+    val questionAuthoring: QuestionAuthoringSource =
+        if (TeacherClassroomConfig.USE_REAL_AUTHORING) RetrofitQuestionAuthoringSource(api)
+        else MockQuestionAuthoringSource()
+    val teacherClassroom: TeacherClassroomRepository =
+        RetrofitTeacherClassroomRepository(api, classroomInsights, questionAuthoring)
+    val studentInsights: StudentInsightsSource =
+        if (TeacherLeaderboardConfig.USE_REAL_INSIGHTS) RetrofitStudentInsightsSource(api)
+        else MockStudentInsightsSource()
+    val teacherLeaderboard: TeacherLeaderboardRepository =
+        RetrofitTeacherLeaderboardRepository(api, studentInsights)
+    val teacherLearnSource: TeacherLearnSource =
+    if (TeacherLearnConfig.USE_REAL_EXTRAS) RetrofitTeacherLearnSource(api)
+        else MockTeacherLearnSource(classroomContent)
+    val teacherLearn: TeacherLearnRepository =
+        RetrofitTeacherLearnRepository(teacherSubjects, teacherLearnSource)
 }
 
 // new repository (same file, so it can use the private go()):

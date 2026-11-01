@@ -1,14 +1,5 @@
 package com.example.superznalci
 
-import android.os.Handler
-import android.os.Looper
-
-
-object LeaderboardConfig {
-    const val USE_REAL_LEADERBOARD = false
-    const val MOCK_DELAY_MS = 350L
-}
-
 class LeaderboardEnvelope(val leaderboard: LeaderboardDto?)
 
 data class LeaderboardEntryDto(
@@ -45,8 +36,6 @@ interface LeaderboardRepository {
     fun loadLeaderboard(callback: ResultCallback<LeaderboardData>)
 }
 
-// real implementation
-
 class RetrofitLeaderboardRepository(
     private val api: ApiService,
     private val profile: ProfileRepository
@@ -70,10 +59,10 @@ class RetrofitLeaderboardRepository(
                                     user = p.user,
                                     classroom = classroom,
                                     leaderboard = envelope.leaderboard ?: LeaderboardDto(classroom.id),
-                                    lastAttempt = null,                // MISSING: GET /api/attempts
+                                    lastAttempt = lastAttemptOf(p),
                                     badgeCatalog = p.badgeCatalog,
-                                    newBadges = emptyList(),           // MISSING: GET /api/badges
-                                    stars = 0                          // MISSING: needs attempts
+                                    newBadges = recentBadges(p),
+                                    stars = p.lessons.sumOf { it.stars }
                                 )
                             )
                         )
@@ -82,83 +71,34 @@ class RetrofitLeaderboardRepository(
             }
         }
     }
-}
 
-// mock implementation (same shapes as the database)
+    private fun lastAttemptOf(p: ProfileData): LastAttemptDto? {
+        val lessonById = p.lessons.associateBy { it.id }
+        val subjectByTopic = HashMap<String, String>()
+        p.subjects.forEach { s -> s.grades.forEach { g -> g.topics.forEach { t -> subjectByTopic[t.id] = s.name } } }
 
-class MockLeaderboardRepository : LeaderboardRepository {
+        val latest = p.attempts
+            .filter { it.finishedAt != null }
+            .sortedByDescending { IsoDate.parse(it.finishedAt) ?: 0L }
+            .firstNotNullOfOrNull { a -> lessonById[a.lessonId]?.let { lesson -> a to lesson } }
+            ?: return null
 
-    private val main = Handler(Looper.getMainLooper())
-
-    override fun loadLeaderboard(callback: ResultCallback<LeaderboardData>) {
-        main.postDelayed({ callback(ApiResult.Success(build())) }, LeaderboardConfig.MOCK_DELAY_MS)
+        val (attempt, lesson) = latest
+        val start = IsoDate.parse(attempt.date) ?: 0L
+        val end = IsoDate.parse(attempt.finishedAt) ?: start
+        return LastAttemptDto(
+            attempt = attempt,
+            lessonName = lesson.name,
+            subjectName = subjectByTopic[lesson.topicId].orEmpty(),
+            durationSeconds = ((end - start) / 1000).toInt().coerceAtLeast(0)
+        )
     }
 
-    private fun build(): LeaderboardData {
-        val now = System.currentTimeMillis()
-
-        val base = SessionStore.user ?: UserDto(
-            id = "mock-user-me",
-            name = "Jan Novak",
-            email = "jan.novak@example.com",
-            role = "student",
-            classroomId = "mock-classroom-8a"
-        )
-        val me = base.copy(
-            totalXp = if (base.totalXp > 0) base.totalXp else 1420,
-            streak = if (base.streak > 0) base.streak else 5,
-            lastActiveAt = IsoDate.format(now)
-        )
-
-        val classroom = ClassroomDto(
-            id = me.classroomId ?: "mock-classroom-8a",
-            name = ClassroomNaming.build(8, "A", "OŠ Primoža Trubarja, Ljubljana"),
-            joinCode = "MAT8A7",
-            gradeNumber = 8,
-            subjectIds = listOf("mock-subject-math")
-        )
-
-        val entries = listOf(
-            LeaderboardEntryDto("mock-user-1", "Luka Kovač", null, 2450),
-            LeaderboardEntryDto("mock-user-2", "Maja Novak", null, 2210),
-            LeaderboardEntryDto("mock-user-3", "Žan Petek", null, 1980),
-            LeaderboardEntryDto("mock-user-4", "Nina Horvat", null, 1730),
-            LeaderboardEntryDto("mock-user-5", "Tilen Zupan", null, 1560),
-            LeaderboardEntryDto("mock-user-6", "Ema Kranjc", null, 1465),
-            LeaderboardEntryDto(me.id, me.name, me.avatar, 1420),
-            LeaderboardEntryDto("mock-user-8", "Rok Mlakar", null, 1310),
-            LeaderboardEntryDto("mock-user-9", "Lara Vidmar", null, 1190)
-        )
-
-        val attempt = AttemptDto(
-            id = "mock-attempt-1",
-            studentId = me.id,
-            lessonId = "mock-lesson-fractions",
-            points = 120,
-            accuracy = 90.0,
-            date = IsoDate.format(now - 60_000L),
-            answers = List(10) { i -> AttemptAnswerDto("mock-question-$i", isCorrect = i != 4) }
-        )
-
-        val badges = listOf(
-            BadgeDto("mock-badge-1", "5 dni zapored", "Zagon"),
-            BadgeDto("mock-badge-2", "Mojster ulomkov", "Tema rešena"),
-            BadgeDto("mock-badge-3", "Hitri računar", "< 3 minute")
-        )
-
-        return LeaderboardData(
-            user = me,
-            classroom = classroom,
-            leaderboard = LeaderboardDto(classroom.id, "week", entries),
-            lastAttempt = LastAttemptDto(
-                attempt = attempt,
-                lessonName = "Ulomki in seštevanje",
-                subjectName = "Matematika",
-                durationSeconds = 165
-            ),
-            badgeCatalog = badges,
-            newBadges = badges,
-            stars = 420
-        )
+    private fun recentBadges(p: ProfileData): List<BadgeDto> {
+        val byId = p.badgeCatalog.associateBy { it.id }
+        return p.user.badges
+            .sortedByDescending { IsoDate.parse(it.awardedAt) ?: 0L }
+            .mapNotNull { byId[it.badgeId] }
+            .take(3)
     }
 }

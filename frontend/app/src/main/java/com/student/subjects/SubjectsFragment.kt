@@ -23,6 +23,7 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
     private var data: SubjectsData? = null
     private var screen: SubjectsScreen? = null
     private var selectedSubjectId: String? = null
+    private var stats: StatisticsDto? = null
 
     private val expandedTopics = mutableSetOf<String>()
     private val seenTopics = mutableSetOf<String>()
@@ -32,6 +33,7 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         selectedSubjectId = savedInstanceState?.getString(KEY_SELECTED)
+            ?: arguments?.getString(ARG_SUBJECT_ID)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -49,7 +51,7 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
         if (SessionStore.user == null) {
             goToLogin()
             return
-        }
+        }  
 
         setupNavigation(view)
         root.visibility = View.INVISIBLE
@@ -65,6 +67,7 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
                     data = result.data
                     render()
                     root.visibility = View.VISIBLE
+                    loadStats()
                 }
                 is ApiResult.Failure -> when (result.httpCode) {
                     401 -> {
@@ -76,6 +79,22 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
                 }
             }
         }
+    }
+
+    private fun loadStats() {
+        ServiceLocator.stats.load { result ->
+            if (view == null) return@load
+            if (result is ApiResult.Success) {
+                stats = result.data
+                bindStats()
+            }
+        }
+    }
+
+    private fun bindStats() {
+        val v = view ?: return
+        val st = stats ?: return
+        setText(v, R.id.tvTopStreak, getString(R.string.profile_top_streak, st.summary.streak))
     }
 
     private fun showLoadError(root: View, messageRes: Int) {
@@ -111,6 +130,7 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
         bindTabs(view, s)
         bindActive(view, s)
         bindTopics(view, s)
+        bindStats()
     }
 
     private fun bindTop(view: View, s: SubjectsScreen) {
@@ -126,10 +146,6 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
             chip.visibility = View.VISIBLE
             chip.text = getString(R.string.subjects_grade_chip, s.gradeNumber)
         }
-        setText(
-            view, R.id.tvStudents,
-            resources.getQuantityString(R.plurals.subjects_students, s.studentCount, s.studentCount)
-        )
         setText(view, R.id.tvClassName, getString(R.string.subjects_class_name, s.className))
         setText(view, R.id.tvSchool, s.school)
         view.findViewById<View>(R.id.tvSchool).visibility =
@@ -405,7 +421,11 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
 
     private fun dp(value: Int): Int = (value * resources.displayMetrics.density).toInt()
 
-    private companion object {
-        const val KEY_SELECTED = "selected_subject"
+    companion object {
+        private const val KEY_SELECTED = "selected_subject"
+        private const val ARG_SUBJECT_ID = "subject_id"
+        fun newInstance(subjectId: String?) = SubjectsFragment().apply {
+            arguments = Bundle().apply { putString(ARG_SUBJECT_ID, subjectId) }
+        }
     }
 }

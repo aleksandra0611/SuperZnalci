@@ -6,6 +6,7 @@ const {
   getMyClassroom,
   listClassroomStudents,
 } = require("../controllers/classroomController");
+const { getClassroomLeaderboard } = require("../controllers/leaderboardController");
 
 const router = express.Router();
 
@@ -14,5 +15,6 @@ router.use(authenticate); // vse poti spodaj zahtevajo prijavo
 router.get("/", requireRole("TEACHER"), listMyClassrooms);
 router.get("/me", requireRole("STUDENT"), getMyClassroom);
 router.get("/:classroomId/students", requireRole("TEACHER"), listClassroomStudents);
+router.get("/:classroomId/leaderboard", authenticate, getClassroomLeaderboard);
 
 module.exports = router;

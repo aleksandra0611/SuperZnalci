@@ -2,8 +2,6 @@ package com.example.superznalci
 import com.google.gson.JsonElement
 
 object QuizConfig {
-    const val USE_REAL_LESSONS_ENDPOINT = false
-
     const val START_HEARTS = 5
 }
 
@@ -28,11 +26,6 @@ data class QuestionDto(
     val lesson: NamedRefDto? = null
 )
 
-// --- attempt API: the server checks every answer, the phone never gets correct answers in advance ---
-//   start    POST /api/lessons/{lessonId}/attempts      attemptId + questions without correct answers
-//   answer   POST /api/attempts/{attemptId}/answers     { questionId, givenAnswer } -> correct?, correct answers, explanation
-//   finish   POST /api/attempts/{attemptId}/finish      points, accuracy, stars, XP, streak, new badges
-
 class StartAttemptResponse(
     val attemptId: String,
     val lessonId: String? = null,
@@ -41,7 +34,6 @@ class StartAttemptResponse(
     val questions: List<QuestionDto>? = null
 )
 
-// givenAnswer: a string, a list of strings or a list of { left, right } pairs, depending on the type
 class AnswerRequest(val questionId: String, val givenAnswer: JsonElement)
 
 class AnswerResultDto(
@@ -68,7 +60,7 @@ class FinishResultDto(
     val newBadges: List<NewBadgeDto>? = null
 )
 
-enum class QuestionType { MULTIPLE_CHOICE, MULTIPLE_SELECT, TRUE_FALSE, FILL_BLANK, IMAGE_QUESTION, MATCHING, ORDERING, UNKNOWN }
+enum class QuestionType { MULTIPLE_CHOICE, MULTIPLE_SELECT, TRUE_FALSE, FILL_BLANK, IMAGE_QUESTION, MATCHING, UNKNOWN }
 
 enum class AnswerOutcome { CORRECT, WRONG, SKIPPED }
 
@@ -76,10 +68,10 @@ data class QuizQuestion(
     val id: String,
     val type: QuestionType,
     val text: String,
-    val answers: List<String>,      // choice options
-    val matchLeft: List<String>,    // MATCHING only
-    val matchRight: List<String>,   // MATCHING only
-    val blankCount: Int,            // FILL_BLANK / IMAGE_QUESTION: number of input fields
+    val answers: List<String>,
+    val matchLeft: List<String>,
+    val matchRight: List<String>,
+    val blankCount: Int,
     val hint: String?,
     val points: Int,
     val image: String?,
@@ -91,8 +83,8 @@ data class QuizQuestion(
 data class AnswerResult(
     val correct: Boolean,
     val points: Int,
-    val correctAnswers: List<String>,           // choices / blanks
-    val correctPairs: Map<String, String>,      // MATCHING: left -> right
+    val correctAnswers: List<String>,
+    val correctPairs: Map<String, String>,
     val explanation: String?
 )
 
@@ -129,7 +121,6 @@ object QuizMapper {
             "BLANK" in t || "FILL" in t -> QuestionType.FILL_BLANK
             "IMAGE" in t -> QuestionType.IMAGE_QUESTION
             "MATCH" in t || "PAIR" in t -> QuestionType.MATCHING
-            "ORDER" in t || "SEQUENCE" in t -> QuestionType.ORDERING
             else -> QuestionType.UNKNOWN
         }
     }
@@ -140,7 +131,6 @@ object QuizMapper {
         if (text.isEmpty()) return null
 
         var type = typeFor(dto.type)
-        // answers are sent back to the server exactly as received, so they are not trimmed
         val answers = dto.answers.asStringList().filter { it.isNotBlank() }
         var matchLeft = emptyList<String>()
         var matchRight = emptyList<String>()

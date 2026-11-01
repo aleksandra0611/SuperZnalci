@@ -88,7 +88,7 @@ object LearnMapper {
             .mapValues { (_, list) -> list.reduce { a, b -> if (b.accuracy > a.accuracy) b else a } }
 
         val dueByLesson = data.assignments.associate { it.lessonId to it.dueDate }
-        val visible = data.lessons.filter { it.isPublic || it.id in dueByLesson }
+        val visible = data.lessons.filter { !it.isPublic }
 
         val contexts = data.subjects.map { subject ->
             val topics = subject.grades.filter { it.gradeNumber == grade }.flatMap { it.topics }
@@ -124,12 +124,12 @@ object LearnMapper {
 
         val offset = TimeZone.getDefault().getOffset(now)
         val startOfDay = ((now + offset) / DAY_MS) * DAY_MS - offset
-        val doneToday = data.attempts.count { (IsoDate.parse(it.date) ?: 0L) >= startOfDay }
+        val doneToday = data.attempts.count { (IsoDate.parse(it.finishedAt ?: it.date) ?: 0L) >= startOfDay }
         val hoursToReset = (((startOfDay + DAY_MS - now) + HOUR_MS - 1) / HOUR_MS).toInt().coerceIn(1, 24)
 
         return LearnScreen(
             userInitials = LeaderboardMapper.initials(user.name),
-            streakDays = ProfileMapper.effectiveStreak(user.streak, IsoDate.parse(user.lastActiveAt), now),
+            streakDays = ProfileMapper.effectiveStreak(user.streak, user.streakAnchorMillis(), now),
             streakRecord = data.streakRecord,
             xp = user.totalXp,
             dailyDone = doneToday,
@@ -150,30 +150,26 @@ object LearnMapper {
 
         fun lessonsOf(topic: TopicDto) = ctx.lessons.filter { it.topicId == topic.id }.sortedBy { it.order }
 
-        val topicIndex = ctx.topics.indexOfFirst { t -> lessonsOf(t).any { it.id !in best } }
+                val topicIndex = ctx.topics.indexOfFirst { t -> lessonsOf(t).any { it.status != "DONE" } }
             .takeIf { it >= 0 }
             ?: ctx.topics.indexOfLast { lessonsOf(it).isNotEmpty() }.takeIf { it >= 0 }
             ?: 0
         val topic = ctx.topics[topicIndex]
         val lessons = lessonsOf(topic)
 
-        var unlocked = true
         val nodes = lessons.map { lesson ->
-            val attempt = best[lesson.id]
-            val state = when {
-                attempt != null -> NodeState.DONE
-                unlocked -> NodeState.CURRENT
-                else -> NodeState.LOCKED
-            }
-            unlocked = attempt != null
             PathNode(
                 id = lesson.id,
                 lessonId = lesson.id,
                 title = lesson.name,
                 order = lesson.order,
                 total = lessons.size,
-                state = state,
-                stars = attempt?.let { ProfileMapper.starsFor(it.accuracy) } ?: 0,
+                state = when (lesson.status) {
+                    "DONE" -> NodeState.DONE
+                    "LOCKED" -> NodeState.LOCKED
+                    else -> NodeState.CURRENT
+                },
+                stars = lesson.stars.coerceIn(0, 3),
                 questionCount = lesson.questionCount,
                 isBoss = false
             )

@@ -9,6 +9,8 @@ const practiceRoutes = require("./routes/practiceRoutes");
 const attemptRoutes = require("./routes/attemptRoutes");
 const badgeRoutes = require("./routes/badgeRoutes");
 const studentStatisticsRoutes = require("./routes/studentStatisticsRoutes");
+const lessonRoutes = require("./routes/lessonRoutes");
+const schoolRoutes = require("./routes/schoolRoutes");
 
 const app = express();
 app.use(cors());
@@ -19,6 +21,7 @@ app.get("/api/health", (req, res) =>
 );
 
 app.use("/api/auth", authRoutes);
+app.use("/api/schools", schoolRoutes);
 app.use("/api/classrooms", classroomRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/subjects", subjectRoutes);
@@ -27,6 +30,7 @@ app.use("/api/practice", practiceRoutes);
 app.use("/api", attemptRoutes);
 app.use("/api/badges", badgeRoutes);
 app.use("/api/students", studentStatisticsRoutes);
+app.use("/api/lessons", lessonRoutes);
 
 const path = require("path");
 

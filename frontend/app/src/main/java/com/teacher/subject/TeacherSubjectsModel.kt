@@ -20,10 +20,15 @@ data class ClassroomAssignmentDto(
     val classroomId: String,
     val lessonId: String,
     val availableFrom: String? = null,
-    val dueDate: String? = null
+    val dueDate: String? = null,
+    val allowRetry: Boolean = false          // NEW
 )
 
-class AssignmentRequest(val availableFrom: String? = null, val dueDate: String? = null)
+class AssignmentRequest(
+    val availableFrom: String? = null,
+    val dueDate: String? = null,
+    val allowRetry: Boolean? = null          // NEW
+)
 
 
 class TopicSettingsEnvelope(val settings: List<TopicSettingDto>?)

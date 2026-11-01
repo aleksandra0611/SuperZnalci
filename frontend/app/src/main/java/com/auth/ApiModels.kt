@@ -51,6 +51,7 @@ data class UserDto(
     val streak: Int = 0,
     val registeredAt: String? = null,  // ISO-8601
     val lastActiveAt: String? = null,  // ISO-8601, null until the first login
+    val lastStreakAt: String? = null,
     val badges: List<UserBadgeDto> = emptyList()
 )
 
@@ -112,7 +113,10 @@ data class LessonSummaryDto(
     val isPublic: Boolean = true,
     val questionCount: Int = 0,
     val totalPoints: Int = 0,
-    val description: String? = null
+    val description: String? = null,
+    val status: String? = null,
+    val stars: Int = 0,
+    val bestAccuracy: Double? = null
 )
 
 data class AttemptAnswerDto(
@@ -127,8 +131,11 @@ data class AttemptDto(
     val points: Int,
     val accuracy: Double, 
     val date: String,                  // ISO-8601
+    val finishedAt: String? = null,
     val answers: List<AttemptAnswerDto> = emptyList()
 )
+
+class AttemptsEnvelope(val attempts: List<AttemptDto>?)
 
 /**
  * Classroom.name is the only place where grade, department and school can be kept,
@@ -173,4 +180,51 @@ object IsoDate {
     }
 }
 
+data class StatisticsSummaryDto(
+    val totalXp: Int = 0,
+    val streak: Int = 0,
+    val completedQuizzes: Int = 0
+)
+
+data class SubjectStatDto(
+    val subjectId: String = "",
+    val subjectName: String = "",
+    val totalPoints: Int = 0,
+    val completedQuizzes: Int = 0,
+    val averageAccuracy: Double = 0.0
+)
+
+data class StatisticsDto(
+    val summary: StatisticsSummaryDto = StatisticsSummaryDto(),
+    val subjectStatistics: List<SubjectStatDto> = emptyList()
+)
+
+interface StatsRepository {
+    fun load(callback: ResultCallback<StatisticsDto>)
+}
+
+class RetrofitStatsRepository(private val api: ApiService) : StatsRepository {
+    override fun load(callback: ResultCallback<StatisticsDto>) {
+        api.myStatistics().go({ callback(ApiResult.Failure(it)) }) { callback(ApiResult.Success(it)) }
+    }
+}
+
 fun String.cleanName(): String = trim().replace(Regex("\\s+"), " ")
+
+fun UserDto.streakAnchorMillis(): Long? = IsoDate.parse(lastStreakAt ?: lastActiveAt)
+
+// GET /api/badges
+class BadgeApiDto(
+    val id: String? = null,
+    val _id: String? = null,
+    val name: String? = null,
+    val condition: String? = null,
+    val description: String? = null
+)
+
+class BadgesEnvelope(val badges: List<BadgeApiDto>?)
+
+fun BadgeApiDto.toBadgeDto(): BadgeDto? {
+    val key = id ?: _id ?: return null
+    return BadgeDto(key, name.orEmpty(), condition ?: description.orEmpty())
+}
