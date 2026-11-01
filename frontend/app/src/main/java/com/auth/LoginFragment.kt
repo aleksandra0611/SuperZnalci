@@ -133,9 +133,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         btnSubmit.setOnClickListener { submit() }
         tvForgot.setOnClickListener { openForgotPassword() }
-        view.findViewById<View>(R.id.tvDemo).setOnClickListener {
-            toast(R.string.msg_demo_pending)                                      // TODO: demo quiz screen
-        }
+        view.findViewById<View>(R.id.tvDemo).visibility = View.GONE
 
         // Result sent back from RegistrationFragment (role + e-mail to pre-fill)
         parentFragmentManager.setFragmentResultListener(RESULT_KEY, viewLifecycleOwner) { _, bundle ->

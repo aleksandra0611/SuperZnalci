@@ -270,8 +270,8 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
     // step: school & class
 
     private fun setupClassStep(view: View) {
-        // Fallback list first, so the spinner is never empty. Replaced by GET /schools below.
-        setupSpinner(spSchool, Schools.LIST)
+        setupSpinner(spSchool, listOf("Nalaganje šol ..."))
+        spSchool.isEnabled = false
         setupSpinner(spGrade, GRADES.map { it.second }, DEFAULT_GRADE_INDEX)
         setupSpinner(spDepartment, DEPARTMENTS)
         loadSchools()
@@ -291,18 +291,56 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
         btnFinish.setOnClickListener { submitRegistration() }
     }
 
-    // Replaces the fallback list with the schools from the backend (keeps the current choice).
-    // If the request fails or returns nothing, the fallback list simply stays.
+    
+    private var schoolsLoaded = false
+
     private fun loadSchools() {
+        schoolsLoaded = false
+        spSchool.isEnabled = false
+
         ServiceLocator.schools.loadSchools { result ->
-            if (view == null) return@loadSchools   // screen was left while waiting
-            if (result is ApiResult.Success && result.data.isNotEmpty()) {
-                val current = spSchool.selectedItem?.toString()
-                val index = result.data.indexOf(current).coerceAtLeast(0)
-                setupSpinner(spSchool, result.data, index)
+            if (view == null) return@loadSchools
+
+            when (result) {
+                is ApiResult.Success -> {
+                    val schools = result.data
+                        .map { it.trim() }
+                        .filter { it.isNotEmpty() }
+                        .distinct()
+
+                    if (schools.isEmpty()) {
+                        setupSpinner(
+                            spSchool,
+                            listOf("Ni razpoložljivih šol")
+                        )
+                        toast(R.string.err_server)
+                        return@loadSchools
+                    }
+
+                    setupSpinner(spSchool, schools)
+                    spSchool.isEnabled = true
+                    schoolsLoaded = true
+                }
+
+                is ApiResult.Failure -> {
+                    setupSpinner(
+                        spSchool,
+                        listOf("Šol ni bilo mogoče naložiti")
+                    )
+
+                    spSchool.isEnabled = false
+                    schoolsLoaded = false
+
+                    if (result.httpCode == null) {
+                        toast(R.string.err_network)
+                    } else {
+                        toast(R.string.err_server)
+                    }
+                }
             }
         }
     }
+
 
     private fun setupSpinner(spinner: Spinner, labels: List<String>, selected: Int = 0) {
         val adapter = ArrayAdapter(requireContext(), R.layout.item_spinner, labels)
@@ -359,6 +397,10 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
     private fun submitRegistration() {
         if (!validateStep1()) { showStep(1); return }
+        if (!schoolsLoaded) {
+            toast(R.string.err_server)
+            return
+        }
         if (selectedSubjects.isEmpty()) { toast(R.string.reg_err_subjects); return }
         if (!cbTerms.isChecked) { toast(R.string.reg_err_terms); return }
 

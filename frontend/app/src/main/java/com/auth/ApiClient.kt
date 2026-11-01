@@ -33,6 +33,13 @@ interface ApiService {
     @POST("auth/login")
     fun login(@Body body: LoginRequest): Call<AuthResponse>
 
+    
+    @POST("auth/forgot-password")
+    fun forgotPassword(@Body body: ForgotPasswordRequest): Call<Void>
+
+    @POST("auth/reset-password")
+    fun resetPassword(@Body body: ResetPasswordRequest): Call<Void>
+
     @POST("auth/register/student")
     fun registerStudent(@Body body: StudentRegistrationRequest): Call<AuthResponse>
 
@@ -392,13 +399,78 @@ class RetrofitSubjectsRepository(private val profile: ProfileRepository) : Subje
     }
 }
 
-// The backend has no forgot-password / reset-password endpoints yet
-class UnavailablePasswordResetRepository : PasswordResetRepository {
-    override fun requestReset(request: ForgotPasswordRequest, callback: ResultCallback<Unit>) =
-        callback(ApiResult.Failure(404))
 
-    override fun resetPassword(request: ResetPasswordRequest, callback: ResultCallback<Unit>) =
-        callback(ApiResult.Failure(404))
+class RetrofitPasswordResetRepository(
+    private val api: ApiService
+) : PasswordResetRepository {
+
+    override fun requestReset(
+        request: ForgotPasswordRequest,
+        callback: ResultCallback<Unit>
+    ) {
+        api.forgotPassword(request).enqueue(
+            object : Callback<Void> {
+
+                override fun onResponse(
+                    call: Call<Void>,
+                    response: Response<Void>
+                ) {
+                    if (response.isSuccessful) {
+                        callback(ApiResult.Success(Unit))
+                    } else {
+                        callback(
+                            ApiResult.Failure(response.code())
+                        )
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<Void>,
+                    t: Throwable
+                ) {
+                    callback(
+                        ApiResult.Failure(
+                            if (t is IOException) null else 500
+                        )
+                    )
+                }
+            }
+        )
+    }
+
+    override fun resetPassword(
+        request: ResetPasswordRequest,
+        callback: ResultCallback<Unit>
+    ) {
+        api.resetPassword(request).enqueue(
+            object : Callback<Void> {
+
+                override fun onResponse(
+                    call: Call<Void>,
+                    response: Response<Void>
+                ) {
+                    if (response.isSuccessful) {
+                        callback(ApiResult.Success(Unit))
+                    } else {
+                        callback(
+                            ApiResult.Failure(response.code())
+                        )
+                    }
+                }
+
+                override fun onFailure(
+                    call: Call<Void>,
+                    t: Throwable
+                ) {
+                    callback(
+                        ApiResult.Failure(
+                            if (t is IOException) null else 500
+                        )
+                    )
+                }
+            }
+        )
+    }
 }
 
 object ServiceLocator {
@@ -414,7 +486,7 @@ object ServiceLocator {
     val profile: ProfileRepository = RetrofitProfileRepository(api, lessons)
     val subjects: SubjectsRepository = RetrofitSubjectsRepository(profile)
     val schools: SchoolsRepository = RetrofitSchoolsRepository(api)
-    val passwordReset: PasswordResetRepository = UnavailablePasswordResetRepository()
+    val passwordReset: PasswordResetRepository = RetrofitPasswordResetRepository(api)
     val quiz: QuizRepository = RetrofitQuizRepository(api)
     val stats: StatsRepository = RetrofitStatsRepository(api)
     val practice: PracticeRepository = RetrofitPracticeRepository(api)
@@ -465,11 +537,3 @@ class RetrofitSchoolsRepository(private val api: ApiService) : SchoolsRepository
     }
 }
 
-// Was MockData.SCHOOLS. TODO: load from the backend (GET /api/schools) when it exists
-object Schools {
-    val LIST = listOf(
-        "OŠ Primoža Trubarja, Ljubljana",
-        "OŠ Ivana Cankarja, Maribor",
-        "OŠ Franceta Prešerna, Kranj"
-    )
-}
