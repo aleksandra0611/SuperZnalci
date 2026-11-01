@@ -676,7 +676,7 @@
     <string name="tc_regenerate">Ustvari novo</string>
     <string name="tc_regenerate_failed">Kode ni bilo mogoče osvežiti</string>
 
-    <string name="tl_brand">SUPERZNALCI %1$d.R</string>
+    <string name="tl_brand">SUPERZNALCI</string>
     <string name="tl_title">Lestvica</string>
     <string name="tl_overview_label">PEDAGOŠKI PREGLED</string>
     <string name="tl_dashboard_title">Nadzorna plošča razreda</string>
@@ -737,5 +737,90 @@
     <string name="tl_praise_send">Pošlji</string>
     <string name="tl_praise_sent">Pohvala poslana</string>
     <string name="tl_praise_failed">Pohvale ni bilo mogoče poslati</string>
+
+    <string name="tl_week_active">Aktiven teden</string>
+    <string name="tl_overview_title">Pregled razreda %1$s</string>
+    <string name="tl_tile_module">Modul</string>
+    <string name="tl_tile_submit">Oddaja</string>
+    <string name="tl_tile_help">! Pomoč</string>
+    <string name="tl_percent">%1$d %%</string>
+    <string name="tl_submitted_of">%1$d/%2$d učencev</string>
+    <string name="tl_help_sub">Potrebna razlaga</string>
+    <string name="tl_help_none">Vsi v redu</string>
+    <string name="tl_goal_label">Doseganje tedenskega učnega cilja</string>
+    <string name="tl_goal_count">%1$d / %2$d opravljenih</string>
+ 
+    <string name="tl_path_title">Učna pot razreda</string>
+    <string name="tl_path_sub">Nadzor nad odpiranjem in vsebinami učnih enot</string>
+    <string name="tl_state_open">🔓 Odprto</string>
+    <string name="tl_state_locked">🔒 Zaklenjeno</string>
+    <string name="tl_state_draft">Osnutek</string>
+    <string name="tl_badge_in_progress">V teku</string>
+    <string name="tl_meta_accuracy">%1$s • Povprečna uspešnost: %2$d %%</string>
+    <string name="tl_planned_for">Predvideno za %1$s</string>
+    <string name="tl_auto_unlock">🕒 Samodejni vklop %1$s</string>
+    <string name="tl_btn_assign">Dodeli nalogo</string>
+    <string name="tl_btn_edit_questions">Uredi vprašanja</string>
+    <string name="tl_btn_unlock">🔑 Odkleni predčasno</string>
+ 
+    <string name="tl_homework_title">Dodeljevanje nove domače naloge</string>
+    <string name="tl_homework_sub">Hitro pošiljanje vsem učencem</string>
+    <string name="tl_pick_lesson">Izbira lekcije</string>
+    <string name="tl_deadline">Rok za oddajo</string>
+    <string name="tl_deadline_tomorrow">Jutri do 20:00 (Priporočeno)</string>
+    <string name="tl_deadline_3_days">Čez 3 dni do 20:00</string>
+    <string name="tl_deadline_week">Čez en teden do 20:00</string>
+    <string name="tl_retry_title">Dovoli ponavljanje ob napakah</string>
+    <string name="tl_retry_sub">Učenci lahko ponavljajo nalogo za polne točke</string>
+    <string name="tl_send_homework">Pošlji nalogo vsem učencem %1$s</string>
+    <string name="tl_homework_sent">Naloga je poslana</string>
+    <string name="tl_homework_failed">Naloge ni bilo mogoče poslati</string>
+ 
+    <string name="tl_struggling_title">Kdo zaostaja pri učenju?</string>
+    <string name="tl_tag_not_started">Ni začel</string>
+    <string name="tl_tag_inactive">Neaktiven</string>
+    <string name="tl_last_active">Zadnja aktivnost %1$s</string>
+    <string name="tl_never_active">Še ni bil aktiven</string>
+    <string name="tl_btn_remind">🔔 Pošlji opomnik</string>
+    <string name="tl_reminder_sent">Poslano</string>
+    <string name="tl_reminder_sent_toast">Opomnik je poslan</string>
+ 
+    <!-- plurals (Slovenian: one / two / few / other) -->
+    <plurals name="tl_students">
+        <item quantity="one">%d učenec</item>
+        <item quantity="two">%d učenca</item>
+        <item quantity="few">%d učenci</item>
+        <item quantity="other">%d učencev</item>
+    </plurals>
+    <plurals name="tl_lessons">
+        <item quantity="one">%d lekcija</item>
+        <item quantity="two">%d lekciji</item>
+        <item quantity="few">%d lekcije</item>
+        <item quantity="other">%d lekcij</item>
+    </plurals>
+    <plurals name="tl_urgent">
+        <item quantity="one">%d nujen primer</item>
+        <item quantity="two">%d nujna primera</item>
+        <item quantity="few">%d nujni primeri</item>
+        <item quantity="other">%d nujnih primerov</item>
+    </plurals>
+    <plurals name="tl_mistakes">
+        <item quantity="one">%d napaka</item>
+        <item quantity="two">%d napaki</item>
+        <item quantity="few">%d napake</item>
+        <item quantity="other">%d napak</item>
+    </plurals>
+    <plurals name="tl_in_days">
+        <item quantity="one">čez %d dan</item>
+        <item quantity="two">čez %d dneva</item>
+        <item quantity="few">čez %d dni</item>
+        <item quantity="other">čez %d dni</item>
+    </plurals>
+    <plurals name="tl_days_ago">
+        <item quantity="one">pred %d dnevom</item>
+        <item quantity="two">pred %d dnevoma</item>
+        <item quantity="few">pred %d dnevi</item>
+        <item quantity="other">pred %d dnevi</item>
+    </plurals>
 
 </resources>
