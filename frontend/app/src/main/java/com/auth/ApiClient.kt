@@ -123,6 +123,9 @@ interface ApiService {
     @GET("classrooms/{id}/lesson-stats")
     fun lessonStats(@Path("id") classroomId: String): Call<LessonStatsEnvelope>
 
+    @GET("assignments")
+    fun studentAssignments(@Query("classroomId") classroomId: String): Call<AssignmentsEnvelope>
+
     @GET("classrooms/{id}/assignments")
     fun assignments(@Path("id") classroomId: String): Call<AssignmentsEnvelope>
 
@@ -175,7 +178,7 @@ interface ApiService {
         @Path("id") classroomId: String,
         @Path("studentId") studentId: String,
         @Body body: TeacherPraiseRequest
-    ): Call<Unit>
+    ): Call<okhttp3.ResponseBody>
 
     // --- teacher learn: MISSING on the backend (mocked while TeacherLearnConfig.USE_REAL_EXTRAS = false) ---
     @GET("classrooms/{id}/overview")
@@ -380,6 +383,7 @@ class RetrofitSubjectsRepository(private val profile: ProfileRepository) : Subje
                 is ApiResult.Failure -> callback(result)
                 is ApiResult.Success -> {
                     val p = result.data
+                    val deliverAssignments: (List<AssignmentDto>) -> Unit = { assigned ->
                     callback(
                         ApiResult.Success(
                             SubjectsData(
@@ -391,11 +395,24 @@ class RetrofitSubjectsRepository(private val profile: ProfileRepository) : Subje
                                 ),
                                 subjects = p.subjects,
                                 lessons = p.lessons,
-                                assignments = emptyList(),            // MISSING: GET /api/assignments
+                                assignments = assigned,
                                 attempts = p.attempts
                             )
                         )
                     )
+                    }
+                    val classroomId = p.classroom?.id
+                    if (classroomId == null) deliverAssignments(emptyList())
+                    else ApiClient.service.studentAssignments(classroomId).go(
+                        onFail = { code ->
+                            if (code == 401) callback(ApiResult.Failure(401))
+                            else deliverAssignments(emptyList())
+                        }
+                    ) { response ->
+                        deliverAssignments(response.assignments.orEmpty().map {
+                            AssignmentDto(it.id, it.classroomId, it.lessonId, it.dueDate)
+                        })
+                    }
                 }
             }
         }

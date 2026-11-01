@@ -14,7 +14,7 @@ data class StudentDto(
 )
 
 object TeacherConfig {
-    const val USE_REAL_EXTRAS = false
+    const val USE_REAL_EXTRAS = true
 }
 
 object Shifts {

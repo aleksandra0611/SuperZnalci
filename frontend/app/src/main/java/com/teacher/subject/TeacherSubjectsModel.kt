@@ -42,8 +42,8 @@ data class TopicSettingDto(
 )
 
 object TeacherSubjectsConfig {
-    const val USE_REAL_CONTENT = false 
-    const val USE_REAL_TOPIC_SETTINGS = false 
+    const val USE_REAL_CONTENT = true 
+    const val USE_REAL_TOPIC_SETTINGS = true 
 }
 
 

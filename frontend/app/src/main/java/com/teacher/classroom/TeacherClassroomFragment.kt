@@ -353,7 +353,8 @@ class TeacherClassroomFragment : Fragment(R.layout.fragment_teacher_classroom) {
             }
         }
         bindLessons()
-        root.findViewById<View>(R.id.btnAddQuestion).isEnabled = subjects.isNotEmpty()
+        // Urejevalnik še ne zbira pravilnih rešitev; ne zapisujmo lažnih mock vprašanj.
+        root.findViewById<View>(R.id.btnAddQuestion).isEnabled = false
     }
 
     private fun bindLessons() {
@@ -452,6 +453,9 @@ class TeacherClassroomFragment : Fragment(R.layout.fragment_teacher_classroom) {
     }
 
     private fun confirmDelete(lesson: EditorLessonUi, q: QuestionRowUi) {
+        // Brisanje naj ostane izključeno, dokler ustvarjanje/urejanje vprašanj ni dokončano.
+        toast(R.string.tc_question_delete_failed)
+        return
         AlertDialog.Builder(requireContext())
             .setMessage(R.string.tc_delete_confirm)
             .setPositiveButton(R.string.tc_delete) { _, _ -> deleteQuestion(lesson, q) }

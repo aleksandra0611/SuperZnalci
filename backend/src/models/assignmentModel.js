@@ -4,6 +4,8 @@ const assignmentSchema = new mongoose.Schema({
     classroomId: { type: mongoose.Schema.Types.ObjectId, ref: 'Classroom', required: true },
     lessonId: { type: mongoose.Schema.Types.ObjectId, ref: 'Lesson', required: true },
     dueDate: { type: Date, default: null },
+    availableFrom: { type: Date, default: null },
+    allowRetry: { type: Boolean, default: false },
 });
 
 //the same lesson can be assigned to a classroom only once

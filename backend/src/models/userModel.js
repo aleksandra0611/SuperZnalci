@@ -7,6 +7,8 @@ const userSchema = new mongoose.Schema({
     role: { type: String, enum: ['ADMIN', 'TEACHER', 'STUDENT'], required: true },
     classroomId: { type: mongoose.Schema.Types.ObjectId, ref: 'Classroom', default: null },  //samo ucenici imaju ucionicu
     avatar: { type: String, default: null },
+    emailNotifications: {type: Boolean, default: true},
+    weeklyReport: {type: Boolean, default: true},
     totalXp: { type: Number, default: 0, min: 0 },
     streak: { type: Number, default: 0, min: 0 },
     lastStreakAt: { type: Date, default: null },

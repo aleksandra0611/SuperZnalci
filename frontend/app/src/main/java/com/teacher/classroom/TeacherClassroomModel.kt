@@ -2,7 +2,7 @@ package com.example.superznalci
 
 
 object TeacherClassroomConfig {
-    const val USE_REAL_INSIGHTS = false
+    const val USE_REAL_INSIGHTS = true
     const val USE_REAL_AUTHORING = false
 }
 
