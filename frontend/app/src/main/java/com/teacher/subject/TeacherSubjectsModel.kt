@@ -21,7 +21,8 @@ data class ClassroomAssignmentDto(
     val lessonId: String,
     val availableFrom: String? = null,
     val dueDate: String? = null,
-    val allowRetry: Boolean = false          // NEW
+    val allowRetry: Boolean = false,
+    val assignedAt: String? = null
 )
 
 class AssignmentRequest(
@@ -42,8 +43,8 @@ data class TopicSettingDto(
 )
 
 object TeacherSubjectsConfig {
-    const val USE_REAL_CONTENT = false 
-    const val USE_REAL_TOPIC_SETTINGS = false 
+    const val USE_REAL_CONTENT = true 
+    const val USE_REAL_TOPIC_SETTINGS = true 
 }
 
 
@@ -59,7 +60,8 @@ data class LessonRowUi(
     val status: LessonStatus,
     val availableFrom: String?,
     val completionPercent: Int?, 
-    val averageAccuracy: Int?
+    val averageAccuracy: Int?,
+    val scope: String = "SHARED"
 )
 
 data class ModuleUi(

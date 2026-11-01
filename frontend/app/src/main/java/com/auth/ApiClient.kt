@@ -2,6 +2,7 @@ package com.example.superznalci
 
 import com.google.gson.annotations.SerializedName
 import okhttp3.OkHttpClient
+import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,7 +22,7 @@ import retrofit2.http.PUT
 object ApiConfig {
     // Android emulator -> your computer. For a real phone use the computer's LAN IP
     const val BASE_URL = "http://10.0.2.2:3000/api/"
-    const val IMAGE_BASE_URL = "http://10.0.2.2:3000/" 
+    const val IMAGE_BASE_URL = "http://10.0.2.2:3000/"
 }
 
 class UserEnvelope(val user: UserDto)
@@ -30,10 +31,49 @@ class SubjectsEnvelope(val subjects: List<SubjectDto>?)
 class SchoolsEnvelope(val schools: List<SchoolDto>?)
 
 interface ApiService {
+    // Teacher content management
+    @POST("teacher-content/classrooms")
+    fun newTeacherClass(@Body data: JsonObject): Call<JsonObject>
+
+    @POST("teacher-content/classrooms/{id}/subjects")
+    fun newTeacherSubject(@Path("id") id: String, @Body data: JsonObject): Call<JsonObject>
+
+    @POST("teacher-content/classrooms/{id}/topics")
+    fun newTeacherTopic(@Path("id") id: String, @Body data: JsonObject): Call<JsonObject>
+
+    @POST("teacher-content/classrooms/{id}/lessons")
+    fun newTeacherLesson(@Path("id") id: String, @Body data: JsonObject): Call<JsonObject>
+
+    @PATCH("teacher-content/lessons/{id}")
+    fun renameTeacherLesson(@Path("id") id: String, @Body data: JsonObject): Call<JsonObject>
+
+    @DELETE("teacher-content/lessons/{id}")
+    fun removeTeacherLesson(@Path("id") id: String): Call<Void>
+
+    @GET("teacher-content/lessons/{id}/questions")
+    fun ownedLessonQuestions(@Path("id") id: String): Call<JsonObject>
+
+    @POST("teacher-content/lessons/{id}/questions")
+    fun newTeacherQuestion(@Path("id") id: String, @Body data: JsonObject): Call<JsonObject>
+
+    @PUT("teacher-content/lessons/{id}/questions/{qid}")
+    fun editTeacherQuestion(
+        @Path("id") id: String,
+        @Path("qid") qid: String,
+        @Body data: JsonObject
+    ): Call<JsonObject>
+
+    @DELETE("teacher-content/lessons/{id}/questions/{qid}")
+    fun removeTeacherQuestion(@Path("id") id: String, @Path("qid") qid: String): Call<Void>
+
+    // Student inbox: teacher praise and reminders
+    @GET("messages")
+    fun studentMessages(): Call<MessagesEnvelope>
+
     @POST("auth/login")
     fun login(@Body body: LoginRequest): Call<AuthResponse>
 
-    
+
     @POST("auth/forgot-password")
     fun forgotPassword(@Body body: ForgotPasswordRequest): Call<Void>
 
@@ -123,6 +163,9 @@ interface ApiService {
     @GET("classrooms/{id}/lesson-stats")
     fun lessonStats(@Path("id") classroomId: String): Call<LessonStatsEnvelope>
 
+    @GET("assignments")
+    fun studentAssignments(): Call<AssignmentsEnvelope>
+
     @GET("classrooms/{id}/assignments")
     fun assignments(@Path("id") classroomId: String): Call<AssignmentsEnvelope>
 
@@ -175,7 +218,7 @@ interface ApiService {
         @Path("id") classroomId: String,
         @Path("studentId") studentId: String,
         @Body body: TeacherPraiseRequest
-    ): Call<Unit>
+    ): Call<okhttp3.ResponseBody>
 
     // --- teacher learn: MISSING on the backend (mocked while TeacherLearnConfig.USE_REAL_EXTRAS = false) ---
     @GET("classrooms/{id}/overview")
@@ -309,7 +352,7 @@ class RetrofitProfileRepository(
         }
     }
 
-        private fun finish(
+    private fun finish(
         callback: ResultCallback<ProfileData>,
         user: UserDto,
         classroom: ClassroomDto?,
@@ -380,22 +423,58 @@ class RetrofitSubjectsRepository(private val profile: ProfileRepository) : Subje
                 is ApiResult.Failure -> callback(result)
                 is ApiResult.Success -> {
                     val p = result.data
-                    callback(
-                        ApiResult.Success(
-                            SubjectsData(
-                                user = p.user,
-                                classroom = p.classroom,
-                                classroomInfo = ClassroomInfoDto(
-                                    teacherName = p.classroom?.teacherName,
-                                    studentCount = p.classroom?.studentCount ?: 0
-                                ),
-                                subjects = p.subjects,
-                                lessons = p.lessons,
-                                assignments = emptyList(),            // MISSING: GET /api/assignments
-                                attempts = p.attempts
+                    val deliverAssignments: (List<AssignmentDto>) -> Unit = { assigned ->
+                        callback(
+                            ApiResult.Success(
+                                SubjectsData(
+                                    user = p.user,
+                                    classroom = p.classroom,
+                                    classroomInfo = ClassroomInfoDto(
+                                        teacherName = p.classroom?.teacherName,
+                                        studentCount = p.classroom?.studentCount ?: 0
+                                    ),
+                                    subjects = p.subjects,
+                                    lessons = p.lessons,
+                                    assignments = assigned,
+                                    attempts = p.attempts
+                                )
                             )
                         )
-                    )
+                    }
+                    val classroomId = p.classroom?.id
+                    if (classroomId == null) deliverAssignments(emptyList())
+                    else ApiClient.service.studentAssignments().go(
+                        onFail = { code ->
+                            if (code == 401) callback(ApiResult.Failure(401))
+                            else deliverAssignments(emptyList())
+                        }
+                    ) { response ->
+
+                        android.util.Log.d(
+                            "AssignmentsAPI",
+                            "Prejetih nalog: ${response.assignments.orEmpty().size}"
+                        )
+
+                        response.assignments.orEmpty().forEach { assignment ->
+                            android.util.Log.d(
+                                "AssignmentsAPI",
+                                "Lesson ID: ${assignment.lessonId}, " +
+                                        "Due date: ${assignment.dueDate}"
+                            )
+                        }
+
+                        deliverAssignments(
+                            response.assignments.orEmpty().map {
+                                AssignmentDto(
+                                    it.id,
+                                    it.classroomId,
+                                    it.lessonId,
+                                    it.dueDate,
+                                    assignedAt = it.assignedAt
+                                )
+                            }
+                        )
+                    }
                 }
             }
         }
@@ -499,7 +578,7 @@ object ServiceLocator {
         profile = profile,
         extras = learnExtras
     )
-     val classroomContent: ClassroomContentSource =
+    val classroomContent: ClassroomContentSource =
         if (TeacherSubjectsConfig.USE_REAL_CONTENT) RetrofitClassroomContentSource(api)
         else MockClassroomContentSource()
     val topicSettings: TopicSettingsSource =
@@ -521,7 +600,7 @@ object ServiceLocator {
     val teacherLeaderboard: TeacherLeaderboardRepository =
         RetrofitTeacherLeaderboardRepository(api, studentInsights)
     val teacherLearnSource: TeacherLearnSource =
-    if (TeacherLearnConfig.USE_REAL_EXTRAS) RetrofitTeacherLearnSource(api)
+        if (TeacherLearnConfig.USE_REAL_EXTRAS) RetrofitTeacherLearnSource(api)
         else MockTeacherLearnSource(classroomContent)
     val teacherLearn: TeacherLearnRepository =
         RetrofitTeacherLearnRepository(teacherSubjects, teacherLearnSource)

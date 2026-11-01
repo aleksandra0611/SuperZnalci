@@ -44,9 +44,27 @@ class TeacherSubjectsFragment : Fragment(R.layout.fragment_teacher_subjects) {
         content = view.findViewById(R.id.content)
 
         val comingSoon = View.OnClickListener { toast(R.string.teacher_coming_soon) }
-        listOf(R.id.btnNewSubject, R.id.btnEditPlan, R.id.btnAddTopic, R.id.btnCatalogImport, R.id.btnCatalogBrowse)
-            .forEach { view.findViewById<View>(it).setOnClickListener(comingSoon) }
+        view.findViewById<View>(R.id.btnEditPlan).setOnClickListener {
+            val tab = selectedTab ?: return@setOnClickListener
+            TeacherContentDialogs.subjectActions(requireContext(), tab.classroom.id) { refreshClassesKeepingSelection() }
+        }
+        // These two catalog actions now use the same real subject selector.
+        listOf(R.id.btnCatalogImport, R.id.btnCatalogBrowse).forEach { id ->
+            view.findViewById<View>(id).setOnClickListener {
+                val tab = selectedTab ?: return@setOnClickListener
+                TeacherContentDialogs.subjectActions(requireContext(), tab.classroom.id) { refreshClassesKeepingSelection() }
+            }
+        }
 
+        view.findViewById<View>(R.id.btnNewSubject).setOnClickListener {
+            val tab=selectedTab ?: return@setOnClickListener
+            TeacherContentDialogs.newSubject(requireContext(),tab.classroom.id) { refreshClassesKeepingSelection() }
+        }
+        view.findViewById<View>(R.id.btnAddTopic).setOnClickListener {
+            val tab=selectedTab ?: return@setOnClickListener
+            val subject=subjects.getOrNull(subjectIndex) ?: return@setOnClickListener
+            TeacherContentDialogs.newTopic(requireContext(),tab.classroom.id,subject.id) { reloadCurrent() }
+        }
         SessionStore.user?.let {
             view.findViewById<TextView>(R.id.tvStreak).text = "🔥 ${it.streak}"
             view.findViewById<TextView>(R.id.tvXp).text = "⭐ ${compact(it.totalXp)}"
@@ -106,6 +124,30 @@ class TeacherSubjectsFragment : Fragment(R.layout.fragment_teacher_subjects) {
         val tab = selectedTab ?: return
         cache.remove(tab.classroom.id)
         loadSubjects(tab)
+    }
+
+    // Adding a subject changes classroom.subjectIds. Refresh the classroom itself,
+    // not only the old cached subjects, so the new subject appears immediately.
+    private fun refreshClassesKeepingSelection() {
+        val previousId = selectedTab?.classroom?.id
+        cache.clear()
+        progress.visibility = View.VISIBLE
+        repo.loadClasses { result ->
+            if (view == null) return@loadClasses
+            when (result) {
+                is ApiResult.Success -> {
+                    tabs = result.data
+                    if (tabs.isEmpty()) {
+                        progress.visibility = View.GONE
+                        showEmpty(R.string.ts_empty_classes)
+                    } else {
+                        selectClass(tabs.indexOfFirst { it.classroom.id == previousId }
+                            .let { if (it < 0) 0 else it })
+                    }
+                }
+                is ApiResult.Failure -> onFailure(result.httpCode)
+            }
+        }
     }
 
     private fun onFailure(code: Int?) {
@@ -223,8 +265,22 @@ class TeacherSubjectsFragment : Fragment(R.layout.fragment_teacher_subjects) {
                 setTextColor(color(R.color.ts_amber_text))
             }
         }
-        v.findViewById<View>(R.id.btnModuleMore).setOnClickListener { toast(R.string.teacher_coming_soon) }
-        v.findViewById<View>(R.id.btnAddLesson).setOnClickListener { toast(R.string.teacher_coming_soon) }
+        v.findViewById<View>(R.id.btnModuleMore).setOnClickListener {
+            androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                .setTitle(m.name)
+                .setItems(arrayOf("Dodaj lekcijo", "Dodaj temo", "Nastavi vidnost")) { _, choice ->
+                    when (choice) {
+                        0 -> TeacherContentDialogs.newLesson(requireContext(), tab.classroom.id, m.topicId) { reloadCurrent() }
+                        1 -> TeacherContentDialogs.newTopic(requireContext(), tab.classroom.id, subject.id) { reloadCurrent() }
+                        2 -> repo.setTopicVisible(tab.classroom.id, m.topicId, !m.visibleToStudents) { result ->
+                            if (result is ApiResult.Success) reloadCurrent() else toast(R.string.err_server)
+                        }
+                    }
+                }.show()
+        }
+        v.findViewById<View>(R.id.btnAddLesson).setOnClickListener {
+            TeacherContentDialogs.newLesson(requireContext(),tab.classroom.id,m.topicId) { reloadCurrent() }
+        }
 
         val visibilityRow = v.findViewById<View>(R.id.visibilityRow)
         val switch = v.findViewById<SwitchCompat>(R.id.switchVisible)
@@ -305,19 +361,38 @@ class TeacherSubjectsFragment : Fragment(R.layout.fragment_teacher_subjects) {
             }
         }
 
-        val comingSoon = View.OnClickListener { toast(R.string.teacher_coming_soon) }
+        val officialLesson = l.scope != "CLASSROOM"
+        val readOnly = View.OnClickListener {
+            androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                .setTitle(l.name)
+                .setMessage("To je skupna lekcija. Urejaš lahko le lekcije, ki si jih sama ustvarila (CLASSROOM). Za vprašanja ustvari svojo lekcijo v temi.")
+                .setPositiveButton("V redu", null).show()
+        }
         val iconsRow = v.findViewById<View>(R.id.rowIcons)
         val draftRow = v.findViewById<View>(R.id.rowDraft)
         if (published) {
             iconsRow.visibility = View.VISIBLE
             draftRow.visibility = View.GONE
-            listOf(R.id.btnEdit, R.id.btnTune, R.id.btnDelete).forEach {
-                v.findViewById<View>(it).setOnClickListener(comingSoon)
+            // Three different actions: rename, edit questions, more options.
+            v.findViewById<View>(R.id.btnEdit).setOnClickListener {
+                if (officialLesson) readOnly.onClick(it)
+                else TeacherContentDialogs.renameLesson(requireContext(), l.id, l.name) { reloadCurrent() }
+            }
+            v.findViewById<View>(R.id.btnTune).setOnClickListener {
+                if (officialLesson) readOnly.onClick(it)
+                else TeacherContentDialogs.questionList(requireContext(), l.id, l.name) { reloadCurrent() }
+            }
+            v.findViewById<View>(R.id.btnDelete).setOnClickListener {
+                if (officialLesson) readOnly.onClick(it)
+                else TeacherContentDialogs.lessonOptions(requireContext(), l.id, l.name) { reloadCurrent() }
             }
         } else {
             iconsRow.visibility = View.GONE
             draftRow.visibility = View.VISIBLE
-            v.findViewById<View>(R.id.btnEditDraft).setOnClickListener(comingSoon)
+            v.findViewById<View>(R.id.btnEditDraft).setOnClickListener {
+                if (officialLesson) readOnly.onClick(it)
+                else TeacherContentDialogs.lessonOptions(requireContext(),l.id,l.name) { reloadCurrent() }
+            }
             v.findViewById<TextView>(R.id.btnChangeDate).apply {
                 setText(if (l.status == LessonStatus.SCHEDULED) R.string.ts_change_date else R.string.ts_set_date)
                 setOnClickListener { pickDate(tab, l) }

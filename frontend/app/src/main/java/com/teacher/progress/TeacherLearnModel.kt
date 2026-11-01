@@ -1,7 +1,7 @@
 package com.example.superznalci
 
 object TeacherLearnConfig {
-    const val USE_REAL_EXTRAS = false
+    const val USE_REAL_EXTRAS = true
 }
 
 // GET /api/classrooms/{id}/overview

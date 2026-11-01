@@ -128,7 +128,27 @@ class RetrofitTeacherClassroomRepository(
             }
             val derived = HashMap<String, List<DerivedLesson>>()
             val join = Join(subjects.size, fail) {
-                callback(ApiResult.Success(subjects.map { s -> buildSubject(s, classroom.gradeNumber, derived[s.id].orEmpty()) }))
+                // Include empty teacher-created lessons: questions endpoint alone cannot list them.
+                val topicIds=subjects.flatMap { subject ->
+                    subject.grades.filter { it.gradeNumber == classroom.gradeNumber }
+                        .flatMap { it.topics.map { t -> t.id } }
+                }.distinct()
+                if(topicIds.isEmpty()) {
+                    callback(ApiResult.Success(subjects.map { sub -> buildSubject(sub,classroom.gradeNumber,derived[sub.id].orEmpty()) }))
+                } else api.lessons(topicIds.joinToString(",")).go(fail) { envelope ->
+                    val fromApi=envelope.lessons.orEmpty().filter { it.scope == "CLASSROOM" }
+                    val merged=subjects.map { subject ->
+                        val ids=subject.grades.filter { it.gradeNumber == classroom.gradeNumber }
+                            .flatMap { it.topics.map { t -> t.id } }.toSet()
+                        val existing=derived[subject.id].orEmpty().associateBy { it.id }
+                        val lessons=fromApi.filter { it.topicId in ids }.map { l ->
+                            val previous=existing[l.id]
+                            DerivedLesson(l.id,l.topicId,l.name,previous?.questions.orEmpty())
+                        }
+                        buildSubject(subject,classroom.gradeNumber,lessons)
+                    }
+                    callback(ApiResult.Success(merged))
+                }
             }
             subjects.forEach { subject ->
                 api.questions(subject.id, classroom.gradeNumber, null).go(join::fail) { qEnv ->

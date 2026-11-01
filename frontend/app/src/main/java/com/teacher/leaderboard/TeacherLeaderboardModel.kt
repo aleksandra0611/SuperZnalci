@@ -2,7 +2,7 @@ package com.example.superznalci
 
 object TeacherLeaderboardConfig {
     // student-insights, student detail, praise
-    const val USE_REAL_INSIGHTS = false
+    const val USE_REAL_INSIGHTS = true
 }
 
 // GET /api/classrooms/{id}/student-insights?subjectId= 

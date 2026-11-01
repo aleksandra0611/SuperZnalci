@@ -16,6 +16,11 @@ import android.widget.ProgressBar
 import android.widget.ScrollView
 import android.widget.Spinner
 import android.widget.TextView
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -35,6 +40,7 @@ class TeacherClassroomFragment : Fragment(R.layout.fragment_teacher_classroom) {
     private var subjectIndex = 0
     private var lessonIndex = 0
     private var selectedType = QuestionTypes.CHOICE
+    private var editingQuestionId: String? = null
 
     private lateinit var progress: ProgressBar
     private lateinit var scroll: ScrollView
@@ -44,6 +50,9 @@ class TeacherClassroomFragment : Fragment(R.layout.fragment_teacher_classroom) {
     private lateinit var etQuestion: EditText
     private lateinit var etPoints: EditText
     private lateinit var etExplanation: EditText
+    private lateinit var etOptions: EditText
+    private lateinit var etCorrectAnswer: EditText
+    private lateinit var optionsSection: View
 
     private val selectedTab: TeacherClassTab? get() = tabs.getOrNull(classIndex)
     private val dashboard: ClassroomDashboard? get() = selectedTab?.let { dashboards[it.classroom.id] }
@@ -73,12 +82,18 @@ class TeacherClassroomFragment : Fragment(R.layout.fragment_teacher_classroom) {
         etQuestion = view.findViewById(R.id.etQuestion)
         etPoints = view.findViewById(R.id.etPoints)
         etExplanation = view.findViewById(R.id.etExplanation)
+        etOptions = view.findViewById(R.id.etOptions)
+        etCorrectAnswer = view.findViewById(R.id.etCorrectAnswer)
+        optionsSection = view.findViewById(R.id.optionsSection)
 
         val comingSoon = View.OnClickListener { toast(R.string.teacher_coming_soon) }
         listOf(
-            R.id.btnNewClass, R.id.btnNewAssignment, R.id.navLearn
+            R.id.btnNewAssignment, R.id.navLearn
         ).forEach { view.findViewById<View>(it).setOnClickListener(comingSoon) }
 
+        view.findViewById<View>(R.id.btnNewClass).setOnClickListener {
+            TeacherContentDialogs.newClass(requireContext()) { loadClasses() }
+        }
         TeacherNav.bind(view, R.id.navClassroom, this)
 
         view.findViewById<View>(R.id.btnEditContent).setOnClickListener {
@@ -87,11 +102,22 @@ class TeacherClassroomFragment : Fragment(R.layout.fragment_teacher_classroom) {
         view.findViewById<View>(R.id.btnCopy).setOnClickListener { selectedTab?.let { copyCode(it.classroom.joinCode) } }
         view.findViewById<View>(R.id.btnRefresh).setOnClickListener { confirmRegenerate() }
         view.findViewById<View>(R.id.btnSort).setOnClickListener { pickSort() }
-        view.findViewById<View>(R.id.btnAddQuestion).setOnClickListener { addQuestion() }
+        // The visible editor is the only form for creating new questions.
+        view.findViewById<View>(R.id.btnAddQuestion).setOnClickListener {
+            saveQuestionFromForm()
+        }
         view.findViewById<View>(R.id.btnResetForm).setOnClickListener { resetForm() }
 
         typeTiles.forEach { (id, type) ->
-            view.findViewById<View>(id).setOnClickListener { selectType(type) }
+            view.findViewById<View>(id).setOnClickListener {
+                if (type == QuestionTypes.PAIRS || type == QuestionTypes.IMAGE) {
+                    android.widget.Toast.makeText(
+                        requireContext(),
+                        "Ta vrsta vprašanja še ni podprta.",
+                        android.widget.Toast.LENGTH_LONG
+                    ).show()
+                } else selectType(type)
+            }
         }
         selectType(selectedType)
 
@@ -349,11 +375,13 @@ class TeacherClassroomFragment : Fragment(R.layout.fragment_teacher_classroom) {
             if (pos != subjectIndex) {
                 subjectIndex = pos
                 lessonIndex = 0
+                resetForm()
                 bindLessons()
             }
         }
         bindLessons()
-        root.findViewById<View>(R.id.btnAddQuestion).isEnabled = subjects.isNotEmpty()
+        // Vnos pravilnih rešitev opravi TeacherContentDialogs.question().
+        root.findViewById<View>(R.id.btnAddQuestion).isEnabled = currentLesson != null
     }
 
     private fun bindLessons() {
@@ -366,10 +394,12 @@ class TeacherClassroomFragment : Fragment(R.layout.fragment_teacher_classroom) {
         spinnerLesson.onItemSelectedListener = onPick { pos ->
             if (pos != lessonIndex) {
                 lessonIndex = pos
+                resetForm()
                 renderQuestions()
             }
         }
         renderQuestions()
+        view?.findViewById<View>(R.id.btnAddQuestion)?.isEnabled = currentLesson != null
     }
 
     private fun renderQuestions() {
@@ -397,14 +427,28 @@ class TeacherClassroomFragment : Fragment(R.layout.fragment_teacher_classroom) {
             row.findViewById<TextView>(R.id.tcQText).text = q.text
             row.findViewById<TextView>(R.id.tcQMeta).text =
                 getString(R.string.tc_question_meta, typeLabel(q.type), q.points)
-            row.findViewById<View>(R.id.btnQEdit).setOnClickListener { toast(R.string.teacher_coming_soon) }
-            row.findViewById<View>(R.id.btnQDelete).setOnClickListener { confirmDelete(lesson, q) }
+            row.findViewById<View>(R.id.btnQEdit).setOnClickListener {
+                editQuestionInForm(lesson.id, q.id)
+            }
+            row.findViewById<View>(R.id.btnQDelete).setOnClickListener {
+                TeacherContentDialogs.deleteQuestion(requireContext(), lesson.id, q.id) {
+                    selectedTab?.let { editors.remove(it.classroom.id); loadEditor(it) }
+                }
+            }
             container.addView(row)
         }
     }
 
     private fun selectType(type: String) {
         selectedType = type
+        if (::optionsSection.isInitialized) {
+            optionsSection.visibility = if (type == QuestionTypes.CHOICE) View.VISIBLE else View.GONE
+            etCorrectAnswer.hint = when (type) {
+                QuestionTypes.TRUE_FALSE -> "true ali false"
+                QuestionTypes.FILL_BLANK -> "Beseda ali besedilo za praznino"
+                else -> "Ena izmed zgoraj navedenih možnosti"
+            }
+        }
         val root = view ?: return
         typeTiles.forEach { (id, t) ->
             val on = t == type
@@ -417,41 +461,132 @@ class TeacherClassroomFragment : Fragment(R.layout.fragment_teacher_classroom) {
     }
 
     private fun resetForm() {
+        editingQuestionId = null
+        view?.findViewById<TextView>(R.id.btnAddQuestion)?.setText(R.string.tc_add_question)
         etQuestion.text.clear()
         etQuestion.error = null
         etPoints.setText("10")
         etExplanation.text.clear()
+        etOptions.text.clear()
+        etCorrectAnswer.text.clear()
         selectType(QuestionTypes.CHOICE)
     }
 
-    private fun addQuestion() {
+    // Load a stored question into the existing visible editor, not a second dialog.
+    private fun editQuestionInForm(lessonId: String, questionId: String) {
+        ApiClient.service.ownedLessonQuestions(lessonId).enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                if (!isAdded || view == null) return
+                if (!response.isSuccessful) {
+                    android.widget.Toast.makeText(requireContext(), "Napaka pri nalaganju: HTTP ${response.code()}", android.widget.Toast.LENGTH_LONG).show()
+                    return
+                }
+                val question = response.body()?.getAsJsonArray("questions")
+                    ?.map { it.asJsonObject }
+                    ?.firstOrNull { it.get("id")?.asString == questionId }
+                if (question == null) {
+                    android.widget.Toast.makeText(requireContext(), "Vprašanja ni bilo mogoče najti.", android.widget.Toast.LENGTH_LONG).show()
+                    return
+                }
+                val type = question.get("type")?.asString ?: QuestionTypes.CHOICE
+                if (type !in listOf(QuestionTypes.CHOICE, QuestionTypes.TRUE_FALSE, QuestionTypes.FILL_BLANK)) {
+                    android.widget.Toast.makeText(requireContext(), "Ta vrsta vprašanja še ni podprta za urejanje.", android.widget.Toast.LENGTH_LONG).show()
+                    return
+                }
+                editingQuestionId = questionId
+                selectType(type)
+                etQuestion.setText(question.get("text")?.asString.orEmpty())
+                etPoints.setText(question.get("points")?.asString ?: "10")
+                etExplanation.setText(question.get("explanation")?.takeUnless { it.isJsonNull }?.asString.orEmpty())
+                val options = question.get("answers")?.takeIf { it.isJsonArray }?.asJsonArray
+                    ?.joinToString(";") { it.asString }.orEmpty()
+                etOptions.setText(options)
+                val correct = question.get("correctAnswers")?.takeIf { it.isJsonArray }?.asJsonArray
+                    ?.firstOrNull()?.asString.orEmpty()
+                etCorrectAnswer.setText(correct)
+                view?.findViewById<TextView>(R.id.btnAddQuestion)?.text = "Shrani spremembe"
+                scroll.smoothScrollTo(0, view?.findViewById<View>(R.id.editorCard)?.top ?: 0)
+            }
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                if (!isAdded || view == null) return
+                android.widget.Toast.makeText(requireContext(), "Ni povezave: ${t.localizedMessage}", android.widget.Toast.LENGTH_LONG).show()
+            }
+        })
+    }
+
+    private fun saveQuestionFromForm() {
         val tab = selectedTab ?: return
-        val lesson = currentLesson ?: run { toast(R.string.tc_pick_lesson); return }
-        val text = etQuestion.text.toString().trim()
-        if (text.isEmpty()) {
-            etQuestion.error = getString(R.string.tc_question_required)
+        val lesson = currentLesson ?: run {
+            android.widget.Toast.makeText(requireContext(), "Najprej izberi svojo lekcijo.", android.widget.Toast.LENGTH_LONG).show()
             return
         }
-        val points = etPoints.text.toString().toIntOrNull()?.takeIf { it > 0 } ?: 10
-        val explanation = etExplanation.text.toString().trim().ifEmpty { null }
+        val questionText = etQuestion.text.toString().trim()
+        val correctAnswer = etCorrectAnswer.text.toString().trim()
+        val explanation = etExplanation.text.toString().trim()
+        val points = etPoints.text.toString().trim().toIntOrNull()
+        val type = selectedType
 
-        progress.visibility = View.VISIBLE
-        repo.addQuestion(lesson.id, QuestionDraft(selectedType, text, points, explanation)) { result ->
-            if (view == null) return@addQuestion
-            progress.visibility = View.GONE
-            when (result) {
-                is ApiResult.Success -> {
-                    mutateLesson(tab.classroom.id, lesson.id) { it + result.data }
-                    resetForm()
-                    renderQuestions()
-                    toast(R.string.tc_question_added)
-                }
-                is ApiResult.Failure -> if (result.httpCode == 401) logout() else toast(R.string.tc_question_add_failed)
+        if (questionText.isBlank()) { etQuestion.error = "Vnesi vprašanje"; return }
+        if (points == null || points !in 1..100) { etPoints.error = "Vnesi 1–100 točk"; return }
+        if (correctAnswer.isBlank()) { etCorrectAnswer.error = "Vnesi pravilen odgovor"; return }
+
+        val options = etOptions.text.toString().split(';').map { it.trim() }.filter { it.isNotEmpty() }
+        if (type == QuestionTypes.CHOICE &&
+            (options.size !in 2..8 || options.size != options.distinct().size || correctAnswer !in options)
+        ) {
+            etOptions.error = "Vnesi 2–8 različnih možnosti, ločenih s ;. Pravilen odgovor mora biti ena izmed njih."
+            return
+        }
+        if (type == QuestionTypes.TRUE_FALSE && correctAnswer.lowercase(java.util.Locale.ROOT) !in listOf("true", "false")) {
+            etCorrectAnswer.error = "Vnesi true ali false"
+            return
+        }
+        if (type !in listOf(QuestionTypes.CHOICE, QuestionTypes.TRUE_FALSE, QuestionTypes.FILL_BLANK)) {
+            android.widget.Toast.makeText(requireContext(), "Ta vrsta še ni podprta", android.widget.Toast.LENGTH_LONG).show()
+            return
+        }
+
+        val body = JsonObject().apply {
+            addProperty("text", questionText)
+            addProperty("type", type)
+            addProperty("points", points)
+            addProperty("explanation", explanation)
+            add("correctAnswers", JsonArray().apply { add(correctAnswer) })
+            when (type) {
+                QuestionTypes.CHOICE -> add("answers", JsonArray().apply { options.forEach { add(it) } })
+                QuestionTypes.TRUE_FALSE -> add("answers", JsonArray().apply { add("true"); add("false") })
+                else -> add("answers", com.google.gson.JsonNull.INSTANCE)
             }
         }
+        progress.visibility = View.VISIBLE
+        val editId = editingQuestionId
+        val request = if (editId == null) ApiClient.service.newTeacherQuestion(lesson.id, body)
+                      else ApiClient.service.editTeacherQuestion(lesson.id, editId, body)
+        request.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                if (!isAdded || view == null) return
+                progress.visibility = View.GONE
+                if (response.isSuccessful) {
+                    resetForm()
+                    editors.remove(tab.classroom.id)
+                    loadEditor(tab)
+                    android.widget.Toast.makeText(requireContext(), "Vprašanje je shranjeno.", android.widget.Toast.LENGTH_SHORT).show()
+                } else {
+                    android.widget.Toast.makeText(requireContext(), "Shranjevanje ni uspelo: HTTP ${response.code()}", android.widget.Toast.LENGTH_LONG).show()
+                }
+            }
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                if (!isAdded || view == null) return
+                progress.visibility = View.GONE
+                android.widget.Toast.makeText(requireContext(), "Omrežna napaka: ${t.localizedMessage}", android.widget.Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     private fun confirmDelete(lesson: EditorLessonUi, q: QuestionRowUi) {
+        // Brisanje naj ostane izključeno, dokler ustvarjanje/urejanje vprašanj ni dokončano.
+        toast(R.string.tc_question_delete_failed)
+        return
         AlertDialog.Builder(requireContext())
             .setMessage(R.string.tc_delete_confirm)
             .setPositiveButton(R.string.tc_delete) { _, _ -> deleteQuestion(lesson, q) }

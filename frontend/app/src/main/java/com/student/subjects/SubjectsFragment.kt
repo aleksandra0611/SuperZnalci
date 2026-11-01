@@ -4,6 +4,10 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Typeface
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -154,6 +158,7 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
 
         bindTop(view, s)
         bindClass(view, s)
+        bindHomework(view, d)
         bindTabs(view, s)
         bindActive(view, s)
         bindTopics(view, s)
@@ -186,6 +191,125 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
             getString(R.string.subjects_fraction, s.challengeDone, s.challengeGoal)
         )
     }
+
+    /**
+     * Assignments are rendered separately from SHARED lessons.
+     * Their lessonId may point to a CLASSROOM lesson, which is
+     * intentionally excluded from the regular lesson progression.
+     */
+    private fun bindHomework(root: View, d: SubjectsData) {
+        val section = root.findViewById<LinearLayout>(R.id.homeworkSection)
+        section.removeAllViews()
+
+        val completedLessonIds = d.attempts
+            .filter { attempt ->
+                attempt.finishedAt != null
+            }
+            .map { attempt ->
+                attempt.lessonId
+            }
+            .toSet()
+
+        val assignments = d.assignments
+            .filter { assignment ->
+
+                val assignedAtMillis =
+                    assignment.assignedAt?.let { IsoDate.parse(it) }
+
+                val completedAfterAssignment = d.attempts.any { attempt ->
+
+                    val startedAtMillis =
+                        IsoDate.parse(attempt.date)
+
+                    val finishedAtMillis =
+                        attempt.finishedAt?.let { IsoDate.parse(it) }
+
+                    attempt.lessonId == assignment.lessonId &&
+                            assignedAtMillis != null &&
+                            startedAtMillis != null &&
+                            finishedAtMillis != null &&
+                            startedAtMillis >= assignedAtMillis &&
+                            finishedAtMillis >= assignedAtMillis
+                }
+
+                !completedAfterAssignment
+            }
+            .sortedBy { it.dueDate ?: "9999" }
+
+        section.visibility = if (assignments.isEmpty()) View.GONE else View.VISIBLE
+        if (assignments.isEmpty()) return
+
+        section.addView(homeworkText("📚 Domače naloge", 20f, true))
+
+        assignments.forEach { assignment ->
+            val lesson = d.lessons.firstOrNull { it.id == assignment.lessonId }
+            val subject = lesson?.let { l ->
+                d.subjects.firstOrNull { subject ->
+                    subject.grades.any { grade ->
+                        grade.topics.any { topic -> topic.id == l.topicId }
+                    }
+                }
+            }
+            val dueMillis = assignment.dueDate?.let { IsoDate.parse(it) }
+            val dueText = if (dueMillis == null) "Rok ni določen" else {
+                val format = SimpleDateFormat("d. M. yyyy 'ob' HH:mm", Locale.forLanguageTag("sl-SI"))
+                "Rok: ${format.format(Date(dueMillis))}"
+            }
+
+            val card = LinearLayout(requireContext()).apply {
+                orientation = LinearLayout.VERTICAL
+                setPadding(dp(16), dp(14), dp(16), dp(14))
+                setBackgroundResource(R.drawable.sub_card)
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply { topMargin = dp(10) }
+            }
+            card.addView(homeworkText(lesson?.name ?: "Domača naloga", 16f, true))
+            card.addView(homeworkText(dueText, 13f, false))
+            if (dueMillis != null && dueMillis < System.currentTimeMillis()) {
+                card.addView(homeworkText("Rok je potekel", 12f, false))
+            }
+            if (lesson != null && subject != null) {
+                val start = homeworkText("Začni domačo nalogo ›", 14f, true).apply {
+                    setTextColor(color(R.color.sub_green_dark))
+                    setPadding(0, dp(12), 0, dp(4))
+                    setOnClickListener {
+                        parentFragmentManager.beginTransaction()
+                            .replace(
+                                R.id.fragment_container,
+                                QuizFragment.newInstance(
+                                    subject.id, subject.name,
+                                    d.classroom?.gradeNumber, lesson.id
+                                )
+                            )
+                            .addToBackStack(null)
+                            .commit()
+                    }
+                }
+                card.addView(start)
+            } else {
+                card.addView(homeworkText("Lekcija ni na voljo v seznamu lekcij.", 12f, false))
+            }
+            section.addView(card)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (view != null && SessionStore.user != null) {
+            load(requireView().findViewById(R.id.main))
+        }
+    }
+
+    private fun homeworkText(text: String, sp: Float, bold: Boolean): TextView =
+        TextView(requireContext()).apply {
+            this.text = text
+            textSize = sp
+            setTextColor(color(R.color.sub_text))
+            if (bold) setTypeface(null, Typeface.BOLD)
+        }
 
     private fun bindTabs(view: View, s: SubjectsScreen) {
         setText(view, R.id.tvSubjectsTitle, getString(R.string.subjects_your_subjects))

@@ -64,44 +64,36 @@ class RetrofitTeacherSubjectsRepository(
         }
     }
 
-    private class DerivedLesson(val id: String, val topicId: String, val name: String, val questionCount: Int)
+    private class DerivedLesson(val id: String, val topicId: String, val name: String, val questionCount: Int, val scope: String)
 
-    private fun lessonsFromQuestions(questions: List<QuestionDto>): List<DerivedLesson> {
-        val byLesson = LinkedHashMap<String, MutableList<QuestionDto>>()
-        questions.forEach { q ->
-            val lessonId = q.lesson?.id ?: return@forEach
-            if (q.topic?.id.isNullOrBlank()) return@forEach
-            byLesson.getOrPut(lessonId) { mutableListOf() }.add(q)
-        }
-        return byLesson.map { (id, qs) ->
-            DerivedLesson(id, qs.first().topic?.id.orEmpty(), qs.first().lesson?.name.orEmpty(), qs.size)
-        }
-    }
-
+    // Lekcije preberemo iz GET /api/lessons, ne iz seznama vprašanj.
+    // Tako so vidne tudi lekcije z 0 vprašanji in brez uhajanja rešitev.
     override fun loadClassSubjects(classroom: ClassroomDto, callback: ResultCallback<List<SubjectUi>>) {
-        val fail: (Int?) -> Unit = { callback(ApiResult.Failure(it)) }
         val subjectIds = classroom.subjectIds.orEmpty()
         if (subjectIds.isEmpty()) {
             callback(ApiResult.Success(emptyList()))
             return
         }
-
-        api.subjects(subjectIds.joinToString(","), classroom.gradeNumber).go(fail) { subjectsEnv ->
-            val subjects = subjectsEnv.subjects.orEmpty()
-            val lessons = ArrayList<DerivedLesson>()
-
-            val questionsJoin = Join(subjects.size, fail) {
-                loadExtras(classroom, subjects, lessons, callback)
-            }
-            if (subjects.isEmpty()) {
-                callback(ApiResult.Success(emptyList()))
+        api.subjects(subjectIds.joinToString(","), classroom.gradeNumber).go(
+            { callback(ApiResult.Failure(it)) }
+        ) { env ->
+            val subjects = env.subjects.orEmpty()
+            val ids = subjects.flatMap { subject ->
+                subject.grades.orEmpty()
+                    .filter { it.gradeNumber == classroom.gradeNumber }
+                    .flatMap { grade -> grade.topics.orEmpty().map { it.id } }
+            }.distinct()
+            if (ids.isEmpty()) {
+                callback(ApiResult.Success(build(classroom, subjects, emptyList(), emptyList(), emptyList(), emptyList())))
                 return@go
             }
-            subjects.forEach { subject ->
-                api.questions(subject.id, classroom.gradeNumber, null).go(questionsJoin::fail) { env ->
-                    lessons += lessonsFromQuestions(env.questions.orEmpty())
-                    questionsJoin.ok()
-                }
+            api.lessons(ids.joinToString(",")).go(
+                { callback(ApiResult.Failure(it)) }
+            ) { lessonEnvelope ->
+                val lessons = lessonEnvelope.lessons.orEmpty()
+                    .filter { it.scope == "SHARED" || it.scope == "CLASSROOM" }
+                    .map { DerivedLesson(it.id, it.topicId, it.name, it.questionCount, it.scope ?: "SHARED") }
+                loadExtras(classroom, subjects, lessons, callback)
             }
         }
     }
@@ -212,7 +204,8 @@ class RetrofitTeacherSubjectsRepository(
                             status = status,
                             availableFrom = from,
                             completionPercent = stat?.completionPercent,
-                            averageAccuracy = stat?.averageAccuracy
+                            averageAccuracy = stat?.averageAccuracy,
+                            scope = l.scope
                         )
                     }
                 ModuleUi(topic.id, index + 1, topic.name, rows, topic.id !in hiddenTopics)

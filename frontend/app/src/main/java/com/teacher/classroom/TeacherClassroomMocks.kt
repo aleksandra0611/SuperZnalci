@@ -95,9 +95,15 @@ class RetrofitQuestionAuthoringSource(private val api: ApiService) : QuestionAut
     }
 
     override fun delete(questionId: String, callback: ResultCallback<Unit>) {
-        api.deleteQuestion(questionId).go({ callback(ApiResult.Failure(it)) }) {
-            callback(ApiResult.Success(Unit))
-        }
+        api.deleteQuestion(questionId).enqueue(object : retrofit2.Callback<Unit> {
+            override fun onResponse(call: retrofit2.Call<Unit>, response: retrofit2.Response<Unit>) {
+                if (response.isSuccessful) callback(ApiResult.Success(Unit))
+                else callback(ApiResult.Failure(response.code()))
+            }
+            override fun onFailure(call: retrofit2.Call<Unit>, error: Throwable) {
+                callback(ApiResult.Failure(null))
+            }
+        })
     }
 
     override fun overlay(lessonId: String, remote: List<QuestionRowUi>) = remote
