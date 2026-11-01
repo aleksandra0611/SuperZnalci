@@ -35,6 +35,7 @@ object TeacherNav {
             R.id.navSubjects -> TeacherSubjectsFragment()
             R.id.navProfile -> TeacherProfileFragment()
             R.id.navClassroom -> TeacherClassroomFragment()
+            R.id.navLeaderboard -> TeacherLeaderboardFragment()
             else -> null
         }
         if (target == null) {

@@ -141,6 +141,25 @@ interface ApiService {
 
     @DELETE("questions/{id}")
     fun deleteQuestion(@Path("id") questionId: String): Call<Unit>
+
+    @GET("classrooms/{id}/student-insights")
+    fun studentInsights(
+        @Path("id") classroomId: String,
+        @Query("subjectId") subjectId: String?
+    ): Call<TeacherInsightsEnvelope>
+
+    @GET("classrooms/{id}/students/{studentId}/detail")
+    fun studentDetail(
+        @Path("id") classroomId: String,
+        @Path("studentId") studentId: String
+    ): Call<TeacherStudentDetailDto>
+
+    @POST("classrooms/{id}/students/{studentId}/praise")
+    fun sendPraise(
+        @Path("id") classroomId: String,
+        @Path("studentId") studentId: String,
+        @Body body: TeacherPraiseRequest
+    ): Call<Unit>
 }
 
 object ApiClient {
@@ -366,6 +385,11 @@ object ServiceLocator {
         else MockQuestionAuthoringSource()
     val teacherClassroom: TeacherClassroomRepository =
         RetrofitTeacherClassroomRepository(api, classroomInsights, questionAuthoring)
+    val studentInsights: StudentInsightsSource =
+        if (TeacherLeaderboardConfig.USE_REAL_INSIGHTS) RetrofitStudentInsightsSource(api)
+        else MockStudentInsightsSource()
+    val teacherLeaderboard: TeacherLeaderboardRepository =
+        RetrofitTeacherLeaderboardRepository(api, studentInsights)
 }
 
 // new repository (same file, so it can use the private go()):
