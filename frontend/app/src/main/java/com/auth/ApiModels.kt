@@ -62,7 +62,9 @@ data class ClassroomDto(
     val name: String,
     val joinCode: String,
     val gradeNumber: Int,
-    val subjectIds: List<String> = emptyList()
+    val subjectIds: List<String> = emptyList(),
+    val teacherName: String? = null,
+    val studentCount: Int = 0
 )
 
 // Response of login and student registration
@@ -110,6 +112,7 @@ data class LessonSummaryDto(
     val topicId: String,
     val name: String,
     val order: Int,
+    val scope: String? = null,
     val isPublic: Boolean = true,
     val questionCount: Int = 0,
     val totalPoints: Int = 0,

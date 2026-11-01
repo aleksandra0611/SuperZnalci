@@ -108,9 +108,23 @@ object SubjectsMapper {
         val dueByLesson: Map<String, String?> = data.assignments.associate { it.lessonId to it.dueDate }
 
         val contexts = data.subjects.mapIndexed { index, subject ->
-            val topics = subject.grades.filter { it.gradeNumber == grade }.flatMap { it.topics }
+            val topics = subject.grades
+                .filter { it.gradeNumber == grade }
+                .flatMap { it.topics }
+
             val topicIds = topics.map { it.id }.toSet()
-            Ctx(subject, index, topics, data.lessons.filter { !it.isPublic && it.topicId in topicIds })
+
+            val subjectLessons = data.lessons.filter { lesson ->
+                lesson.scope == "SHARED" &&
+                    lesson.topicId in topicIds
+            }
+
+            Ctx(
+                subject = subject,
+                index = index,
+                topics = topics,
+                lessons = subjectLessons
+            )
         }
 
         val tabs = contexts.map { ctx ->

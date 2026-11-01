@@ -385,7 +385,10 @@ class RetrofitSubjectsRepository(private val profile: ProfileRepository) : Subje
                             SubjectsData(
                                 user = p.user,
                                 classroom = p.classroom,
-                                classroomInfo = ClassroomInfoDto(),   // MISSING: teacherName, studentCount
+                                classroomInfo = ClassroomInfoDto(
+                                    teacherName = p.classroom?.teacherName,
+                                    studentCount = p.classroom?.studentCount ?: 0
+                                ),
                                 subjects = p.subjects,
                                 lessons = p.lessons,
                                 assignments = emptyList(),            // MISSING: GET /api/assignments
