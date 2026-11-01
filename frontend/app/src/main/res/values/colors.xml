@@ -77,4 +77,10 @@
     <color name="ts_pill_indigo">#E4E3FF</color>
     <color name="tc_red">#C62828</color>
     <color name="tc_red_soft">#FDECEC</color>
+    <color name="tl_bg">#F4F7F5</color>
+    <color name="tl_card">#FFFFFF</color>
+    <color name="tl_draft_bg">#EEF1EF</color>
+    <color name="tl_locked_accent">#B7C9C0</color>
+    <color name="tl_red_bg">#FFDAD6</color>
+    <color name="tl_red_text">#BA1A1A</color>
 </resources>

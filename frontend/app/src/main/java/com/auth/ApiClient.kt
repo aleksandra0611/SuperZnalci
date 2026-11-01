@@ -160,6 +160,16 @@ interface ApiService {
         @Path("studentId") studentId: String,
         @Body body: TeacherPraiseRequest
     ): Call<Unit>
+
+    // --- teacher learn: MISSING on the backend (mocked while TeacherLearnConfig.USE_REAL_EXTRAS = false) ---
+    @GET("classrooms/{id}/overview")
+    fun classOverview(@Path("id") classroomId: String): Call<ClassOverviewDto>
+
+    @GET("classrooms/{id}/struggling-students")
+    fun strugglingStudents(@Path("id") classroomId: String): Call<StrugglingEnvelope>
+
+    @POST("classrooms/{id}/reminders")
+    fun sendReminder(@Path("id") classroomId: String, @Body body: ReminderRequest): Call<ReminderResponse>
 }
 
 object ApiClient {
@@ -390,6 +400,11 @@ object ServiceLocator {
         else MockStudentInsightsSource()
     val teacherLeaderboard: TeacherLeaderboardRepository =
         RetrofitTeacherLeaderboardRepository(api, studentInsights)
+    val teacherLearnSource: TeacherLearnSource =
+    if (TeacherLearnConfig.USE_REAL_EXTRAS) RetrofitTeacherLearnSource(api)
+        else MockTeacherLearnSource(classroomContent)
+    val teacherLearn: TeacherLearnRepository =
+        RetrofitTeacherLearnRepository(teacherSubjects, teacherLearnSource)
 }
 
 // new repository (same file, so it can use the private go()):
