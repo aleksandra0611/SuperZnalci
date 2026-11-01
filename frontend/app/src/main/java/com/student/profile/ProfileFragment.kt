@@ -368,7 +368,24 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
         view.findViewById<View>(R.id.tvAllBadges).setOnClickListener { showAllBadges(p) }
         view.findViewById<View>(R.id.tvAllSubjects).setOnClickListener { openSubjects(null) }
-        view.findViewById<View>(R.id.rowReminders).setOnClickListener { onReminderClicked() }
+        view.findViewById<View>(R.id.rowReminders).setOnClickListener {
+            ApiClient.service.studentMessages().enqueue(object: retrofit2.Callback<MessagesEnvelope> {
+                override fun onResponse(call:retrofit2.Call<MessagesEnvelope>,response:retrofit2.Response<MessagesEnvelope>) {
+                    if (!isAdded) return
+                    if (!response.isSuccessful) {
+                        android.widget.Toast.makeText(requireContext(),"Napaka: ${response.code()}",android.widget.Toast.LENGTH_SHORT).show();return
+                    }
+                    val messages=response.body()?.messages.orEmpty()
+                    val labels=messages.map { "${if(it.type=="PRAISE")"🌟 Pohvala" else "🔔 Opomnik"}: ${it.message}" }
+                    AlertDialog.Builder(requireContext()).setTitle("Sporočila učitelja")
+                        .setItems((if(labels.isEmpty())listOf("Ni sporočil") else labels).toTypedArray(),null)
+                        .setPositiveButton("Zapri",null).show()
+                }
+                override fun onFailure(call:retrofit2.Call<MessagesEnvelope>,t:Throwable) {
+                    if(isAdded) android.widget.Toast.makeText(requireContext(),"Ni povezave",android.widget.Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
     }
 
     private fun copyClassCode(code: String) {

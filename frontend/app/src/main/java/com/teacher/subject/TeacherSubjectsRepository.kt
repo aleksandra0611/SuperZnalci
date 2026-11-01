@@ -64,7 +64,7 @@ class RetrofitTeacherSubjectsRepository(
         }
     }
 
-    private class DerivedLesson(val id: String, val topicId: String, val name: String, val questionCount: Int)
+    private class DerivedLesson(val id: String, val topicId: String, val name: String, val questionCount: Int, val scope: String)
 
     // Lekcije preberemo iz GET /api/lessons, ne iz seznama vprašanj.
     // Tako so vidne tudi lekcije z 0 vprašanji in brez uhajanja rešitev.
@@ -92,7 +92,7 @@ class RetrofitTeacherSubjectsRepository(
             ) { lessonEnvelope ->
                 val lessons = lessonEnvelope.lessons.orEmpty()
                     .filter { it.scope == "SHARED" || it.scope == "CLASSROOM" }
-                    .map { DerivedLesson(it.id, it.topicId, it.name, it.questionCount) }
+                    .map { DerivedLesson(it.id, it.topicId, it.name, it.questionCount, it.scope ?: "SHARED") }
                 loadExtras(classroom, subjects, lessons, callback)
             }
         }
@@ -204,7 +204,8 @@ class RetrofitTeacherSubjectsRepository(
                             status = status,
                             availableFrom = from,
                             completionPercent = stat?.completionPercent,
-                            averageAccuracy = stat?.averageAccuracy
+                            averageAccuracy = stat?.averageAccuracy,
+                            scope = l.scope
                         )
                     }
                 ModuleUi(topic.id, index + 1, topic.name, rows, topic.id !in hiddenTopics)

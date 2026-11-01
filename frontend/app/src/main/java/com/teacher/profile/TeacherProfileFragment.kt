@@ -39,9 +39,12 @@ class TeacherProfileFragment : Fragment(R.layout.fragment_teacher_profile) {
 
         val comingSoon = View.OnClickListener { toast(R.string.teacher_coming_soon) }
         listOf(
-            R.id.btnEditProfile, R.id.btnCreateClass, R.id.btnEditSubjects, R.id.rowSecurity
+            R.id.btnEditProfile, R.id.btnEditSubjects, R.id.rowSecurity
         ).forEach { view.findViewById<View>(it).setOnClickListener(comingSoon) }
 
+        view.findViewById<View>(R.id.btnCreateClass).setOnClickListener {
+            TeacherContentDialogs.newClass(requireContext()) { load() }
+        }
         TeacherNav.bind(view, R.id.navProfile, this)
         view.findViewById<View>(R.id.btnLogout).setOnClickListener { logout() }
 

@@ -1,0 +1,16 @@
+const router = require('express').Router();
+const {authenticate}=require('../middleware/auth');
+const {requireRole}=require('../middleware/roles');
+const c=require('../controllers/teacherContentController');
+router.use(authenticate,requireRole('TEACHER'));
+router.post('/classrooms',c.createClass);
+router.post('/classrooms/:classroomId/subjects',c.createSubject);
+router.post('/classrooms/:classroomId/topics',c.createTopic);
+router.post('/classrooms/:classroomId/lessons',c.createLesson);
+router.patch('/lessons/:lessonId',c.renameLesson);
+router.delete('/lessons/:lessonId',c.deleteLesson);
+router.get('/lessons/:lessonId/questions',c.listOwnedLessonQuestions);
+router.post('/lessons/:lessonId/questions',c.createQuestion);
+router.put('/lessons/:lessonId/questions/:questionId',c.updateQuestion);
+router.delete('/lessons/:lessonId/questions/:questionId',c.deleteQuestion);
+module.exports=router;

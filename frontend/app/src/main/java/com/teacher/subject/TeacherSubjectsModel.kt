@@ -60,7 +60,8 @@ data class LessonRowUi(
     val status: LessonStatus,
     val availableFrom: String?,
     val completionPercent: Int?, 
-    val averageAccuracy: Int?
+    val averageAccuracy: Int?,
+    val scope: String = "SHARED"
 )
 
 data class ModuleUi(
