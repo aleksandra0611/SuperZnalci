@@ -5,9 +5,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
-
-// What the Subjects screen shows. Nothing in here knows about the backend: SubjectsMapper (below)
-// converts the backend-shaped SubjectsData into these classes.
+import kotlin.math.roundToInt
 
 enum class LessonState { DONE, CURRENT, LOCKED }
 
@@ -17,14 +15,14 @@ data class LessonItem(
     val title: String,
     val description: String?,
     val state: LessonState,
-    val stars: Int, 
-    val correct: Int, 
-    val total: Int, 
+    val stars: Int,
+    val correct: Int,
+    val total: Int,
     val questionCount: Int,
     val xp: Int,
     val minutes: Int,
-    val dueLabel: String?, 
-    val unlockAfter: Int? 
+    val dueLabel: String?,
+    val unlockAfter: Int?
 )
 
 data class TopicItem(
@@ -38,7 +36,6 @@ data class TopicItem(
     val expandedByDefault: Boolean
 )
 
-// One chip in the horizontal "Tvoji predmeti" row
 data class SubjectTab(
     val id: String,
     val name: String,
@@ -48,7 +45,6 @@ data class SubjectTab(
     @DrawableRes val iconRes: Int
 )
 
-// The selected subject (big card + topics)
 data class ActiveSubject(
     val id: String,
     val title: String,
@@ -77,15 +73,14 @@ data class SubjectsScreen(
 )
 
 /**
- * Backend data -> screen data. Calculated HERE (the backend does not store it):
- *   lesson state     DONE = at least one attempt (same rule as the profile's "lessons done");
- *                    the first lesson of a topic without attempt is CURRENT, the rest are LOCKED
- *   stars            best accuracy per lesson, same thresholds as ProfileMapper.starsFor
- *   subject XP       sum of Attempt.points of the subject's lessons
+ * Backend data -> screen data.
+ *   lesson state     comes from GET /api/lessons: DONE / CURRENT / LOCKED (the server applies the unlock rule).
+ *                    null (PRACTICE, CLASSROOM lessons) is treated as CURRENT
+ *   stars            lesson.stars from the server
+ *   correct / total  estimated from lesson.bestAccuracy and the question count
+ *   subject XP       overwritten in SubjectsFragment.bindStats() from /students/me/statistics
  *   level            ProfileMapper.levelFor(User.totalXp)
- *   minutes          ~0.8 min per question
- *   weekly challenge number of attempts since Monday (no backend model for it yet)
- *   visible lessons  Lesson.isPublic or assigned to the classroom
+ *   visible lessons  the server already filters by access, so nothing is filtered here
  */
 object SubjectsMapper {
 
@@ -112,20 +107,15 @@ object SubjectsMapper {
         val (className, school) = ClassroomNaming.parse(classroom?.name.orEmpty())
 
         val dueByLesson: Map<String, String?> = data.assignments.associate { it.lessonId to it.dueDate }
-        val best: Map<String, AttemptDto> = data.attempts
-            .groupBy { it.lessonId }
-            .mapValues { (_, list) -> list.reduce { a, b -> if (b.accuracy > a.accuracy) b else a } }
-
-        val visible = data.lessons.filter { it.isPublic || it.id in dueByLesson }
 
         val contexts = data.subjects.mapIndexed { index, subject ->
             val topics = subject.grades.filter { it.gradeNumber == grade }.flatMap { it.topics }
             val topicIds = topics.map { it.id }.toSet()
-            Ctx(subject, index, topics, visible.filter { it.topicId in topicIds })
+            Ctx(subject, index, topics, data.lessons.filter { it.topicId in topicIds })
         }
 
         val tabs = contexts.map { ctx ->
-            val done = ctx.lessons.count { it.id in best }
+            val done = ctx.lessons.count { it.status == "DONE" }
             SubjectTab(
                 id = ctx.subject.id,
                 name = ctx.subject.name,
@@ -136,32 +126,30 @@ object SubjectsMapper {
             )
         }
 
-        // selected subject, else the one of the latest attempt, else the first
         val latest = data.attempts.maxByOrNull { IsoDate.parse(it.date) ?: 0L }
         val activeCtx = contexts.find { it.subject.id == selectedId }
             ?: latest?.let { a -> contexts.find { c -> c.lessons.any { it.id == a.lessonId } } }
             ?: contexts.firstOrNull()
 
         val active = activeCtx?.let { ctx ->
-            val lessonIds = ctx.lessons.map { it.id }.toSet()
-            val done = lessonIds.count { it in best }
+            val done = ctx.lessons.count { it.status == "DONE" }
             ActiveSubject(
                 id = ctx.subject.id,
                 title = if (grade != null) "${ctx.subject.name} $grade" else ctx.subject.name,
                 teacher = data.classroomInfo.teacherName,
-                xp = data.attempts.filter { it.lessonId in lessonIds }.sumOf { it.points },
+                xp = 0, // replaced by SubjectsFragment.bindStats()
                 level = ProfileMapper.levelFor(user.totalXp),
-                percent = percent(done, lessonIds.size),
+                percent = percent(done, ctx.lessons.size),
                 lessonsDone = done,
-                lessonsTotal = lessonIds.size,
-                stars = lessonIds.sumOf { id -> best[id]?.let { ProfileMapper.starsFor(it.accuracy) } ?: 0 },
-                topics = buildTopics(ctx, best, dueByLesson)
+                lessonsTotal = ctx.lessons.size,
+                stars = ctx.lessons.sumOf { it.stars },
+                topics = buildTopics(ctx, dueByLesson)
             )
         }
 
         return SubjectsScreen(
             streakDays = ProfileMapper.effectiveStreak(user.streak, IsoDate.parse(user.lastActiveAt), now),
-            stars = best.values.sumOf { ProfileMapper.starsFor(it.accuracy) },
+            stars = data.lessons.sumOf { it.stars },
             gradeNumber = grade,
             className = className.ifBlank { "—" },
             school = school,
@@ -176,30 +164,31 @@ object SubjectsMapper {
 
     private fun buildTopics(
         ctx: Ctx,
-        best: Map<String, AttemptDto>,
         due: Map<String, String?>
     ): List<TopicItem> {
         val rows = ctx.topics.mapIndexed { index, topic ->
             val sorted = ctx.lessons.filter { it.topicId == topic.id }.sortedBy { it.order }
 
-            var unlocked = true
             var previousOrder: Int? = null
             val items = sorted.map { lesson ->
-                val attempt = best[lesson.id]
-                val state = when {
-                    attempt != null -> LessonState.DONE
-                    unlocked -> LessonState.CURRENT
-                    else -> LessonState.LOCKED
+                val state = when (lesson.status) {
+                    "DONE" -> LessonState.DONE
+                    "LOCKED" -> LessonState.LOCKED
+                    else -> LessonState.CURRENT
                 }
+                val correct = if (state == LessonState.DONE && lesson.bestAccuracy != null)
+                    (lesson.bestAccuracy / 100.0 * lesson.questionCount).roundToInt()
+                else 0
+
                 val item = LessonItem(
                     id = lesson.id,
                     number = lesson.order,
                     title = lesson.name,
                     description = lesson.description,
                     state = state,
-                    stars = attempt?.let { ProfileMapper.starsFor(it.accuracy) } ?: 0,
-                    correct = attempt?.answers?.count { it.isCorrect } ?: 0,
-                    total = attempt?.answers?.size ?: lesson.questionCount,
+                    stars = lesson.stars.coerceIn(0, 3),
+                    correct = correct,
+                    total = lesson.questionCount,
                     questionCount = lesson.questionCount,
                     xp = lesson.totalPoints,
                     minutes = ((lesson.questionCount * 4 + 4) / 5).coerceAtLeast(1),
@@ -208,7 +197,6 @@ object SubjectsMapper {
                         ?.takeIf { it.isNotBlank() },
                     unlockAfter = if (state == LessonState.LOCKED) previousOrder else null
                 )
-                unlocked = attempt != null
                 previousOrder = lesson.order
                 item
             }
@@ -226,7 +214,6 @@ object SubjectsMapper {
             )
         }
 
-        // the first topic that is not finished is opened
         val firstOpen = rows.indexOfFirst { it.lessonsDone < it.lessonsTotal }
         return rows.mapIndexed { i, t -> t.copy(expandedByDefault = i == firstOpen) }
     }

@@ -23,6 +23,7 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
     private var data: SubjectsData? = null
     private var screen: SubjectsScreen? = null
     private var selectedSubjectId: String? = null
+    private var stats: StatisticsDto? = null
 
     private val expandedTopics = mutableSetOf<String>()
     private val seenTopics = mutableSetOf<String>()
@@ -49,7 +50,7 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
         if (SessionStore.user == null) {
             goToLogin()
             return
-        }
+        }  
 
         setupNavigation(view)
         root.visibility = View.INVISIBLE
@@ -65,6 +66,7 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
                     data = result.data
                     render()
                     root.visibility = View.VISIBLE
+                    loadStats()
                 }
                 is ApiResult.Failure -> when (result.httpCode) {
                     401 -> {
@@ -76,6 +78,25 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
                 }
             }
         }
+    }
+
+    private fun loadStats() {
+        ServiceLocator.stats.load { result ->
+            if (view == null) return@load
+            if (result is ApiResult.Success) {
+                stats = result.data
+                bindStats()
+            }
+        }
+    }
+
+    private fun bindStats() {
+        val v = view ?: return
+        val st = stats ?: return
+        setText(v, R.id.tvTopStreak, getString(R.string.profile_top_streak, st.summary.streak))
+        val activeId = screen?.active?.id ?: return
+        val points = st.subjectStatistics.firstOrNull { it.subjectId == activeId }?.totalPoints ?: 0
+        setText(v, R.id.tvActiveXp, getString(R.string.subjects_xp, points))
     }
 
     private fun showLoadError(root: View, messageRes: Int) {
@@ -111,6 +132,7 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
         bindTabs(view, s)
         bindActive(view, s)
         bindTopics(view, s)
+        bindStats()
     }
 
     private fun bindTop(view: View, s: SubjectsScreen) {

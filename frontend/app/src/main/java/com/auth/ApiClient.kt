@@ -64,7 +64,10 @@ interface ApiService {
     ): Call<QuestionsEnvelope>
 
     @GET("lessons")
-    fun lessons(@Query("topicIds") topicIds: String): Call<LessonsEnvelope> //delete of we donćt add GET //api/lessons
+    fun lessons(@Query("topicIds") topicIds: String): Call<LessonsEnvelope>
+
+    @GET("students/me/statistics")
+    fun myStatistics(): Call<StatisticsDto>
 
     // --- attempt API: solving a lesson, every answer is checked on the server ---
     @POST("lessons/{lessonId}/attempts")
@@ -75,6 +78,9 @@ interface ApiService {
 
     @POST("attempts/{attemptId}/finish")
     fun finishAttempt(@Path("attemptId") attemptId: String): Call<FinishResultDto>
+
+    @GET("attempts")
+    fun attempts(): Call<AttemptsEnvelope>
 
     // --- Vadnica (practice content, no classroom needed) ---
     @GET("practice/subjects")
@@ -290,7 +296,7 @@ class RetrofitProfileRepository(
         }
     }
 
-    private fun finish(
+        private fun finish(
         callback: ResultCallback<ProfileData>,
         user: UserDto,
         classroom: ClassroomDto?,
@@ -298,6 +304,26 @@ class RetrofitProfileRepository(
         lessons: List<LessonSummaryDto>
     ) {
         SessionStore.token?.let { SessionStore.save(it, user) }
+
+        api.attempts().go(
+            onFail = { code ->
+                if (code == 401) callback(ApiResult.Failure(401))
+                else deliver(callback, user, classroom, subjects, lessons, emptyList())
+            }
+        ) { envelope ->
+            val finished = envelope.attempts.orEmpty().filter { it.finishedAt != null }
+            deliver(callback, user, classroom, subjects, lessons, finished)
+        }
+    }
+
+    private fun deliver(
+        callback: ResultCallback<ProfileData>,
+        user: UserDto,
+        classroom: ClassroomDto?,
+        subjects: List<SubjectDto>,
+        lessons: List<LessonSummaryDto>,
+        attempts: List<AttemptDto>
+    ) {
         callback(
             ApiResult.Success(
                 ProfileData(
@@ -305,7 +331,7 @@ class RetrofitProfileRepository(
                     classroom = classroom,
                     subjects = subjects,
                     lessons = lessons,
-                    attempts = emptyList(),       // MISSING: GET /api/attempts
+                    attempts = attempts,
                     badgeCatalog = emptyList()    // MISSING: GET /api/badges
                 )
             )
@@ -351,11 +377,8 @@ class UnavailablePasswordResetRepository : PasswordResetRepository {
 
 object ServiceLocator {
     private val api = ApiClient.service
-//change if we donćt add GET /api/lessons to val lessons = QuestionsDerivedLessonsRepository(api)
-    val lessons: LessonsRepository =
-        if (QuizConfig.USE_REAL_LESSONS_ENDPOINT) RetrofitLessonsRepository(api)
-        else QuestionsDerivedLessonsRepository(api)
 
+    val lessons: LessonsRepository = RetrofitLessonsRepository(api)
     val teacherExtras: TeacherExtrasSource =
         if (TeacherConfig.USE_REAL_EXTRAS) RetrofitTeacherExtrasSource(api)
         else MockTeacherExtrasSource()
@@ -367,6 +390,7 @@ object ServiceLocator {
     val schools: SchoolsRepository = RetrofitSchoolsRepository(api)
     val passwordReset: PasswordResetRepository = UnavailablePasswordResetRepository()
     val quiz: QuizRepository = RetrofitQuizRepository(api)
+    val stats: StatsRepository = RetrofitStatsRepository(api)
     val practice: PracticeRepository = RetrofitPracticeRepository(api)
     val leaderboard: LeaderboardRepository =
     if (LeaderboardConfig.USE_REAL_LEADERBOARD) RetrofitLeaderboardRepository(api, profile)

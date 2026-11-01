@@ -18,7 +18,6 @@ import android.view.HapticFeedbackConstants
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-// Solves one lesson through the attempt API: the server checks every answer and calculates the result
 class QuizFragment : Fragment(R.layout.fragment_quiz) {
 
     companion object {
@@ -57,7 +56,6 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
 
     private val repo: QuizRepository get() = ServiceLocator.quiz
 
-    // the attempt and its questions are kept on rotation, so no new attempt is started
     private var attemptId: String? = null
     private var questions: List<QuizQuestion> = emptyList()
     private var finishResult: FinishResultDto? = null
@@ -68,7 +66,7 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
     private var combo = 0
     private var xp = 0
     private var checked = false
-    private var busy = false   // an answer or the finish is being sent to the server
+    private var busy = false
 
     private var component: QuestionComponent? = null
     private var dialog: AlertDialog? = null
@@ -318,7 +316,6 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
         if (busy || !c.hasAnswer()) return
         val q = questions[current]
 
-        // broken question data: nothing to send, the server would reject it
         if (q.type == QuestionType.UNKNOWN) {
             record(q, AnswerOutcome.SKIPPED, null)
             return
@@ -342,7 +339,6 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
                         SessionStore.clear()
                         goToLogin()
                     }
-                    // already answered (e.g. the screen was recreated while sending): the server keeps the first answer
                     409 -> record(q, AnswerOutcome.SKIPPED, null)
                     else -> {
                         c.setLocked(false)
@@ -413,7 +409,6 @@ class QuizFragment : Fragment(R.layout.fragment_quiz) {
             tvFeedbackXp.visibility = View.GONE
         }
 
-        // Body: correct answer from the server (only when wrong) + combo / heart info + explanation
         val lines = listOfNotNull(
             if (outcome == AnswerOutcome.WRONG && result != null) correctAnswerLine(q, result) else null,
             if (outcome == AnswerOutcome.CORRECT && combo >= 3)
