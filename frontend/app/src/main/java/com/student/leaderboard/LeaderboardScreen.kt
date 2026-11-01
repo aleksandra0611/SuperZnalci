@@ -25,6 +25,7 @@ data class MyRank(
 )
 
 data class LastResult(
+    val attemptId: String,
     val chip: String,
     val lessonName: String,
     val xp: Int,
@@ -107,6 +108,7 @@ object LeaderboardMapper {
 
         val result = data.lastAttempt?.let { last ->
             LastResult(
+                attemptId = last.attempt.id,
                 chip = "${last.subjectName.uppercase(Locale.getDefault())} • $classLabel",
                 lessonName = last.lessonName,
                 xp = last.attempt.points,
@@ -122,7 +124,7 @@ object LeaderboardMapper {
         }
 
         return LeaderboardScreen(
-            streakDays = ProfileMapper.effectiveStreak(user.streak, IsoDate.parse(user.lastActiveAt), now),
+            streakDays = ProfileMapper.effectiveStreak(user.streak, user.streakAnchorMillis(), now),
             stars = data.stars,
             className = classLabel,
             result = result,

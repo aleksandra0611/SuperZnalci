@@ -82,6 +82,9 @@ interface ApiService {
     @GET("attempts")
     fun attempts(): Call<AttemptsEnvelope>
 
+    @GET("attempts/{id}/mistakes")
+    fun attemptMistakes(@Path("id") attemptId: String): Call<MistakesDto>
+
     // --- Vadnica (practice content, no classroom needed) ---
     @GET("practice/subjects")
     fun practiceSubjects(@Query("gradeNumber") gradeNumber: Int): Call<PracticeSubjectsEnvelope>
@@ -176,6 +179,9 @@ interface ApiService {
 
     @POST("classrooms/{id}/reminders")
     fun sendReminder(@Path("id") classroomId: String, @Body body: ReminderRequest): Call<ReminderResponse>
+
+    @GET("badges")
+    fun badges(): Call<BadgesEnvelope>
 }
 
 object ApiClient {
@@ -308,11 +314,30 @@ class RetrofitProfileRepository(
         api.attempts().go(
             onFail = { code ->
                 if (code == 401) callback(ApiResult.Failure(401))
-                else deliver(callback, user, classroom, subjects, lessons, emptyList())
+                else loadBadges(callback, user, classroom, subjects, lessons, emptyList())
             }
         ) { envelope ->
             val finished = envelope.attempts.orEmpty().filter { it.finishedAt != null }
-            deliver(callback, user, classroom, subjects, lessons, finished)
+            loadBadges(callback, user, classroom, subjects, lessons, finished)
+        }
+    }
+
+    private fun loadBadges(
+        callback: ResultCallback<ProfileData>,
+        user: UserDto,
+        classroom: ClassroomDto?,
+        subjects: List<SubjectDto>,
+        lessons: List<LessonSummaryDto>,
+        attempts: List<AttemptDto>
+    ) {
+        api.badges().go(
+            onFail = { code ->
+                if (code == 401) callback(ApiResult.Failure(401))
+                else deliver(callback, user, classroom, subjects, lessons, attempts, emptyList())
+            }
+        ) { envelope ->
+            val catalog = envelope.badges.orEmpty().mapNotNull { it.toBadgeDto() }
+            deliver(callback, user, classroom, subjects, lessons, attempts, catalog)
         }
     }
 
@@ -322,7 +347,8 @@ class RetrofitProfileRepository(
         classroom: ClassroomDto?,
         subjects: List<SubjectDto>,
         lessons: List<LessonSummaryDto>,
-        attempts: List<AttemptDto>
+        attempts: List<AttemptDto>,
+        badgeCatalog: List<BadgeDto>
     ) {
         callback(
             ApiResult.Success(
@@ -332,7 +358,7 @@ class RetrofitProfileRepository(
                     subjects = subjects,
                     lessons = lessons,
                     attempts = attempts,
-                    badgeCatalog = emptyList()    // MISSING: GET /api/badges
+                    badgeCatalog = badgeCatalog
                 )
             )
         )
@@ -392,13 +418,8 @@ object ServiceLocator {
     val quiz: QuizRepository = RetrofitQuizRepository(api)
     val stats: StatsRepository = RetrofitStatsRepository(api)
     val practice: PracticeRepository = RetrofitPracticeRepository(api)
-    val leaderboard: LeaderboardRepository =
-    if (LeaderboardConfig.USE_REAL_LEADERBOARD) RetrofitLeaderboardRepository(api, profile)
-    else MockLeaderboardRepository()
-    val learnExtras: LearnExtrasSource =
-        if (LearnConfig.USE_REAL_EXTRAS) RetrofitLearnExtrasSource()
-        else MockLearnExtrasSource()
-
+    val leaderboard: LeaderboardRepository = RetrofitLeaderboardRepository(api, profile)
+    val learnExtras: LearnExtrasSource = RetrofitLearnExtrasSource()
     val learn: LearnRepository = LearnRepositoryImpl(
         profile = profile,
         extras = learnExtras

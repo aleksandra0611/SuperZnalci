@@ -51,6 +51,7 @@ data class UserDto(
     val streak: Int = 0,
     val registeredAt: String? = null,  // ISO-8601
     val lastActiveAt: String? = null,  // ISO-8601, null until the first login
+    val lastStreakAt: String? = null,
     val badges: List<UserBadgeDto> = emptyList()
 )
 
@@ -209,3 +210,21 @@ class RetrofitStatsRepository(private val api: ApiService) : StatsRepository {
 }
 
 fun String.cleanName(): String = trim().replace(Regex("\\s+"), " ")
+
+fun UserDto.streakAnchorMillis(): Long? = IsoDate.parse(lastStreakAt ?: lastActiveAt)
+
+// GET /api/badges
+class BadgeApiDto(
+    val id: String? = null,
+    val _id: String? = null,
+    val name: String? = null,
+    val condition: String? = null,
+    val description: String? = null
+)
+
+class BadgesEnvelope(val badges: List<BadgeApiDto>?)
+
+fun BadgeApiDto.toBadgeDto(): BadgeDto? {
+    val key = id ?: _id ?: return null
+    return BadgeDto(key, name.orEmpty(), condition ?: description.orEmpty())
+}

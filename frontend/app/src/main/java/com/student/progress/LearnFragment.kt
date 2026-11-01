@@ -367,7 +367,7 @@ class LearnFragment : Fragment(R.layout.fragment_learn) {
                     bar.visibility = View.VISIBLE
                     bar.progress = m.percent
                     bar.progressTintList = android.content.res.ColorStateList.valueOf(color(tint))
-                    reward.visibility = View.VISIBLE
+                    reward.visibility = if (m.rewardXp > 0) View.VISIBLE else View.GONE
                     reward.text = getString(R.string.learn_reward_text, m.rewardXp)
                     reward.setTextColor(color(tint))
                 }
