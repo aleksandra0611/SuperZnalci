@@ -94,7 +94,34 @@ class SubjectsFragment : Fragment(R.layout.fragment_subjects) {
     private fun bindStats() {
         val v = view ?: return
         val st = stats ?: return
-        setText(v, R.id.tvTopStreak, getString(R.string.profile_top_streak, st.summary.streak))
+
+        // Trenutno veljaven streak iz backenda.
+        setText(
+            v,
+            R.id.tvTopStreak,
+            getString(
+                R.string.profile_top_streak,
+                st.summary.streak
+            )
+        )
+
+        // XP za trenutno izbrani predmet.
+        val activeSubjectId = screen?.active?.id
+
+        val subjectPoints = st.subjectStatistics
+            .firstOrNull { subjectStat ->
+                subjectStat.subjectId == activeSubjectId
+            }
+            ?.totalPoints ?: 0
+
+        setText(
+            v,
+            R.id.tvActiveXp,
+            getString(
+                R.string.subjects_xp,
+                subjectPoints
+            )
+        )
     }
 
     private fun showLoadError(root: View, messageRes: Int) {

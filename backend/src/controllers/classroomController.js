@@ -18,15 +18,42 @@ async function listMyClassrooms(req, res, next) {
 async function getMyClassroom(req, res, next) {
   try {
     if (!req.user.classroomId) {
-      return res.status(404).json({ message: "Nimate učilnice." });
+      return res.status(404).json({
+        message: "Nimate učilnice.",
+      });
     }
-    const classroom = await Classroom.findById(req.user.classroomId);
+
+    const classroom = await Classroom.findById(
+      req.user.classroomId
+    ).lean();
+
     if (!classroom) {
-      return res.status(404).json({ message: "Učilnica ne obstaja." });
+      return res.status(404).json({
+        message: "Učilnica ne obstaja.",
+      });
     }
-    return res.status(200).json({ classroom: toClassroomDto(classroom) });
-  } catch (err) {
-    next(err);
+
+    const [teacher, studentCount] = await Promise.all([
+      User.findById(classroom.teacherId)
+        .select("name")
+        .lean(),
+
+      User.countDocuments({
+        classroomId: classroom._id,
+        role: "STUDENT",
+      }),
+    ]);
+
+    return res.status(200).json({
+      classroom: {
+        ...toClassroomDto(classroom),
+        teacherName: teacher?.name ?? null,
+        studentCount,
+      },
+    });
+
+  } catch (error) {
+    next(error);
   }
 }
 

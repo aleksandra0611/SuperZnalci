@@ -202,6 +202,7 @@ async function listLessons(req, res, next) {
         name: lesson.name,
         order: lesson.order ?? 0,
 
+        scope: lesson.scope,
         isPublic: lesson.scope === "PRACTICE",
 
         questionCount: questions.length,
