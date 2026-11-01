@@ -2,7 +2,7 @@ package com.example.superznalci
 
 
 object TeacherClassroomConfig {
-    const val USE_REAL_INSIGHTS = true
+    const val USE_REAL_INSIGHTS = false
     const val USE_REAL_AUTHORING = false
 }
 
@@ -51,13 +51,12 @@ class QuestionCreateRequest(
     val correctAnswers: List<String>? = null
 )
 
-// TODO: align these values with what the backend stores in Question.type
 object QuestionTypes {
-    const val CHOICE = "CHOICE"
+    const val CHOICE = "MULTIPLE_CHOICE"
     const val TRUE_FALSE = "TRUE_FALSE"
-    const val PAIRS = "PAIRS"
-    const val FILL_BLANK = "FILL_BLANK"
-    const val IMAGE = "IMAGE"
+    const val PAIRS = "MATCHING"
+    const val FILL_BLANK = "FILL_IN_BLANK"
+    const val IMAGE = "IMAGE_QUESTION"
 }
 
 // UI models

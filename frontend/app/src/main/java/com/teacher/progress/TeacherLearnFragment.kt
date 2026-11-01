@@ -1,5 +1,6 @@
 package com.example.superznalci
 
+import androidx.appcompat.app.AlertDialog
 import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.os.Bundle
@@ -294,7 +295,12 @@ class TeacherLearnFragment : Fragment(R.layout.fragment_teacher_learn) {
             v.findViewById<View>(R.id.btnUnlock).setOnClickListener { unlock(tab, m) }
         }
 
-        if (draft) v.setOnClickListener { toast(R.string.teacher_coming_soon) }
+        // Klik na kartico modula odpre njegove lekcije.
+        // Izbrana lekcija usmeri na obrazec za domačo nalogo.
+        v.findViewById<View>(R.id.moduleCard).setOnClickListener {
+            openModule(m)
+        }
+        if (draft) v.setOnClickListener { openModule(m) }
         return v
     }
 
@@ -375,6 +381,31 @@ class TeacherLearnFragment : Fragment(R.layout.fragment_teacher_learn) {
     }
 
     // actions
+
+    private fun openModule(module: PathModuleUi) {
+        val choices = homeworkLessons.filter { it.moduleTopicId == module.topicId }
+        if (choices.isEmpty()) {
+            AlertDialog.Builder(requireContext())
+                .setTitle(module.name)
+                .setMessage("Ta modul še nima lekcij, ki jih je mogoče dodeliti.")
+                .setPositiveButton("V redu", null)
+                .show()
+            return
+        }
+        AlertDialog.Builder(requireContext())
+            .setTitle(module.name)
+            .setItems(choices.map { it.label }.toTypedArray()) { _, position ->
+                val item = choices[position]
+                val index = homeworkLessons.indexOfFirst { it.lessonId == item.lessonId }
+                if (index >= 0) {
+                    spinnerLesson.setSelection(index)
+                    val card = view?.findViewById<View>(R.id.homeworkCard)
+                    if (card != null) scroll.post { scroll.smoothScrollTo(0, card.top) }
+                }
+            }
+            .setNegativeButton("Prekliči", null)
+            .show()
+    }
 
     private fun focusHomework(m: PathModuleUi) {
         val root = view ?: return

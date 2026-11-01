@@ -21,7 +21,8 @@ data class ClassroomAssignmentDto(
     val lessonId: String,
     val availableFrom: String? = null,
     val dueDate: String? = null,
-    val allowRetry: Boolean = false          // NEW
+    val allowRetry: Boolean = false,
+    val assignedAt: String? = null
 )
 
 class AssignmentRequest(

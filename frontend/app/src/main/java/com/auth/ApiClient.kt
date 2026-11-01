@@ -21,7 +21,7 @@ import retrofit2.http.PUT
 object ApiConfig {
     // Android emulator -> your computer. For a real phone use the computer's LAN IP
     const val BASE_URL = "http://10.0.2.2:3000/api/"
-    const val IMAGE_BASE_URL = "http://10.0.2.2:3000/" 
+    const val IMAGE_BASE_URL = "http://10.0.2.2:3000/"
 }
 
 class UserEnvelope(val user: UserDto)
@@ -124,7 +124,7 @@ interface ApiService {
     fun lessonStats(@Path("id") classroomId: String): Call<LessonStatsEnvelope>
 
     @GET("assignments")
-    fun studentAssignments(@Query("classroomId") classroomId: String): Call<AssignmentsEnvelope>
+    fun studentAssignments(): Call<AssignmentsEnvelope>
 
     @GET("classrooms/{id}/assignments")
     fun assignments(@Path("id") classroomId: String): Call<AssignmentsEnvelope>
@@ -403,15 +403,37 @@ class RetrofitSubjectsRepository(private val profile: ProfileRepository) : Subje
                     }
                     val classroomId = p.classroom?.id
                     if (classroomId == null) deliverAssignments(emptyList())
-                    else ApiClient.service.studentAssignments(classroomId).go(
+                    else ApiClient.service.studentAssignments().go(
                         onFail = { code ->
                             if (code == 401) callback(ApiResult.Failure(401))
                             else deliverAssignments(emptyList())
                         }
                     ) { response ->
-                        deliverAssignments(response.assignments.orEmpty().map {
-                            AssignmentDto(it.id, it.classroomId, it.lessonId, it.dueDate)
-                        })
+
+                        android.util.Log.d(
+                            "AssignmentsAPI",
+                            "Prejetih nalog: ${response.assignments.orEmpty().size}"
+                        )
+
+                        response.assignments.orEmpty().forEach { assignment ->
+                            android.util.Log.d(
+                                "AssignmentsAPI",
+                                "Lesson ID: ${assignment.lessonId}, " +
+                                        "Due date: ${assignment.dueDate}"
+                            )
+                        }
+
+                        deliverAssignments(
+                            response.assignments.orEmpty().map {
+                                AssignmentDto(
+                                    it.id,
+                                    it.classroomId,
+                                    it.lessonId,
+                                    it.dueDate,
+                                    assignedAt = it.assignedAt
+                                )
+                            }
+                        )
                     }
                 }
             }

@@ -245,6 +245,15 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <!-- Assignments are separate from SHARED lesson progression. -->
+            <LinearLayout
+                android:id="@+id/homeworkSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:visibility="gone" />
+
             <!-- subjects row header -->
             <LinearLayout
                 android:layout_width="match_parent"

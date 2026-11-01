@@ -21,7 +21,8 @@ data class AssignmentDto(
     val id: String,
     val classroomId: String,
     val lessonId: String,
-    val dueDate: String? = null
+    val dueDate: String? = null,
+    val assignedAt: String? = null
 )
 
 // Values the Classroom model does not store but the screen shows

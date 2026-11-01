@@ -256,10 +256,12 @@ class RetrofitTeacherLearnRepository(
                     scheduledLessonIds = scheduled.map { it.id },
                     lessonIds = m.lessons.map { it.id }
                 )
-                if (state == PathState.OPEN) {
-                    m.lessons.forEach { l ->
-                        homework += HomeworkLessonUi(l.id, m.topicId, "Lekcija ${l.number}: ${l.name}")
-                    }
+                // Domačo nalogo je mogoče dodeliti tudi iz modula »Osnutek«.
+                // Sicer je seznam vedno prazen, če naloga še ni bila dodeljena.
+                m.lessons.forEach { l ->
+                    homework += HomeworkLessonUi(
+                        l.id, m.topicId, "${subject.name} / ${m.name} / ${l.name}"
+                    )
                 }
             }
         }
