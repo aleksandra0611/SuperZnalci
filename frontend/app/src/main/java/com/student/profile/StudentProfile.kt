@@ -256,6 +256,7 @@ object ProfileMapper {
         "calculate", "calculator" -> R.drawable.ic_calculate
         "public", "globe" -> R.drawable.ic_public
         "atom" -> R.drawable.ic_bolt
+        "eco" -> R.drawable.ic_eco
         else -> R.drawable.ic_menu_book
     }
 

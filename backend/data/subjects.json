@@ -7,6 +7,223 @@
     "icon": "calculator",
     "grades": [
       {
+        "gradeNumber": 1,
+        "topics": [
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3d5f"
+            },
+            "name": "Barve in zaporedje barv",
+            "description": "Poimenujemo barve in nadaljujemo zaporedje barv"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3d6c"
+            },
+            "name": "Lastnosti predmetov",
+            "description": "Veliko in majhno, dolgo in kratko, visoko in nizko"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3d79"
+            },
+            "name": "Položaj predmetov",
+            "description": "Na, v, pod, nad, pred, za, med, levo in desno"
+          }
+        ]
+      },
+      {
+        "gradeNumber": 2,
+        "topics": [
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3d86"
+            },
+            "name": "Števila do 10",
+            "description": "Štetje, predhodnik, naslednik in primerjanje števil do 10"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3d93"
+            },
+            "name": "Seštevanje in odštevanje do 10",
+            "description": "Seštevamo in odštevamo v obsegu do 10"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3da0"
+            },
+            "name": "Oblike in merjenje",
+            "description": "Krog, kvadrat, pravokotnik, trikotnik ter daljše in krajše"
+          }
+        ]
+      },
+      {
+        "gradeNumber": 3,
+        "topics": [
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3dad"
+            },
+            "name": "Orientacija v prostoru",
+            "description": "Znotraj, zunaj, na meji ter pred in za"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3dba"
+            },
+            "name": "Števila do 10",
+            "description": "Štetje, primerjanje, predhodnik in naslednik"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3dc7"
+            },
+            "name": "Seštevanje in odštevanje do 10",
+            "description": "Računamo do 10, neznani člen in število 0"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3dd4"
+            },
+            "name": "Geometrijske oblike",
+            "description": "Črte, pravokotnik, kvadrat, trikotnik in krog"
+          }
+        ]
+      },
+      {
+        "gradeNumber": 4,
+        "topics": [
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3de1"
+            },
+            "name": "Števila do 10 000",
+            "description": "Zapis, primerjanje in zaokroževanje števil do 10 000"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3dee"
+            },
+            "name": "Pisno računanje",
+            "description": "Pisno seštevanje, odštevanje, množenje in deljenje z ostankom"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3dfb"
+            },
+            "name": "Merjenje",
+            "description": "Merske enote za dolžino, maso, čas in denar ter pretvarjanje"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3e08"
+            },
+            "name": "Deli celote",
+            "description": "Ulomki kot deli celote, računanje dela celote in enakovredni ulomki"
+          }
+        ]
+      },
+      {
+        "gradeNumber": 5,
+        "topics": [
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3e15"
+            },
+            "name": "Naravna števila do milijona",
+            "description": "Velika števila, zaokroževanje, številska premica in negativna števila"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3e22"
+            },
+            "name": "Potence in izrazi",
+            "description": "Potenca, vrstni red računanja in izrazi s črkovno oznako"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3e2f"
+            },
+            "name": "Obseg in ploščina",
+            "description": "Obseg likov, ploščina pravokotnika in kvadrata ter ploščinske enote"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3e3c"
+            },
+            "name": "Ulomki",
+            "description": "Del celote, iskanje celote in seštevanje ulomkov z enakimi imenovalci"
+          }
+        ]
+      },
+      {
+        "gradeNumber": 6,
+        "topics": [
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3e49"
+            },
+            "name": "Naravna števila",
+            "description": "Večkratniki, delitelji, pravila deljivosti, rimske številke in zakoni računanja"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3e56"
+            },
+            "name": "Ulomki in decimalni zapis",
+            "description": "Desetiški ulomki, decimalni zapis, primerjanje in zaokroževanje"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3e63"
+            },
+            "name": "Računamo z decimalnimi števili",
+            "description": "Seštevanje, odštevanje, množenje in deljenje decimalnih števil"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3e70"
+            },
+            "name": "Krog in kot",
+            "description": "Vrste kotov, računanje s koti, krožnica in krog"
+          }
+        ]
+      },
+      {
+        "gradeNumber": 7,
+        "topics": [
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3e7d"
+            },
+            "name": "Praštevila in delitelji",
+            "description": "Praštevila, razcep na prafaktorje, največji skupni delitelj in najmanjši skupni večkratnik"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3e8a"
+            },
+            "name": "Računanje z ulomki",
+            "description": "Krajšanje in razširjanje ter seštevanje, odštevanje, množenje in deljenje ulomkov"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3e97"
+            },
+            "name": "Trikotniki",
+            "description": "Vrste trikotnikov, notranji koti, značilne točke, obseg in ploščina trikotnika"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3ea4"
+            },
+            "name": "Odstotek",
+            "description": "Zapis deleža z odstotkom, računanje dela, osnove in sprememb"
+          }
+        ]
+      },
+      {
         "gradeNumber": 8,
         "topics": [
           {
@@ -87,6 +304,39 @@
             "description": "Prostornina kocke in kvadra, pretvarjanje enot"
           }
         ]
+      },
+      {
+        "gradeNumber": 9,
+        "topics": [
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3ee7"
+            },
+            "name": "Izrazi",
+            "description": "Množenje veččlenikov, kvadrat dvočlenika in razstavljanje"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3ef4"
+            },
+            "name": "Enačbe in neenačbe",
+            "description": "Linearne enačbe, enačbe z oklepaji in ulomki, neenačbe in besedilne naloge"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3f01"
+            },
+            "name": "Linearna funkcija",
+            "description": "Graf, smerni koeficient, začetna vrednost, ničla in presečišče premic"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3f0e"
+            },
+            "name": "Oglata telesa",
+            "description": "Prizma in piramida: mreža, površina in prostornina"
+          }
+        ]
       }
     ]
   },
@@ -127,6 +377,39 @@
             },
             "name": "Svetovni problemi",
             "description": "Opuščavljanje, krčenje gozdov in pomanjkanje vode"
+          }
+        ]
+      },
+      {
+        "gradeNumber": 9,
+        "topics": [
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b4027"
+            },
+            "name": "Naravne značilnosti Slovenije",
+            "description": "Lega, meje, površje, podnebje in vode Slovenije"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b4034"
+            },
+            "name": "Prebivalstvo in naselja",
+            "description": "Število in sestava prebivalstva, poselitev in vrste naselij"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b4041"
+            },
+            "name": "Gospodarstvo",
+            "description": "Energetika, rudarstvo, industrija, kmetijstvo, promet in turizem"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b404e"
+            },
+            "name": "Pokrajine Slovenije",
+            "description": "Alpske, predalpske, dinarskokraške, obsredozemske in obpanonske pokrajine"
           }
         ]
       }
@@ -183,6 +466,227 @@
             },
             "name": "Gostota, tlak in vzgon",
             "description": "Gostota snovi in tlak na podlago"
+          }
+        ]
+      },
+      {
+        "gradeNumber": 9,
+        "topics": [
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b406d"
+            },
+            "name": "Pospešeno gibanje",
+            "description": "Enakomerno pospešeno gibanje, II. Newtonov zakon, prosto padanje in kroženje"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b407a"
+            },
+            "name": "Delo in energija",
+            "description": "Delo, kinetična, potencialna in prožnostna energija ter moč"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b4087"
+            },
+            "name": "Toplota in notranja energija",
+            "description": "Zgradba snovi, temperatura, raztezanje, toplota in toplotni tok"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b4094"
+            },
+            "name": "Električni tok",
+            "description": "Naboj, tok, napetost, upor, vezave porabnikov ter električno delo in moč"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae652ea5f019b6c060b3f1b"
+    },
+    "name": "Slovenščina",
+    "icon": "book",
+    "grades": [
+      {
+        "gradeNumber": 1,
+        "topics": [
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3f1c"
+            },
+            "name": "Črte in oblike",
+            "description": "Pike, črte, krogi in vijuge, iz katerih nastanejo črke"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3f29"
+            },
+            "name": "Prvi glas",
+            "description": "Slišimo, s katerim glasom se začne beseda"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3f36"
+            },
+            "name": "Zlogi in rime",
+            "description": "Ploskamo zloge in iščemo besede, ki se rimajo"
+          }
+        ]
+      },
+      {
+        "gradeNumber": 2,
+        "topics": [
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3f43"
+            },
+            "name": "Glasovi in črke",
+            "description": "Prvi in zadnji glas v besedi, velike in male črke"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3f50"
+            },
+            "name": "Zlogi in besede",
+            "description": "Zlogovanje, sestavljanje besed, kratke in dolge besede"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3f5d"
+            },
+            "name": "Povedi",
+            "description": "Pišemo povedi, vprašanja in vljudne besede"
+          }
+        ]
+      },
+      {
+        "gradeNumber": 3,
+        "topics": [
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3f6a"
+            },
+            "name": "Glasovi in črke",
+            "description": "Abeceda, prvi in zadnji glas v besedi"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3f77"
+            },
+            "name": "Zlogi in besede",
+            "description": "Besede delimo na zloge in iz zlogov sestavljamo besede"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3f84"
+            },
+            "name": "Rime in uganke",
+            "description": "Besede, ki se rimajo, in reševanje ugank"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3f91"
+            },
+            "name": "Povedi in meseci",
+            "description": "Sestavljamo povedi, velika začetnica, meseci in dnevi"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "6ae652ea5f019b6c060b3f9e"
+    },
+    "name": "Spoznavanje okolja",
+    "icon": "eco",
+    "grades": [
+      {
+        "gradeNumber": 1,
+        "topics": [
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3f9f"
+            },
+            "name": "Varno na cesti",
+            "description": "Pravila varne hoje, semafor, pas in čelada"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3fac"
+            },
+            "name": "Jaz in narava",
+            "description": "Letni časi, živa bitja in hišni ljubljenčki"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3fb9"
+            },
+            "name": "Jaz in zdravje",
+            "description": "Zdrava hrana, umivanje rok in čistoča"
+          }
+        ]
+      },
+      {
+        "gradeNumber": 2,
+        "topics": [
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3fc6"
+            },
+            "name": "Jaz in moja družina",
+            "description": "Odraščanje, družina, sorodniki in šola"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3fd3"
+            },
+            "name": "Varno v prometu",
+            "description": "Pot v šolo, prehod za pešce, semafor in vidnost"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3fe0"
+            },
+            "name": "Jaz in zdravje",
+            "description": "Zdrava prehrana, čistoča in gibanje"
+          }
+        ]
+      },
+      {
+        "gradeNumber": 3,
+        "topics": [
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3fed"
+            },
+            "name": "Moja domovina",
+            "description": "Naslov, Slovenija, njeni simboli in prazniki"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b3ffa"
+            },
+            "name": "Gozd",
+            "description": "Obnašanje v gozdu, drevesa, plodovi in gozd skozi leto"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b4007"
+            },
+            "name": "Denar in čas",
+            "description": "Denar, varčevanje, dnevi v tednu in deli dneva"
+          },
+          {
+            "_id": {
+              "$oid": "6ae652ea5f019b6c060b4014"
+            },
+            "name": "Voda in zdravje",
+            "description": "Tekočine, voda in skrb za zdravje"
           }
         ]
       }
