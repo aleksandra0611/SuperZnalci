@@ -675,4 +675,67 @@
     <string name="tc_regenerate_confirm">Nova koda bo razveljavila staro. Učenci, ki so že v razredu, ostanejo.</string>
     <string name="tc_regenerate">Ustvari novo</string>
     <string name="tc_regenerate_failed">Kode ni bilo mogoče osvežiti</string>
+
+    <string name="tl_brand">SUPERZNALCI %1$d.R</string>
+    <string name="tl_title">Lestvica</string>
+    <string name="tl_overview_label">PEDAGOŠKI PREGLED</string>
+    <string name="tl_dashboard_title">Nadzorna plošča razreda</string>
+    <string name="tl_school_year">Šolsko leto %1$s</string>
+    <string name="tl_class_tab">Razred %1$s</string>
+    <string name="tl_all_subjects">Vsi predmeti</string>
+    <string name="tl_search_hint">Išči učenca</string>
+    <string name="tl_filter_all">Vsi (%1$d)</string>
+    <string name="tl_filter_top">Vrhunski (Top 3)</string>
+    <string name="tl_filter_help">Potrebujejo pomoč (%1$d)</string>
+ 
+    <string name="tl_rank_place">%1$d. mesto</string>
+    <string name="tl_class_rank">Razredna uvrstitev</string>
+    <string name="tl_level">Raven %1$d</string>
+    <string name="tl_level_title">Raven %1$d • %2$s</string>
+    <string name="tl_pct">%1$d %%</string>
+    <string name="tl_streak_days">%1$d dni</string>
+    <string name="tl_stat_xp">SKUPNI XP</string>
+    <string name="tl_stat_accuracy">NATANČNOST</string>
+    <string name="tl_stat_streak">UČNI NIZ</string>
+    <string name="tl_assigned_label">Dodeljene naloge ta mesec</string>
+    <string name="tl_assigned_value">%1$d / %2$d opravljeno</string>
+    <string name="tl_badges_title">OSVOJENE ZNAČKE (%1$d)</string>
+    <string name="tl_all_badges">Vse značke</string>
+    <string name="tl_recent_quizzes">ZADNJI REŠENI KVIZI</string>
+    <string name="tl_quiz_perfect">Brez napak (+%1$d XP)</string>
+    <plurals name="tl_quiz_mistakes">
+        <item quantity="one">%1$d napačen</item>
+        <item quantity="two">%1$d napačna</item>
+        <item quantity="few">%1$d napačni</item>
+        <item quantity="other">%1$d napačnih</item>
+    </plurals>
+    <string name="tl_quiz_score">%1$d/%2$d (%3$d %%)</string>
+    <string name="tl_today">Danes, %1$s</string>
+    <string name="tl_yesterday">Včeraj</string>
+    <string name="tl_assign_extra">Dodeli dodatno vajo za utrjevanje</string>
+    <string name="tl_send_praise">Pošlji pohvalo</string>
+ 
+    <string name="tl_board_label">LESTVICA ZNANJA</string>
+    <string name="tl_board_title">Razred %1$s - Celotna lestvica</string>
+    <string name="tl_updated_now">Posodobljeno pravkar</string>
+    <string name="tl_updated_min">Posodobljeno pred %1$d min</string>
+    <string name="tl_selected">IZBRAN</string>
+    <string name="tl_xp">%1$s XP</string>
+    <string name="tl_row_meta">%1$d %% natančnost • %2$d nalog</string>
+    <string name="tl_row_help_meta">%1$d %% natančnost • Pomoč pri %2$s</string>
+    <string name="tl_row_no_data">Še ni rezultatov</string>
+    <string name="tl_needs_support">Potrebna podpora</string>
+    <string name="tl_help">Pomoč</string>
+    <string name="tl_avg_title">Povprečje razreda %1$s</string>
+    <string name="tl_avg_desc">%1$s XP na učenca • %2$d %% uspešnost</string>
+    <string name="tl_report">Poročilo</string>
+    <string name="tl_empty_classes">Še nimaš razredov.</string>
+    <string name="tl_empty_board">Ni učencev za izbrani filter.</string>
+ 
+    <string name="tl_praise_title">Pohvala za %1$s</string>
+    <string name="tl_praise_default">Bravo, %1$s! Odlično delo!</string>
+    <string name="tl_praise_send">Pošlji</string>
+    <string name="tl_praise_sent">Pohvala poslana</string>
+    <string name="tl_praise_failed">Pohvale ni bilo mogoče poslati</string>
+
 </resources>
